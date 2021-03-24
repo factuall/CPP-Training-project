@@ -8,15 +8,11 @@
 #include "base/Object.h"
 #include "base/base.h"
 
-//ASD
-sf::RenderWindow window(sf::VideoMode(1024, 576), "tboifg - factuall");
+sf::RenderWindow window(sf::VideoMode(1024, 576), "tboifg - factuall", sf::Style::Close);
 int lastTick, deltaTime;
-int lastTime; double deltaTIme;
+int lastTime = 0; double deltaTIme;
 double PCFreq = 0.0;
 __int64 CounterStart = 0;
-
-/*
-
 
 void StartTimer()
 {
@@ -28,6 +24,7 @@ void StartTimer()
 
     QueryPerformanceCounter(&li);
     CounterStart = li.QuadPart;
+
 }
 int RelativeTime()
 {
@@ -47,26 +44,17 @@ int DeltaTime()
     LARGE_INTEGER li;
     QueryPerformanceCounter(&li);
     double now = (double(li.QuadPart) / PCFreq) / 100.0;
+    if (lastTime == 0) lastTime = (int)now;
     deltaTime = (int)now - lastTime;
     lastTime = (int)now;
     return deltaTime;
 
 }
 
-int ticks = 0;
-const int predictionLength = 2147483646;
 void update() {
-    Sleep(100);
-    if (ticks > 10) {
-        ticks = 0;
-
-    }
-    else {
-        ticks++;
-    }
 
 }
-*/
+
 void render() {
 
     window.clear();
@@ -83,11 +71,13 @@ void render() {
     window.display();
 }
 
+int skipTickTime = 0, secondCounter = 0, framesInSecond = 0, framesPerSecond = 0;
 int main()
 {
-  /*
     StartTimer();
     init();
+
+    /*
 
     for (int i = 0; i < 100; i++) {
         addObject(Object(i * 8, 32, 0));
@@ -102,11 +92,23 @@ int main()
                 window.close();
         }
 
-        //update();
+        //limit update rate to 60
+        if (DeltaTime() <= 16 && skipTickTime < 16) {
+            skipTickTime += deltaTime;
+        }
+        secondCounter += deltaTime;
+        if (secondCounter >= 1000) {
+            framesPerSecond = framesInSecond;
+            framesInSecond = 0;
+            secondCounter = 0;
+        }
+        if (skipTickTime >= 16) {
+            skipTickTime = 0;
+            framesInSecond++;
+            update();
+        }
+
         render();
-
-
-
     }
     
     return 0;

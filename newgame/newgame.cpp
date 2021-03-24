@@ -1,14 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-//#include "Object.h"
-//#include "base.h"
 #include <stdlib.h>
 #include <Windows.h>
 #include <chrono>
 #include <time.h>
 
+#include "base/Object.h"
+#include "base/base.h"
+
 //ASD
-sf::RenderWindow window(sf::VideoMode(1024, 576), "kozakpolv");
+sf::RenderWindow window(sf::VideoMode(1024, 576), "tboifg - factuall");
 int lastTick, deltaTime;
 int lastTime; double deltaTIme;
 double PCFreq = 0.0;
@@ -65,11 +66,11 @@ void update() {
     }
 
 }
-
+*/
 void render() {
 
     window.clear();
-    for (int displayedObj = 0; displayedObj < getObjLimit(); displayedObj++) {
+    /*for (int displayedObj = 0; displayedObj < getObjLimit(); displayedObj++) {
         Object* currentObject = getObject(displayedObj);
         if (!(currentObject->isNull)) {
             std::cout << currentObject->isNull << std::endl;
@@ -78,19 +79,19 @@ void render() {
             objShape.setFillColor(sf::Color(155, 155, 155, 255));
             window.draw(objShape);
         }
-    }
+    }*/
     window.display();
 }
-*/
+
 int main()
 {
   /*
     StartTimer();
-
     init();
+
     for (int i = 0; i < 100; i++) {
         addObject(Object(i * 8, 32, 0));
-    }
+    }    */
 
     while (window.isOpen())
     {
@@ -101,12 +102,12 @@ int main()
                 window.close();
         }
 
-        update();
+        //update();
         render();
 
 
 
     }
-    */
+    
     return 0;
 }

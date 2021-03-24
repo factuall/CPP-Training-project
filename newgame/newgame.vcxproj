@@ -145,7 +145,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="base\base.cpp" />
+    <ClCompile Include="base\Object.cpp" />
     <ClCompile Include="newgame.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="base\base.h" />
+    <ClInclude Include="base\Object.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

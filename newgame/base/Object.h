@@ -6,7 +6,7 @@ class Object {
 public: 
     int x, y, id;
     int sizeX = 64, sizeY = 64;
-    bool isNull = true, isVisible = true;
+    bool isNull = true, isVisible = true, isCollider = false;
     ObjectType type;
 
     Object(int nX, int nY, int nID);

@@ -9,7 +9,7 @@ Player::Player(int nX, int nY) {
 	y = nY;
 	id = 0;
 	isNull = false;
-	
+	isCollider = true;
 }
 
 void Player::Update() {

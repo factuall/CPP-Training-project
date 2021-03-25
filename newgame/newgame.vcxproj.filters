@@ -30,6 +30,9 @@
     <ClCompile Include="base\base.cpp">
       <Filter>Source Files\base</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\Object.h">
@@ -38,14 +41,11 @@
     <ClInclude Include="base\base.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\..">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="lib\openal32.dll">
       <Filter>Libraries</Filter>
     </None>

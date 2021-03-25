@@ -8,8 +8,12 @@
 #include "base/Object.h"
 #include "base/base.h"
 
+#include "Player.h"
+
 sf::Font fontRegular;
 sf::Font fontShadow;
+
+sf::Texture sheet;
 
 sf::RenderWindow window(sf::VideoMode(1024, 576), "tboifg - factuall", sf::Style::Close);
 int lastTick, deltaTime; 
@@ -56,7 +60,13 @@ int DeltaTime()
 }
 
 void update() {
-
+    for (int displayedObj = 0; displayedObj < getObjLimit(); displayedObj++) {
+        Object* currentObject = getObject(displayedObj);
+        if (!(currentObject->isNull)) {
+            currentObject->Update();
+            
+        }
+    }
 }
 
 
@@ -67,13 +77,11 @@ void render() {
     window.clear();
     for (int displayedObj = 0; displayedObj < getObjLimit(); displayedObj++) {
         Object* currentObject = getObject(displayedObj);
-        if (!(currentObject->isNull)) {
+        if (!(currentObject->isNull) && currentObject->isVisible) {
             switch (currentObject->type) {
                 case GameObject: {
-                    sf::RectangleShape objShape(sf::Vector2f(64, 64));
-                    objShape.setPosition((currentObject->x), (currentObject->y));
-                    objShape.setFillColor(sf::Color(155, 155, 155, 255));
-                    window.draw(objShape);
+                    currentObject->sprite.setPosition(currentObject->x, currentObject->y);
+                    window.draw(currentObject->sprite);
                     break;
                 }
                 case TextObject: {
@@ -89,19 +97,24 @@ void render() {
 
 int main()
 {
-    if (!fontRegular.loadFromFile("../suture.ttf"))
+    if (!fontRegular.loadFromFile("../Release/fonts/suture.ttf"))
     {
         // error...
         printf("error while loading font\n");
         return 0;
     }
-    if (!fontShadow.loadFromFile("../future.ttf"))
+    if (!fontShadow.loadFromFile("../Release/fonts/future.ttf"))
     {
         // error...
         printf("error while loading font\n");
         return 0;
     }
-
+    if (!sheet.loadFromFile("../Release/img/sheet.png"))
+    {
+        // error...
+        printf("error while loading font\n");
+        return 0;
+    }
     StartTimer();
     init();
 
@@ -115,16 +128,14 @@ int main()
     fpsDisplay.text = fpsText;
     addObject(&fpsDisplay); 
 
-    Object testObject = Object(32, 32);
-    testObject.type = TextObject;
-    sf::Text testText;
-    testText.setFont(fontRegular);
-    testText.setCharacterSize(32);
-    testText.setFillColor(sf::Color::White);
-    testText.setString("testing");
-    testObject.text = testText;
+    Player testObject = Player(32, 32);
+    testObject.type = GameObject;
+    sf::Sprite testSprite(sheet, sf::IntRect(0, 0, 32, 32));
+    testSprite.scale(2, 2);
+    testObject.sprite = testSprite;
     addObject(&testObject);
 
+    
     while (window.isOpen())
     {
         sf::Event event;

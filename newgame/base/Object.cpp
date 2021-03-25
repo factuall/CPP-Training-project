@@ -32,3 +32,5 @@ void Object::setPosition(int mX, int mY) {
     y = mY;
 }
 
+void Object::Update() {
+}

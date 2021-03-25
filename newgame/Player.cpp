@@ -33,3 +33,7 @@ void Player::Update() {
 
 	this->Move(velocityX, velocityY);
 }
+
+void Player::OnCollision(Object *collider) {
+
+}

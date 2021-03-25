@@ -34,3 +34,6 @@ void Object::setPosition(int mX, int mY) {
 
 void Object::Update() {
 }
+
+void Object::OnColision(Object *collider) {
+}

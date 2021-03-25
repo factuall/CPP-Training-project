@@ -13,6 +13,7 @@
 sf::Font fontRegular;
 sf::Font fontShadow;
 
+sf::Image imageSheet;
 sf::Texture sheet;
 
 sf::RenderWindow window(sf::VideoMode(1024, 576), "tboifg - factuall", sf::Style::Close);
@@ -75,7 +76,6 @@ void update() {
                         currentObject->y + currentObject->sizeY > collidedObject->y) {
                         // collision detected!
                         currentObject->OnColision(collidedObject);
-                        printf("col");
                     }
                 }
             }
@@ -125,13 +125,15 @@ int main()
         printf("error while loading font\n");
         return 0;
     }
-    if (!sheet.loadFromFile("../Release/img/sheet.png"))
+    if (!imageSheet.loadFromFile("../Release/img/sheet.png"))
     {
         // error...
         printf("error while loading font\n");
         return 0;
     }
-    StartTimer();
+    imageSheet.createMaskFromColor(sf::Color(255, 0, 255, 255));
+    sheet.loadFromImage(imageSheet);
+    StartTimer();   
     init();
 
     fpsDisplay = Object(0, 0);

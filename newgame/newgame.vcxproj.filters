@@ -16,6 +16,9 @@
     <Filter Include="Source Files\base">
       <UniqueIdentifier>{f958f3a4-e6bc-4f5a-ac29-eaab21971be5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{f4ead064-6eab-4187-a28c-f4aaeb9e51d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="newgame.cpp">
@@ -35,5 +38,36 @@
     <ClInclude Include="base\base.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\..">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="lib\openal32.dll">
+      <Filter>Libraries</Filter>
+    </None>
+    <None Include="lib\sfml-audio-2.dll">
+      <Filter>Libraries</Filter>
+    </None>
+    <None Include="lib\sfml-graphics-2.dll">
+      <Filter>Libraries</Filter>
+    </None>
+    <None Include="lib\sfml-network-2.dll">
+      <Filter>Libraries</Filter>
+    </None>
+    <None Include="lib\sfml-system-2.dll">
+      <Filter>Libraries</Filter>
+    </None>
+    <None Include="lib\sfml-window-2.dll">
+      <Filter>Libraries</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="newgame.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

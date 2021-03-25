@@ -8,6 +8,9 @@
 #include "base/Object.h"
 #include "base/base.h"
 
+sf::Font fontRegular;
+sf::Font fontShadow;
+
 sf::RenderWindow window(sf::VideoMode(1024, 576), "tboifg - factuall", sf::Style::Close);
 int lastTick, deltaTime;
 int lastTime = 0; double deltaTIme;
@@ -58,30 +61,46 @@ void update() {
 void render() {
 
     window.clear();
-    /*for (int displayedObj = 0; displayedObj < getObjLimit(); displayedObj++) {
+    for (int displayedObj = 0; displayedObj < getObjLimit(); displayedObj++) {
         Object* currentObject = getObject(displayedObj);
         if (!(currentObject->isNull)) {
-            std::cout << currentObject->isNull << std::endl;
             sf::RectangleShape objShape(sf::Vector2f(64, 64));
             objShape.setPosition((currentObject->x), (currentObject->y));
             objShape.setFillColor(sf::Color(155, 155, 155, 255));
             window.draw(objShape);
         }
-    }*/
+    }
+    sf::Text text;
+    text.setFont(fontShadow);
+    text.setString("Hello world");
+    text.setCharacterSize(24); // in pixels, not points!
+
+    text.setFillColor(sf::Color::White);
+
+    window.draw(text);
     window.display();
 }
 
 int skipTickTime = 0, secondCounter = 0, framesInSecond = 0, framesPerSecond = 0;
 int main()
 {
+    if (!fontRegular.loadFromFile("../suture.ttf"))
+    {
+        // error...
+        printf("error while loading font\n");
+        return 0;
+    }
+    if (!fontShadow.loadFromFile("../future.ttf"))
+    {
+        // error...
+        printf("error while loading font\n");
+        return 0;
+    }
+
     StartTimer();
     init();
 
-    /*
-
-    for (int i = 0; i < 100; i++) {
-        addObject(Object(i * 8, 32, 0));
-    }    */
+    addObject(Object(32, 32, 0));
 
     while (window.isOpen())
     {

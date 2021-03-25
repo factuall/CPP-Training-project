@@ -96,6 +96,10 @@
       <AdditionalLibraryDirectories>"C:\gamedev\SFML-2.5.1\lib";C:\gamedev\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -115,6 +119,10 @@
       <AdditionalLibraryDirectories>"C:\gamedev\SFML-2.5.1\lib";</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -152,6 +160,18 @@
   <ItemGroup>
     <ClInclude Include="base\base.h" />
     <ClInclude Include="base\Object.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="newgame.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lib\openal32.dll" />
+    <None Include="lib\sfml-audio-2.dll" />
+    <None Include="lib\sfml-graphics-2.dll" />
+    <None Include="lib\sfml-network-2.dll" />
+    <None Include="lib\sfml-system-2.dll" />
+    <None Include="lib\sfml-window-2.dll" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,6 +8,13 @@ Object::Object(int nX, int nY, int nID) {
     isNull = false;
 }
 
+Object::Object(int nX, int nY) {
+    x = nX;
+    y = nY;
+    id = 0;
+    isNull = false;
+}
+
 Object::Object() {
     x = 0;
     y = 0;
@@ -24,3 +31,4 @@ void Object::setPosition(int mX, int mY) {
     x = mX;
     y = mY;
 }
+

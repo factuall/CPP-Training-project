@@ -10,11 +10,11 @@ void init() {
     }
 }
 
-void addObject(Object newObject) {
+void addObject(Object *newObject) {
     for (int i = 0; i < objLimit; i++) {
         if (Objects[i]->isNull) {
-            newObject.id = i;
-            *Objects[i] = newObject;
+            newObject->id = i;
+            Objects[i] = newObject;
             return;
         }
     }

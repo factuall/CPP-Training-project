@@ -12,10 +12,11 @@ sf::Font fontRegular;
 sf::Font fontShadow;
 
 sf::RenderWindow window(sf::VideoMode(1024, 576), "tboifg - factuall", sf::Style::Close);
-int lastTick, deltaTime;
+int lastTick, deltaTime; 
 int lastTime = 0; double deltaTIme;
 double PCFreq = 0.0;
 __int64 CounterStart = 0;
+Object fpsDisplay;
 
 void StartTimer()
 {
@@ -58,30 +59,34 @@ void update() {
 
 }
 
+
+int skipTickTime = 0, secondCounter = 0, framesInSecond = 0, framesPerSecond = 0;
 void render() {
+    fpsDisplay.text.setString(std::to_string(framesPerSecond));
 
     window.clear();
     for (int displayedObj = 0; displayedObj < getObjLimit(); displayedObj++) {
         Object* currentObject = getObject(displayedObj);
         if (!(currentObject->isNull)) {
-            sf::RectangleShape objShape(sf::Vector2f(64, 64));
-            objShape.setPosition((currentObject->x), (currentObject->y));
-            objShape.setFillColor(sf::Color(155, 155, 155, 255));
-            window.draw(objShape);
+            switch (currentObject->type) {
+                case GameObject: {
+                    sf::RectangleShape objShape(sf::Vector2f(64, 64));
+                    objShape.setPosition((currentObject->x), (currentObject->y));
+                    objShape.setFillColor(sf::Color(155, 155, 155, 255));
+                    window.draw(objShape);
+                    break;
+                }
+                case TextObject: {
+                    currentObject->text.setPosition(currentObject->x, currentObject->y);
+                    window.draw(currentObject->text);
+                }
+            }
+
         }
     }
-    sf::Text text;
-    text.setFont(fontShadow);
-    text.setString("Hello world");
-    text.setCharacterSize(24); // in pixels, not points!
-
-    text.setFillColor(sf::Color::White);
-
-    window.draw(text);
     window.display();
 }
 
-int skipTickTime = 0, secondCounter = 0, framesInSecond = 0, framesPerSecond = 0;
 int main()
 {
     if (!fontRegular.loadFromFile("../suture.ttf"))
@@ -100,7 +105,25 @@ int main()
     StartTimer();
     init();
 
-    addObject(Object(32, 32, 0));
+    fpsDisplay = Object(0, 0);
+    fpsDisplay.type = TextObject;
+    sf::Text fpsText;
+    fpsText.setFont(fontRegular);
+    fpsText.setString(std::to_string(framesPerSecond));
+    fpsText.setCharacterSize(32); // in pixels, not points!
+    fpsText.setFillColor(sf::Color::White);
+    fpsDisplay.text = fpsText;
+    addObject(&fpsDisplay); 
+
+    Object testObject = Object(32, 32);
+    testObject.type = TextObject;
+    sf::Text testText;
+    testText.setFont(fontRegular);
+    testText.setCharacterSize(32);
+    testText.setFillColor(sf::Color::White);
+    testText.setString("testing");
+    testObject.text = testText;
+    addObject(&testObject);
 
     while (window.isOpen())
     {

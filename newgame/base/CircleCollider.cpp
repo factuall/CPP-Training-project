@@ -3,5 +3,5 @@ CircleCollider::CircleCollider(int nX, int nY, int nRadius) {
 	x = nX;
 	y = nY;
 	radius = nRadius;
-	type = CircleType;
+	type = Collider::ColliderType::CircleType;
 }

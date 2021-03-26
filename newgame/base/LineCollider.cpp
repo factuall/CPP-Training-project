@@ -4,5 +4,5 @@ LineCollider::LineCollider(int nX, int nY, int nDestX, int nDestY) {
 	y = nY;
 	destX = nDestX;
 	destY = nDestY;
-	type = LineType;
+	type = Collider::ColliderType::LineType;
 }

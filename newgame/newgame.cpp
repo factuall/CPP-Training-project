@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+c#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <stdlib.h>
 #include <Windows.h>
@@ -83,7 +83,7 @@ void update() {
                                 col = Collision(dynamic_cast<BoxCollider*>(currentObject->collider),
                                     dynamic_cast<BoxCollider*>(possibleCollider->collider));
                                 if (col.colliding) {
-                                    currentObject->OnCollision();
+                                    currentObject->OnCollision(col);
                                 }
                                 break;
                             }

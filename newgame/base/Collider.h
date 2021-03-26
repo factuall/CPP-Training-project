@@ -1,5 +1,5 @@
 #pragma once
-enum ColliderType { BoxType, CircleType };
+enum ColliderType { BoxType, CircleType, LineType };
 class Collider {
 public:
 	int x, y;

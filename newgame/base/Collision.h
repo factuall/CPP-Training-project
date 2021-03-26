@@ -12,7 +12,6 @@ public:
 	Collider* colliderA;
 	Collider* colliderB;
 	bool colliding;
-	Collision();
 	//basic
 	Collision(BoxCollider *A, BoxCollider *B);
 	Collision(CircleCollider *A, CircleCollider *B);

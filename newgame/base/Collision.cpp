@@ -45,10 +45,6 @@ bool Collision::lineLine(LineCollider* A, LineCollider* B) {
 	lineLine(A, B, nullptr);
 }
 
-Collision::Collision() {
-
-}
-
 Collision::Collision(BoxCollider *A, BoxCollider *B) {
 	colliderA = A; colliderB = B;
 	colliding = (A->x < B->x + B->width &&

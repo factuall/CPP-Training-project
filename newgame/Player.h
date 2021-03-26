@@ -1,13 +1,12 @@
 #pragma once
 #include "base/Object.h"
-#include "base/BoxCollider.h"
 class Player :
     public Object
 {
 public:
     Player(int nX, int nY);
     void Update();
-    void OnCollision(Collision collision);
+    void OnCollision(Object *collider);
 
 private:
     int inputX = 0, inputY = 0, speed = 6;

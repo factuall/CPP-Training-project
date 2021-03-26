@@ -68,24 +68,33 @@ void update() {
         Object *currentObject = getObject(updatedObject);
         if (!(currentObject->isNull)) {
             currentObject->Update();
-            if (currentObject->isCollider) {
-                //collision detection between objects
-                for (int collisionObject = 0; collisionObject < getObjLimit(); collisionObject++) {
-                    Object* collidedObject = getObject(collisionObject);
-                    if (!(collidedObject->isNull) && collisionObject != updatedObject && collidedObject->isCollider) {
-                        if (currentObject->x < collidedObject->x + collidedObject->sizeX &&
-                            currentObject->x + currentObject->sizeX > collidedObject->x &&
-                            currentObject->y < collidedObject->y + collidedObject->sizeY &&
-                            currentObject->y + currentObject->sizeY > collidedObject->y) {
-                            // collision detected!
-                            currentObject->OnColision(collidedObject);
+            if (currentObject->collider->active && currentObject->isCollisionListener) {
+                
+                for (int possibleColliders = 0; possibleColliders < getObjLimit(); possibleColliders++) {
+                    Object* possibleCollider = getObject(possibleColliders);
+                    if (possibleCollider->collider->active && possibleCollider->id != currentObject->id) {
+                        Collision col;
+                        switch (currentObject->collider->type) {
+                        case Collider::ColliderType::BoxType:
+                            
+                            switch (possibleCollider->collider->type) {
+                            case Collider::ColliderType::BoxType:
+                                
+                                col = Collision(dynamic_cast<BoxCollider*>(currentObject->collider),
+                                    dynamic_cast<BoxCollider*>(possibleCollider->collider));
+                                if (col.colliding) {
+                                    currentObject->OnCollision();
+                                }
+                                break;
+                            }
+                            break;
                         }
+
+                        
                     }
                 }
             }
         }
-
-
     }
 }
 
@@ -159,9 +168,9 @@ int main()
 
     Object asd = Object(100, 64);
     asd.type = GameObject;
-    asd.isCollider = true;
     sf::Sprite asdSprite(sheet, sf::IntRect(32, 0, 32, 32));
     asdSprite.scale(2, 2);
+    asd.collider = new BoxCollider(asd.x, asd.y, 64, 64);
     asd.sprite = asdSprite;
     addObject(&asd);
     

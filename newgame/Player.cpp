@@ -2,15 +2,18 @@
 #include <SFML/Main.hpp>
 
 #include "Player.h"
-
+#include "base/BoxCollider.h"
+#include "base/Collision.h"
+#include "base/Collider.h"
 
 Player::Player(int nX, int nY) {
 	x = nX;
 	y = nY;
 	id = 0;
 	isNull = false;
-	isCollider = true;
-}
+	collider = new BoxCollider(nX, nY, 64, 64);
+	isCollisionListener = true;
+};
 
 void Player::Update() {
 	inputX = 0; inputY = 0;
@@ -31,9 +34,11 @@ void Player::Update() {
 	velocityX += (float)(((inputX * speed) - velocityX) / walkSmoothness);
 	velocityY += (float)(((inputY * speed) - velocityY) / walkSmoothness);
 
+	collider->x = x;
+	collider->y = y;
+	
 	this->Move(velocityX, velocityY);
 }
 
-void Player::OnCollision(Object *collider) {
-
+void Player::OnCollision(Collision collision) {
 }

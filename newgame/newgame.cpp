@@ -165,10 +165,7 @@ int main()
     asd.sprite = asdSprite;
     addObject(&asd);
     
-    Collision testcol;
-    testcol.colliderA = new BoxCollider(0, 0, 32, 32);
-    testcol.colliderB = new BoxCollider(64, 64, 32, 32);
-    std::cout << testcol.areColliding() << std::endl;
+
 
     while (window.isOpen())
     {

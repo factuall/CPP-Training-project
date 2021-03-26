@@ -19,6 +19,9 @@
     <Filter Include="Libraries">
       <UniqueIdentifier>{f4ead064-6eab-4187-a28c-f4aaeb9e51d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\base\Collider">
+      <UniqueIdentifier>{6d1b675e-6928-4a0e-a033-7532fd99fe3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="newgame.cpp">
@@ -33,19 +36,19 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="base\Collision.cpp">
-      <Filter>Source Files\base</Filter>
-    </ClCompile>
     <ClCompile Include="base\Collider.cpp">
-      <Filter>Source Files\base</Filter>
-    </ClCompile>
-    <ClCompile Include="base\BoxCollider.cpp">
-      <Filter>Source Files\base</Filter>
-    </ClCompile>
-    <ClCompile Include="base\CircleCollider.cpp">
-      <Filter>Source Files\base</Filter>
+      <Filter>Source Files\base\Collider</Filter>
     </ClCompile>
     <ClCompile Include="base\LineCollider.cpp">
+      <Filter>Source Files\base\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="base\BoxCollider.cpp">
+      <Filter>Source Files\base\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="base\CircleCollider.cpp">
+      <Filter>Source Files\base\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="base\Collision.cpp">
       <Filter>Source Files\base</Filter>
     </ClCompile>
   </ItemGroup>

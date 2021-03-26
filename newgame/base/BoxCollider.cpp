@@ -5,4 +5,5 @@ BoxCollider::BoxCollider(int nX, int nY, int nWidth, int nHeight){
 	width = nWidth;
 	height = nHeight;
 	type = Collider::ColliderType::BoxType;
+	active = true;
 }

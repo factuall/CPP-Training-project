@@ -6,6 +6,9 @@
 #include <time.h>
 
 #include "base/Object.h"
+#include "base/Collision.h"
+#include "base/Collider.h"
+#include "base/BoxCollider.h"
 #include "base/base.h"
 
 #include "Player.h"
@@ -162,6 +165,11 @@ int main()
     asd.sprite = asdSprite;
     addObject(&asd);
     
+    Collision testcol;
+    testcol.colliderA = new BoxCollider(0, 0, 32, 32);
+    testcol.colliderB = new BoxCollider(64, 64, 32, 32);
+    std::cout << testcol.areColliding() << std::endl;
+
     while (window.isOpen())
     {
         sf::Event event;

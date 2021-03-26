@@ -154,12 +154,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="base\base.cpp" />
+    <ClCompile Include="base\BoxCollider.cpp" />
+    <ClCompile Include="base\CircleCollider.cpp" />
+    <ClCompile Include="base\Collider.cpp" />
+    <ClCompile Include="base\Collision.cpp" />
     <ClCompile Include="base\Object.cpp" />
     <ClCompile Include="newgame.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\base.h" />
+    <ClInclude Include="base\BoxCollider.h" />
+    <ClInclude Include="base\CircleCollider.h" />
+    <ClInclude Include="base\Collider.h" />
+    <ClInclude Include="base\Collision.h" />
     <ClInclude Include="base\Object.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>

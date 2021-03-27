@@ -12,7 +12,7 @@ Player::Player(int nX, int nY) {
 	id = 0;
 	isNull = false;
 	collider = new BoxCollider(nX, nY, 64, 64);
-	isCollisionListener = true;
+	isTrigger = true;
 };
 
 void Player::Update() {

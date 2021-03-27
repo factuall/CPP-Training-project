@@ -26,7 +26,7 @@ public:
 
     Collider *collider = new Collider();
     Collider *getCollider();
-    bool isCollisionListener = false;
+    bool isTrigger = false;
 private:
 
 }; 

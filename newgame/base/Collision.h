@@ -12,32 +12,76 @@ public:
 	Collider* colliderA;
 	Collider* colliderB;
 	bool colliding;
-	Collision();
-	//basic
-	Collision(BoxCollider *A, BoxCollider *B);
-	Collision(CircleCollider *A, CircleCollider *B);
-	Collision(LineCollider *A, LineCollider *B);
+	sf::Vector2f entryPoint, relativePoint;
 
-	//box-circle
-	Collision(BoxCollider *A, CircleCollider *B);
-	Collision(CircleCollider* A, BoxCollider* B) : Collision(B, A) {};
+	Collision(Collider* cA, Collider* cB) {
+		ProcessCollision(cA, cB);
+	};
 
-	//box-line
-	Collision(LineCollider* A, BoxCollider* B);
-	Collision(BoxCollider* A, LineCollider* B) : Collision(B, A) {};
+	void ProcessCollision(Collider* cA, Collider* cB) {
+		colliderA = cA; colliderB = cB;
 
-	//line-circle
-	Collision(LineCollider *A, CircleCollider *B);
-	Collision(CircleCollider *A, LineCollider *B) : Collision(B, A) {};
+			//Basic collisions
+		//box-box
+		if (colliderA->type == Collider::ColliderType::BoxType &&
+			colliderB->type == Collider::ColliderType::BoxType) {
+			colliding = BoxBox();
+		}
+		//circle-circle
+		if (colliderA->type == Collider::ColliderType::CircleType &&
+			colliderB->type == Collider::ColliderType::CircleType) {
+			colliding = CircleCircle();
+		}
+		//line-line
+		if (colliderA->type == Collider::ColliderType::LineType &&
+			colliderB->type == Collider::ColliderType::LineType) {
+			colliding = LineLine();
+		}
 
-	void getCollisionDetails(sf::Vector2f* result[2]);
-	
+		
+			//Mixed collisions
+		//box-circle && circle-box
+		if (colliderA->type == Collider::ColliderType::BoxType &&
+			colliderB->type == Collider::ColliderType::CircleType) {
+			colliding = BoxCircle();
+		}
+		if (colliderA->type == Collider::ColliderType::CircleType &&
+			colliderB->type == Collider::ColliderType::BoxType) {
+			colliderA = cB; colliderB = cA; colliding = BoxCircle();
+		}
+		//line-box && box-line
+		if (colliderA->type == Collider::ColliderType::LineType &&
+			colliderB->type == Collider::ColliderType::BoxType) {
+			colliding = LineBox();
+		}
+		if (colliderA->type == Collider::ColliderType::BoxType &&
+			colliderB->type == Collider::ColliderType::LineType) {
+			colliderA = cB; colliderB = cA; colliding = LineBox();
+		}	
+		//line-circle && circle-line
+		if (colliderA->type == Collider::ColliderType::LineType &&
+			colliderB->type == Collider::ColliderType::CircleType) {
+			colliding = LineCircle();
+		}
+		if (colliderA->type == Collider::ColliderType::CircleType &&
+			colliderB->type == Collider::ColliderType::LineType) {
+			colliderA = cB; colliderB = cA; colliding = LineCircle();
+		}
+	};
+
+
+
 private:
 	float distance(int x, int y, int destX, int destY);
 	bool pointCircle(int x, int y, int circleX, int circleY, int radius);
 	bool linePoint(int x, int y, int destX, int destY, int pointX, int pointY);
 	bool lineLine(LineCollider* A, LineCollider* B, sf::Vector2f* intersection);
 	bool lineLine(LineCollider* A, LineCollider* B);
-	sf::Vector2f entryPoint, relativePoint;
-
+	bool BoxBox();
+	bool CircleCircle();
+	bool LineLine();
+	bool BoxCircle();
+	bool LineBox();
+	bool LineCircle();
+	void getCollisionDetails(sf::Vector2f* result[2]);
 };

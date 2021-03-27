@@ -16,7 +16,7 @@ Object::Object(int nX, int nY) {
     id = 0;
     isNull = false;
     collider = new CircleCollider(nX, nY, 64);
-    isCollisionListener = false;
+    isTrigger = false;
 }
 
 Object::Object() {

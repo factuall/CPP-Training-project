@@ -1,4 +1,4 @@
-c#include <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <stdlib.h>
 #include <Windows.h>
@@ -64,35 +64,21 @@ int DeltaTime()
 }
 
 void update() {
-    for (int updatedObject = 0; updatedObject < getObjLimit(); updatedObject++) {
-        Object *currentObject = getObject(updatedObject);
-        if (!(currentObject->isNull)) {
-            currentObject->Update();
-            if (currentObject->collider->active && currentObject->isCollisionListener) {
-                
-                for (int possibleColliders = 0; possibleColliders < getObjLimit(); possibleColliders++) {
-                    Object* possibleCollider = getObject(possibleColliders);
-                    if (possibleCollider->collider->active && possibleCollider->id != currentObject->id) {
-                        Collision col;
-                        switch (currentObject->collider->type) {
-                        case Collider::ColliderType::BoxType:
-                            
-                            switch (possibleCollider->collider->type) {
-                            case Collider::ColliderType::BoxType:
-                                
-                                col = Collision(dynamic_cast<BoxCollider*>(currentObject->collider),
-                                    dynamic_cast<BoxCollider*>(possibleCollider->collider));
-                                if (col.colliding) {
-                                    currentObject->OnCollision(col);
-                                }
-                                break;
-                            }
-                            break;
-                        }
+    for (int id = 0; id < getObjLimit(); id++) {
+        if (getObject(id)->isNull) continue;
 
-                        
-                    }
-                }
+        Object *updatedObj = getObject(id);
+        updatedObj->Update();
+
+        if (updatedObj->collider->active && updatedObj->isTrigger) {
+            for (int checkedId = 0; checkedId < getObjLimit(); checkedId++) {
+                if (getObject(checkedId)->isNull ||
+                    !(getObject(checkedId)->collider->active) || 
+                    checkedId == id) continue;
+                
+                Collision col(updatedObj->collider, getObject(checkedId)->collider);
+                if (col.colliding) updatedObj->OnCollision(col);
+
             }
         }
     }
@@ -165,6 +151,8 @@ int main()
     testSprite.scale(2, 2);
     testObject.sprite = testSprite;
     addObject(&testObject);
+
+
 
     Object asd = Object(100, 64);
     asd.type = GameObject;

@@ -15,6 +15,9 @@ public:
     sf::Vector2f velocity;
     float velocityX = 0, velocityY = 0;
     
+
+
+
 private:
     sf::Vector2f input = sf::Vector2f(0, 0);
     int inputX = 0, inputY = 0, speed = 6;

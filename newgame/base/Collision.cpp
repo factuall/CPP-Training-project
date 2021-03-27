@@ -48,9 +48,9 @@ bool Collision::lineLine(LineCollider* A, LineCollider* B) {
 bool Collision::BoxBox() {
 	BoxCollider* A = dynamic_cast<BoxCollider*>(colliderA);
 	BoxCollider* B = dynamic_cast<BoxCollider*>(colliderB);
-	entryPoint = sf::Vector2f(); relativePoint = sf::Vector2f();
-	entryPoint.x = B->x; entryPoint.y = B->y;
-	relativePoint.x = B->width; relativePoint.y = B->height;
+	entryPos = sf::Vector2f(); relPos = sf::Vector2f();
+	entryPos.x = A->x; entryPos.y = A->y;
+	relPos.x = (B->x - A->x); relPos.y = (B->y - A->y);
 	return (A->x < B->x + B->width &&
 		A->x + A->width > B->x &&
 		A->y < B->y + B->height &&
@@ -60,18 +60,18 @@ bool Collision::BoxBox() {
 bool Collision::CircleCircle() {
 	CircleCollider* A = dynamic_cast<CircleCollider*>(colliderA);
 	CircleCollider* B = dynamic_cast<CircleCollider*>(colliderB);
-	entryPoint = sf::Vector2f(); relativePoint = sf::Vector2f();
-	entryPoint.x = A->x; entryPoint.y = A->y;
-	relativePoint.x = B->x; relativePoint.y = B->y;
+	entryPos = sf::Vector2f(); relPos = sf::Vector2f();
+	entryPos.x = A->x; entryPos.y = A->y;
+	relPos.x = B->x; relPos.y = B->y;
 	return (distance(A->x, A->y, B->x, B->y) <= (A->radius + B->radius));
 }
 bool Collision::LineLine() {
 	LineCollider* A = dynamic_cast<LineCollider*>(colliderA);
 	LineCollider* B = dynamic_cast<LineCollider*>(colliderB);
 	//distances to intersection point
-	entryPoint = sf::Vector2f();
-	relativePoint = entryPoint;
-	return lineLine(A, B, &entryPoint);
+	entryPos = sf::Vector2f();
+	relPos = entryPos;
+	return lineLine(A, B, &entryPos);
 
 }
 bool Collision::BoxCircle() {
@@ -84,9 +84,9 @@ bool Collision::BoxCircle() {
 	if (B->y < A->y)         tempY = A->y;						// top edge
 	else if (B->y > A->y + A->height) tempY = A->y + A->height; // bottom edge
 	//is distance from closest edge smaller than circle radius
-	entryPoint = sf::Vector2f(); relativePoint = sf::Vector2f();
-	entryPoint.x = A->x; entryPoint.y = A->y;
-	relativePoint.x = B->x; relativePoint.y = B->y;
+	entryPos = sf::Vector2f(); relPos = sf::Vector2f();
+	entryPos.x = A->x; entryPos.y = A->y;
+	relPos.x = B->x; relPos.y = B->y;
 	return (distance(B->x, B->y, tempX, tempY) <= B->radius);
 
 }
@@ -97,27 +97,27 @@ bool Collision::LineBox() {
 		down(B->x, B->y + B->height, B->x + B->width, B->y + B->height),
 		left(B->x, B->y, B->x, B->y + B->height),
 		right(B->x + B->width, B->y, B->x + B->width, B->y + B->height);
-	entryPoint = sf::Vector2f();
-	relativePoint = sf::Vector2f();
-	if (lineLine(A, &up, &entryPoint)) {
-		lineLine(A, &down, &relativePoint);
-		lineLine(A, &left, &relativePoint);
-		lineLine(A, &right, &relativePoint);
+	entryPos = sf::Vector2f();
+	relPos = sf::Vector2f();
+	if (lineLine(A, &up, &entryPos)) {
+		lineLine(A, &down, &relPos);
+		lineLine(A, &left, &relPos);
+		lineLine(A, &right, &relPos);
 	}
-	else if (lineLine(A, &down, &entryPoint)) {
-		lineLine(A, &up, &relativePoint);
-		lineLine(A, &left, &relativePoint);
-		lineLine(A, &right, &relativePoint);
+	else if (lineLine(A, &down, &entryPos)) {
+		lineLine(A, &up, &relPos);
+		lineLine(A, &left, &relPos);
+		lineLine(A, &right, &relPos);
 	}
-	else if (lineLine(A, &left, &entryPoint)) {
-		lineLine(A, &up, &relativePoint);
-		lineLine(A, &down, &relativePoint);
-		lineLine(A, &right, &relativePoint);
+	else if (lineLine(A, &left, &entryPos)) {
+		lineLine(A, &up, &relPos);
+		lineLine(A, &down, &relPos);
+		lineLine(A, &right, &relPos);
 	}
-	else if (lineLine(A, &right, &entryPoint)) {
-		lineLine(A, &up, &relativePoint);
-		lineLine(A, &left, &relativePoint);
-		lineLine(A, &down, &relativePoint);
+	else if (lineLine(A, &right, &entryPos)) {
+		lineLine(A, &up, &relPos);
+		lineLine(A, &left, &relPos);
+		lineLine(A, &down, &relPos);
 	}
 	return (lineLine(A, &up) || lineLine(A, &down) || lineLine(A, &left) || lineLine(A, &right));
 }
@@ -127,8 +127,8 @@ bool Collision::LineCircle() {
 	//line start or destination in circle
 	if (pointCircle(A->x, A->y, B->x, B->y, B->radius) ||
 		pointCircle(A->destX, A->destY, B->x, B->y, B->radius)) {
-		entryPoint = sf::Vector2f(A->x, A->y);
-		relativePoint = sf::Vector2f(B->x, B->y);
+		entryPos = sf::Vector2f(A->x, A->y);
+		relPos = sf::Vector2f(B->x, B->y);
 		return true;
 	}
 	float lineLength = distance(A->x, A->y, A->destX, A->destY);
@@ -141,8 +141,8 @@ bool Collision::LineCircle() {
 		return false;
 	}
 	//if closest point in circle
-	entryPoint = sf::Vector2f(B->x, B->y);
-	relativePoint = sf::Vector2f(closestX, closestY);
+	entryPos = sf::Vector2f(B->x, B->y);
+	relPos = sf::Vector2f(closestX, closestY);
 	if (distance(closestX, closestY, B->x, B->y) <= B->radius) return  true;
 
 
@@ -150,8 +150,11 @@ bool Collision::LineCircle() {
 
 void Collision::getCollisionDetails(sf::Vector2f *result[2])
 {
-	sf::Vector2f details[2]{entryPoint, relativePoint};
+	sf::Vector2f details[2]{entryPos, relPos};
 	*result = details;
 }
 
+float Collision::distance(sf::Vector2f A, sf::Vector2f B) {
+	return sqrt(((A.x - B.x) * (A.x - B.x)) + ((A.y - B.y) * (A.y - B.y)));
+}
 

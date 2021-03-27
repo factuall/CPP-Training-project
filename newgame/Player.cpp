@@ -15,6 +15,7 @@ Player::Player(int nX, int nY) {
 	isNull = false;
 	collider = new BoxCollider(nX, nY, 64, 64);
 	isVisible = true;
+	isTrigger = true;
 };
 
 void Player::Update() {
@@ -59,4 +60,6 @@ void Player::Render(sf::RenderWindow* window) {
 	window->draw(sprite);
 }
 
-void Player::OnCollision(Collision collision) {}
+void Player::OnCollision(Collision collision) {
+
+}

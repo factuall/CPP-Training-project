@@ -73,18 +73,17 @@ sf::Vector2f clx;
 void update() {
     for (int id = 0; id < getObjLimit(); id++) {
         if (getObject(id)->isNull) continue;
-
         Object *updatedObj = getObject(id);
         updatedObj->Update();
-
         if (updatedObj->collider->active && updatedObj->isTrigger) {
             for (int checkedId = 0; checkedId < getObjLimit(); checkedId++) {
                 if (getObject(checkedId)->isNull ||
-                    !(getObject(checkedId)->collider->active) || 
+                    !(getObject(checkedId)->collider->active) ||
                     checkedId == id) continue;
-                
-                Collision col(updatedObj->collider, getObject(checkedId)->collider);
-                updatedObj->OnCollision(col);
+                    Collision col(updatedObj->collider, getObject(checkedId)->collider);
+                    if (col.distance(sf::Vector2f(0, 0), col.relPos) < 128) {
+                        updatedObj->OnCollision(col);
+                    }
 
             }
         }
@@ -95,7 +94,6 @@ void update() {
 int skipTickTime = 0, secondCounter = 0, framesInSecond = 0, framesPerSecond = 0;
 void render() {
     fpsDisplay.text.setString(std::to_string(framesPerSecond));
-
     window.clear();
     for (int displayedObj = 0; displayedObj < getObjLimit(); displayedObj++) {
         Object* currentObject = getObject(displayedObj);
@@ -116,39 +114,25 @@ int main()
         printf("error while loading resources\n");
         return 0;
     }
-
     imageSheet.createMaskFromColor(sf::Color(255, 0, 255, 255));
     sheet.loadFromImage(imageSheet);
     StartTimer();   
     init();
 
-    fpsDisplay = FPSDisplay();
-    fpsDisplay.text.setFont(fontRegular);
-    fpsDisplay.text.setString(std::to_string(framesPerSecond));
-    addObject(&fpsDisplay); 
+    Player playerObj = Player(300, 300);
+    playerObj.sprite = sf::Sprite(sheet, sf::IntRect(0, 0, 32, 32));
+    addObject(&playerObj);
 
     Object Wall = Object(128, 128);
     Wall.sprite = sf::Sprite(sheet, sf::IntRect(0, 32, 32, 32));
     Wall.collider = new BoxCollider(Wall.x, Wall.y, 64, 64);
     Wall.isVisible = true;
-
-    Object Wall2 = Object(192, 128);
-    Wall2.sprite = sf::Sprite(sheet, sf::IntRect(0, 32, 32, 32));
-    Wall2.collider = new BoxCollider(Wall2.x, Wall2.y, 64, 64);
-    Wall2.isVisible = true;
-
-    Object Wall3 = Object(192, 192);
-    Wall3.sprite = sf::Sprite(sheet, sf::IntRect(0, 32, 32, 32));
-    Wall3.collider = new BoxCollider(Wall3.x, Wall3.y, 64, 64);
-    Wall3.isVisible = true;
-        
     addObject(&Wall);
-    addObject(&Wall2);
-    addObject(&Wall3);
-
-    Player playerObj = Player(300, 300);
-    playerObj.sprite = sf::Sprite(sheet, sf::IntRect(0, 0, 32, 32));
-    addObject(&playerObj);
+    
+    fpsDisplay = FPSDisplay();
+    fpsDisplay.text.setFont(fontRegular);
+    fpsDisplay.text.setString(std::to_string(framesPerSecond));
+    addObject(&fpsDisplay);
 
     while (window.isOpen())
     {
@@ -158,7 +142,6 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
         //limit update rate to 60
         if (DeltaTime() <= 16 && skipTickTime < 16) {
             skipTickTime += deltaTime;
@@ -174,9 +157,7 @@ int main()
             framesInSecond++;
             update();
         }
-
         render();
     }
-    
     return 0;
 }

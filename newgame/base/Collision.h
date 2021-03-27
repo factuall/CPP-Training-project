@@ -12,7 +12,7 @@ public:
 	Collider* colliderA;
 	Collider* colliderB;
 	bool colliding;
-	sf::Vector2f entryPoint, relativePoint;
+	sf::Vector2f entryPos, relPos;
 
 	Collision(Collider* cA, Collider* cB) {
 		ProcessCollision(cA, cB);
@@ -69,7 +69,7 @@ public:
 		}
 	};
 
-
+	float distance(sf::Vector2f A, sf::Vector2f B);
 
 private:
 	float distance(int x, int y, int destX, int destY);

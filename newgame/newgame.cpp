@@ -109,24 +109,14 @@ void render() {
 
 int main()
 {
-    if (!fontRegular.loadFromFile("../Release/fonts/suture.ttf"))
+    if (!fontRegular.loadFromFile("../Release/fonts/suture.ttf") ||
+        !fontShadow.loadFromFile("../Release/fonts/future.ttf") ||
+        !imageSheet.loadFromFile("../Release/img/sheet.png"))
     {
-        // error...
-        printf("error while loading font\n");
+        printf("error while loading resources\n");
         return 0;
     }
-    if (!fontShadow.loadFromFile("../Release/fonts/future.ttf"))
-    {
-        // error...
-        printf("error while loading font\n");
-        return 0;
-    }
-    if (!imageSheet.loadFromFile("../Release/img/sheet.png"))
-    {
-        // error...
-        printf("error while loading font\n");
-        return 0;
-    }
+
     imageSheet.createMaskFromColor(sf::Color(255, 0, 255, 255));
     sheet.loadFromImage(imageSheet);
     StartTimer();   
@@ -151,7 +141,7 @@ int main()
     Wall3.sprite = sf::Sprite(sheet, sf::IntRect(0, 32, 32, 32));
     Wall3.collider = new BoxCollider(Wall3.x, Wall3.y, 64, 64);
     Wall3.isVisible = true;
-
+        
     addObject(&Wall);
     addObject(&Wall2);
     addObject(&Wall3);

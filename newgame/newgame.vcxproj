@@ -174,9 +174,6 @@
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="newgame.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="lib\openal32.dll" />
     <None Include="lib\sfml-audio-2.dll" />
     <None Include="lib\sfml-graphics-2.dll" />

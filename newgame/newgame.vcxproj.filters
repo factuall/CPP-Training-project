@@ -1,81 +1,90 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\base">
-      <UniqueIdentifier>{f958f3a4-e6bc-4f5a-ac29-eaab21971be5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Libraries">
       <UniqueIdentifier>{f4ead064-6eab-4187-a28c-f4aaeb9e51d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\base\Collider">
+    <Filter Include="cpp">
+      <UniqueIdentifier>{3f4098fa-6bd2-4d21-853b-28a8cd05100f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="cpp\Source Files\base">
+      <UniqueIdentifier>{f958f3a4-e6bc-4f5a-ac29-eaab21971be5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Source Files\base\Collider">
       <UniqueIdentifier>{6d1b675e-6928-4a0e-a033-7532fd99fe3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="cpp\Header Files\base">
+      <UniqueIdentifier>{52d04d91-02f3-48ee-b086-fdaa55e2112d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Header Files\base\Collider">
+      <UniqueIdentifier>{f9cf9857-985c-4b2e-a810-e4064676f8f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="newgame.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>cpp\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="base\Object.cpp">
-      <Filter>Source Files\base</Filter>
+      <Filter>cpp\Source Files\base</Filter>
     </ClCompile>
     <ClCompile Include="base\base.cpp">
-      <Filter>Source Files\base</Filter>
+      <Filter>cpp\Source Files\base</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>cpp\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="base\Collider.cpp">
-      <Filter>Source Files\base\Collider</Filter>
+      <Filter>cpp\Source Files\base\Collider</Filter>
     </ClCompile>
     <ClCompile Include="base\LineCollider.cpp">
-      <Filter>Source Files\base\Collider</Filter>
+      <Filter>cpp\Source Files\base\Collider</Filter>
     </ClCompile>
     <ClCompile Include="base\BoxCollider.cpp">
-      <Filter>Source Files\base\Collider</Filter>
+      <Filter>cpp\Source Files\base\Collider</Filter>
     </ClCompile>
     <ClCompile Include="base\CircleCollider.cpp">
-      <Filter>Source Files\base\Collider</Filter>
+      <Filter>cpp\Source Files\base\Collider</Filter>
     </ClCompile>
     <ClCompile Include="base\Collision.cpp">
-      <Filter>Source Files\base</Filter>
+      <Filter>cpp\Source Files\base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="base\Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="base\base.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="base\Collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="base\Collider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="base\BoxCollider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="base\CircleCollider.h">
-      <Filter>Header Files</Filter>
+      <Filter>cpp\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="base\LineCollider.h">
-      <Filter>Header Files</Filter>
+      <Filter>cpp\Header Files\base\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="base\BoxCollider.h">
+      <Filter>cpp\Header Files\base\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="base\CircleCollider.h">
+      <Filter>cpp\Header Files\base\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Collider.h">
+      <Filter>cpp\Header Files\base\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Object.h">
+      <Filter>cpp\Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\base.h">
+      <Filter>cpp\Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Collision.h">
+      <Filter>cpp\Header Files\base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -97,10 +106,5 @@
     <None Include="lib\sfml-window-2.dll">
       <Filter>Libraries</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="newgame.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

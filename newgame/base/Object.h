@@ -7,6 +7,7 @@ enum ObjectType {GameObject, TextObject, ShapeObject};
 class Object {
 public: 
     int x, y, id;
+    sf::Vector2f pos;
     int sizeX = 64, sizeY = 64;
     bool isNull = true, isVisible = true;
     ObjectType type = GameObject;
@@ -18,11 +19,11 @@ public:
     void setPosition(int mX, int mY);
 
     virtual void Update();
+    virtual void Render(sf::RenderWindow* window);
     virtual void OnCollision(Collision collision);
 
     sf::Text text;
     sf::Sprite sprite;
-    sf::RectangleShape visualShape;
 
     Collider *collider = new Collider();
     Collider *getCollider();

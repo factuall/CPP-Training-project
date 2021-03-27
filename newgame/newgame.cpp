@@ -19,8 +19,6 @@ sf::Font fontShadow;
 sf::Image imageSheet;
 sf::Texture sheet;
 
-Player testObject = Player(32, 32);
-
 sf::RenderWindow window(sf::VideoMode(1024, 576), "tboifg - factuall", sf::Style::Close);
 int lastTick, deltaTime; 
 int lastTime = 0; double deltaTIme;
@@ -98,39 +96,10 @@ void render() {
     for (int displayedObj = 0; displayedObj < getObjLimit(); displayedObj++) {
         Object* currentObject = getObject(displayedObj);
         if (!(currentObject->isNull) && currentObject->isVisible) {
-            switch (currentObject->type) {
-                case GameObject: {
-                    currentObject->sprite.setPosition(currentObject->x, currentObject->y);
-                    window.draw(currentObject->sprite);
-                    break;
-                }
-                case TextObject: {
-                    currentObject->text.setPosition(currentObject->x, currentObject->y);
-                    window.draw(currentObject->text);
-                }
-                case ShapeObject: {
-                    currentObject->visualShape.setPosition(currentObject->x, currentObject->y);
-                    window.draw(currentObject->visualShape);
-                }
-            }
-
+             
+            currentObject->Render(&window);
         }
     }
-    sf::Vertex line[] = {
-        testObject.pl, testObject.cl
-    };
-    sf::Vertex line2[] = {
-    testObject.pl, sf::Vector2f(testObject.pl.x + (-testObject.velocityX * 10), testObject.pl.y + (-testObject.velocityY * 5))
-    };
-    sf::Vector2f kolizyjka((-testObject.velocityX * 10) + (testObject.cl.x - testObject.pl.x), (-testObject.velocityY * 5) + (testObject.cl.y - testObject.pl.y));
-    sf::Vertex line3[] = {
-    testObject.pl, (kolizyjka + testObject.pl)
-    };
-    line3->color = sf::Color::Green;
-    testObject.kolizjaaa = kolizyjka;
-    window.draw(line, 2, sf::Lines);
-    window.draw(line2, 2, sf::Lines);
-    window.draw(line3, 2, sf::Lines);
     window.display();
 }
 
@@ -169,11 +138,11 @@ int main()
     fpsDisplay.text = fpsText;
     addObject(&fpsDisplay); 
 
-    
+    Player playerObj = Player(32, 32);
     sf::Sprite testSprite(sheet, sf::IntRect(0, 0, 32, 32));
     testSprite.scale(1, 1);
-    testObject.sprite = testSprite;
-    addObject(&testObject);
+    playerObj.sprite = testSprite;
+    addObject(&playerObj);
 
     Object Wall = Object(128, 128);
     sf::Sprite asdSprite(sheet, sf::IntRect(0, 32, 32, 32));

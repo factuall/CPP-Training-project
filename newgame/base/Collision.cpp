@@ -49,8 +49,8 @@ bool Collision::BoxBox() {
 	BoxCollider* A = dynamic_cast<BoxCollider*>(colliderA);
 	BoxCollider* B = dynamic_cast<BoxCollider*>(colliderB);
 	entryPoint = sf::Vector2f(); relativePoint = sf::Vector2f();
-	entryPoint.x = A->x; entryPoint.y = A->y;
-	relativePoint.x = B->x; relativePoint.y = B->y;
+	entryPoint.x = B->x; entryPoint.y = B->y;
+	relativePoint.x = B->width; relativePoint.y = B->height;
 	return (A->x < B->x + B->width &&
 		A->x + A->width > B->x &&
 		A->y < B->y + B->height &&

@@ -25,7 +25,7 @@ void Object::Move(int mX, int mY) {
 void Object::setPosition(int mX, int mY) {
     x = mX;
     y = mY;
-}x
+}
 
 void Object::Update() {
     if (collider->active) {

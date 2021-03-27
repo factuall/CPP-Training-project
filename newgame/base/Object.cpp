@@ -20,11 +20,11 @@ Object::Object() {
     isNull = true;
 }
 
-void Object::Move(int mX, int mY) {
-    x += mX;
-    y += mY;
-    pos.x += mX;
-    pos.y += mY;
+void Object::Move(float mX, float mY) {
+    //x += mX;
+    //y += mY;
+    pos.x += mX; x = pos.x;
+    pos.y += mY; y = pos.y;
 }
 
 void Object::setPosition(int mX, int mY) {

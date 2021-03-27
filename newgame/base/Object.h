@@ -13,7 +13,7 @@ public:
     Object(int nX, int nY);
     Object();
 
-    void Move(int mX, int mY);
+    void Move(float mX, float mY);
     void setPosition(int mX, int mY);
 
     virtual void Update();

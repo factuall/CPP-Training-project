@@ -12,7 +12,7 @@ public:
 	Collider* colliderA;
 	Collider* colliderB;
 	bool colliding;
-	sf::Vector2f entryPos, relPos;
+	sf::Vector2f entryPos, posDiffVector;
 
 	Collision(Collider* cA, Collider* cB) {
 		ProcessCollision(cA, cB);

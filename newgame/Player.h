@@ -15,6 +15,10 @@ public:
     sf::Vector2f velocity;
     float velocityX = 0, velocityY = 0;
     
+    ////////
+    sf::Vector2f lastColliderPosition;
+    sf::Vector2f destVector;
+    /////////
 
 
 

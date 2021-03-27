@@ -48,9 +48,9 @@ bool Collision::lineLine(LineCollider* A, LineCollider* B) {
 bool Collision::BoxBox() {
 	BoxCollider* A = dynamic_cast<BoxCollider*>(colliderA);
 	BoxCollider* B = dynamic_cast<BoxCollider*>(colliderB);
-	entryPos = sf::Vector2f(); relPos = sf::Vector2f();
+	entryPos = sf::Vector2f(); posDiffVector = sf::Vector2f();
 	entryPos.x = A->x; entryPos.y = A->y;
-	relPos.x = (B->x - A->x); relPos.y = (B->y - A->y);
+	posDiffVector.x = (A->x - B->x); posDiffVector.y = (A->y - B->y);
 	return (A->x < B->x + B->width &&
 		A->x + A->width > B->x &&
 		A->y < B->y + B->height &&
@@ -60,9 +60,9 @@ bool Collision::BoxBox() {
 bool Collision::CircleCircle() {
 	CircleCollider* A = dynamic_cast<CircleCollider*>(colliderA);
 	CircleCollider* B = dynamic_cast<CircleCollider*>(colliderB);
-	entryPos = sf::Vector2f(); relPos = sf::Vector2f();
+	entryPos = sf::Vector2f(); posDiffVector = sf::Vector2f();
 	entryPos.x = A->x; entryPos.y = A->y;
-	relPos.x = B->x; relPos.y = B->y;
+	posDiffVector.x = B->x; posDiffVector.y = B->y;
 	return (distance(A->x, A->y, B->x, B->y) <= (A->radius + B->radius));
 }
 bool Collision::LineLine() {
@@ -70,7 +70,7 @@ bool Collision::LineLine() {
 	LineCollider* B = dynamic_cast<LineCollider*>(colliderB);
 	//distances to intersection point
 	entryPos = sf::Vector2f();
-	relPos = entryPos;
+	posDiffVector = entryPos;
 	return lineLine(A, B, &entryPos);
 
 }
@@ -84,9 +84,9 @@ bool Collision::BoxCircle() {
 	if (B->y < A->y)         tempY = A->y;						// top edge
 	else if (B->y > A->y + A->height) tempY = A->y + A->height; // bottom edge
 	//is distance from closest edge smaller than circle radius
-	entryPos = sf::Vector2f(); relPos = sf::Vector2f();
+	entryPos = sf::Vector2f(); posDiffVector = sf::Vector2f();
 	entryPos.x = A->x; entryPos.y = A->y;
-	relPos.x = B->x; relPos.y = B->y;
+	posDiffVector.x = B->x; posDiffVector.y = B->y;
 	return (distance(B->x, B->y, tempX, tempY) <= B->radius);
 
 }
@@ -98,26 +98,26 @@ bool Collision::LineBox() {
 		left(B->x, B->y, B->x, B->y + B->height),
 		right(B->x + B->width, B->y, B->x + B->width, B->y + B->height);
 	entryPos = sf::Vector2f();
-	relPos = sf::Vector2f();
+	posDiffVector = sf::Vector2f();
 	if (lineLine(A, &up, &entryPos)) {
-		lineLine(A, &down, &relPos);
-		lineLine(A, &left, &relPos);
-		lineLine(A, &right, &relPos);
+		lineLine(A, &down, &posDiffVector);
+		lineLine(A, &left, &posDiffVector);
+		lineLine(A, &right, &posDiffVector);
 	}
 	else if (lineLine(A, &down, &entryPos)) {
-		lineLine(A, &up, &relPos);
-		lineLine(A, &left, &relPos);
-		lineLine(A, &right, &relPos);
+		lineLine(A, &up, &posDiffVector);
+		lineLine(A, &left, &posDiffVector);
+		lineLine(A, &right, &posDiffVector);
 	}
 	else if (lineLine(A, &left, &entryPos)) {
-		lineLine(A, &up, &relPos);
-		lineLine(A, &down, &relPos);
-		lineLine(A, &right, &relPos);
+		lineLine(A, &up, &posDiffVector);
+		lineLine(A, &down, &posDiffVector);
+		lineLine(A, &right, &posDiffVector);
 	}
 	else if (lineLine(A, &right, &entryPos)) {
-		lineLine(A, &up, &relPos);
-		lineLine(A, &left, &relPos);
-		lineLine(A, &down, &relPos);
+		lineLine(A, &up, &posDiffVector);
+		lineLine(A, &left, &posDiffVector);
+		lineLine(A, &down, &posDiffVector);
 	}
 	return (lineLine(A, &up) || lineLine(A, &down) || lineLine(A, &left) || lineLine(A, &right));
 }
@@ -128,7 +128,7 @@ bool Collision::LineCircle() {
 	if (pointCircle(A->x, A->y, B->x, B->y, B->radius) ||
 		pointCircle(A->destX, A->destY, B->x, B->y, B->radius)) {
 		entryPos = sf::Vector2f(A->x, A->y);
-		relPos = sf::Vector2f(B->x, B->y);
+		posDiffVector = sf::Vector2f(B->x, B->y);
 		return true;
 	}
 	float lineLength = distance(A->x, A->y, A->destX, A->destY);
@@ -142,7 +142,7 @@ bool Collision::LineCircle() {
 	}
 	//if closest point in circle
 	entryPos = sf::Vector2f(B->x, B->y);
-	relPos = sf::Vector2f(closestX, closestY);
+	posDiffVector = sf::Vector2f(closestX, closestY);
 	if (distance(closestX, closestY, B->x, B->y) <= B->radius) return  true;
 
 
@@ -150,7 +150,7 @@ bool Collision::LineCircle() {
 
 void Collision::getCollisionDetails(sf::Vector2f *result[2])
 {
-	sf::Vector2f details[2]{entryPos, relPos};
+	sf::Vector2f details[2]{entryPos, posDiffVector};
 	*result = details;
 }
 

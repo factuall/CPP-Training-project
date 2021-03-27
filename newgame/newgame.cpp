@@ -81,7 +81,7 @@ void update() {
                     !(getObject(checkedId)->collider->active) ||
                     checkedId == id) continue;
                     Collision col(updatedObj->collider, getObject(checkedId)->collider);
-                    if (col.distance(sf::Vector2f(0, 0), col.relPos) < 128) {
+                    if (col.distance(sf::Vector2f(0, 0), col.posDiffVector) < 128) {
                         updatedObj->OnCollision(col);
                     }
 
@@ -119,15 +119,15 @@ int main()
     StartTimer();   
     init();
 
-    Player playerObj = Player(300, 300);
-    playerObj.sprite = sf::Sprite(sheet, sf::IntRect(0, 0, 32, 32));
-    addObject(&playerObj);
-
     Object Wall = Object(128, 128);
     Wall.sprite = sf::Sprite(sheet, sf::IntRect(0, 32, 32, 32));
     Wall.collider = new BoxCollider(Wall.x, Wall.y, 64, 64);
     Wall.isVisible = true;
     addObject(&Wall);
+
+    Player playerObj = Player(300, 300);
+    playerObj.sprite = sf::Sprite(sheet, sf::IntRect(0, 0, 32, 32));
+    addObject(&playerObj);
     
     fpsDisplay = FPSDisplay();
     fpsDisplay.text.setFont(fontRegular);

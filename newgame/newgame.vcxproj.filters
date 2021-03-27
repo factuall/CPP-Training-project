@@ -60,6 +60,9 @@
     <ClCompile Include="base\Collision.cpp">
       <Filter>cpp\Source Files\base</Filter>
     </ClCompile>
+    <ClCompile Include="FPSDisplay.cpp">
+      <Filter>cpp\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="base\Collision.h">
       <Filter>cpp\Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSDisplay.h">
+      <Filter>cpp\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

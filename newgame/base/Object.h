@@ -3,14 +3,12 @@
 #include <SFML/Graphics.hpp>
 #include "Collider.h"
 #include "Collision.h"
-enum ObjectType {GameObject, TextObject, ShapeObject};
 class Object {
 public: 
     int x, y, id;
     sf::Vector2f pos;
     int sizeX = 64, sizeY = 64;
-    bool isNull = true, isVisible = true;
-    ObjectType type = GameObject;
+    bool isNull = true, isVisible = false;
 
     Object(int nX, int nY);
     Object();
@@ -28,6 +26,6 @@ public:
     Collider *collider = new Collider();
     Collider *getCollider();
     bool isTrigger = false;
+    sf::Vector2f spriteScale();
 private:
-
 }; 

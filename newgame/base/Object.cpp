@@ -10,7 +10,6 @@ Object::Object(int nX, int nY) {
     pos = sf::Vector2f(nX, nY);
     id = 0;
     isNull = false;
-
 }
 
 Object::Object() {
@@ -40,10 +39,20 @@ void Object::Update() {
     }
 }
 
-void Object::Render(sf::RenderWindow* window){}
+void Object::Render(sf::RenderWindow* window){
+    if (isVisible) {
+        sprite.setScale(spriteScale());
+        sprite.setPosition(pos);
+        window->draw(sprite);
+    }
+}
 
 void Object::OnCollision(Collision collision){}
 
 Collider* Object::getCollider() {
     return collider;
+}
+
+sf::Vector2f Object::spriteScale() {
+    return sf::Vector2f(2, 2);
 }

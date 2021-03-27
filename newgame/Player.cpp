@@ -9,39 +9,53 @@
 Player::Player(int nX, int nY) {
 	x = nX;
 	y = nY;
+	pos.x = nX;
+	pos.y = nY;
 	id = 0;
 	isNull = false;
-	collider = new BoxCollider(nX, nY, 32, 32);
-	isTrigger = true;
+	collider = new BoxCollider(nX, nY, 64, 64);
+	isVisible = true;
 };
 
 void Player::Update() {
-	inputX = 0; inputY = 0;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		inputY = 1;
-	}
+	
+	input.x = 0; input.y = 0;
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
+		sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		input.y = 0;
+	} //both keys - input cancelling
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		input.y = 1;
+	} //down
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		inputY = -1;
-	}
+		input.y = -1;
+	} //up
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		inputX = 1;
-	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
+		sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		input.x = 0;
+	} //both keys - input cancelling
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		input.x = 1;
+	} //right
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		inputX = -1;
-	}
+		input.x = -1;
+	} //left
 
-	velocityX += (float)(((inputX * speed) - velocityX) / walkSmoothness);
-	velocityY += (float)(((inputY * speed) - velocityY) / walkSmoothness);
+	
+	velocity.x += (float)(((input.x * speed) - velocity.x) / walkSmoothness);
+	velocity.y += (float)(((input.y * speed) - velocity.y) / walkSmoothness);
 
 	collider->x = x;
 	collider->y = y;
 	
-	this->Move(velocityX, velocityY);
+	this->Move(velocity.x, velocity.y);
 }
 
 void Player::Render(sf::RenderWindow* window) {
 	sprite.setPosition(pos);
+	sprite.setScale(spriteScale());
 	window->draw(sprite);
 }
 

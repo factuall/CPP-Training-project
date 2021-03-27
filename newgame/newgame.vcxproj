@@ -160,6 +160,7 @@
     <ClCompile Include="base\Collision.cpp" />
     <ClCompile Include="base\LineCollider.cpp" />
     <ClCompile Include="base\Object.cpp" />
+    <ClCompile Include="FPSDisplay.cpp" />
     <ClCompile Include="newgame.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
@@ -171,6 +172,7 @@
     <ClInclude Include="base\Collision.h" />
     <ClInclude Include="base\LineCollider.h" />
     <ClInclude Include="base\Object.h" />
+    <ClInclude Include="FPSDisplay.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>

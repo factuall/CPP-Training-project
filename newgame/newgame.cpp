@@ -12,6 +12,7 @@
 #include "base/base.h"
 
 #include "Player.h"
+#include "FPSDisplay.h"
 
 sf::Font fontRegular;
 sf::Font fontShadow;
@@ -20,11 +21,14 @@ sf::Image imageSheet;
 sf::Texture sheet;
 
 sf::RenderWindow window(sf::VideoMode(1024, 576), "tboifg - factuall", sf::Style::Close);
+
+
 int lastTick, deltaTime; 
 int lastTime = 0; double deltaTIme;
 double PCFreq = 0.0;
 __int64 CounterStart = 0;
-Object fpsDisplay;
+
+FPSDisplay fpsDisplay;
 
 void StartTimer()
 {
@@ -128,30 +132,33 @@ int main()
     StartTimer();   
     init();
 
-    fpsDisplay = Object(0, 0);
-    fpsDisplay.type = TextObject;
-    sf::Text fpsText;
-    fpsText.setFont(fontRegular);
-    fpsText.setString(std::to_string(framesPerSecond));
-    fpsText.setCharacterSize(32); // in pixels, not points!
-    fpsText.setFillColor(sf::Color::White);
-    fpsDisplay.text = fpsText;
+    fpsDisplay = FPSDisplay();
+    fpsDisplay.text.setFont(fontRegular);
+    fpsDisplay.text.setString(std::to_string(framesPerSecond));
     addObject(&fpsDisplay); 
 
-    Player playerObj = Player(32, 32);
-    sf::Sprite testSprite(sheet, sf::IntRect(0, 0, 32, 32));
-    testSprite.scale(1, 1);
-    playerObj.sprite = testSprite;
-    addObject(&playerObj);
-
     Object Wall = Object(128, 128);
-    sf::Sprite asdSprite(sheet, sf::IntRect(0, 32, 32, 32));
-    asdSprite.scale(1, 1);
-    Wall.collider = new BoxCollider(Wall.x, Wall.y, 32, 32);
-    Wall.sprite = asdSprite;
-    addObject(&Wall);
-    
+    Wall.sprite = sf::Sprite(sheet, sf::IntRect(0, 32, 32, 32));
+    Wall.collider = new BoxCollider(Wall.x, Wall.y, 64, 64);
+    Wall.isVisible = true;
 
+    Object Wall2 = Object(192, 128);
+    Wall2.sprite = sf::Sprite(sheet, sf::IntRect(0, 32, 32, 32));
+    Wall2.collider = new BoxCollider(Wall2.x, Wall2.y, 64, 64);
+    Wall2.isVisible = true;
+
+    Object Wall3 = Object(192, 192);
+    Wall3.sprite = sf::Sprite(sheet, sf::IntRect(0, 32, 32, 32));
+    Wall3.collider = new BoxCollider(Wall3.x, Wall3.y, 64, 64);
+    Wall3.isVisible = true;
+
+    addObject(&Wall);
+    addObject(&Wall2);
+    addObject(&Wall3);
+
+    Player playerObj = Player(300, 300);
+    playerObj.sprite = sf::Sprite(sheet, sf::IntRect(0, 0, 32, 32));
+    addObject(&playerObj);
 
     while (window.isOpen())
     {

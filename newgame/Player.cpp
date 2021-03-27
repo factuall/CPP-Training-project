@@ -41,4 +41,5 @@ void Player::Update() {
 }
 
 void Player::OnCollision(Collision collision) {
+	
 }

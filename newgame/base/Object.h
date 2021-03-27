@@ -3,15 +3,14 @@
 #include <SFML/Graphics.hpp>
 #include "Collider.h"
 #include "Collision.h"
-enum ObjectType {GameObject, TextObject};
+enum ObjectType {GameObject, TextObject, ShapeObject};
 class Object {
 public: 
     int x, y, id;
     int sizeX = 64, sizeY = 64;
     bool isNull = true, isVisible = true;
-    ObjectType type;
+    ObjectType type = GameObject;
 
-    Object(int nX, int nY, int nID);
     Object(int nX, int nY);
     Object();
 
@@ -23,6 +22,7 @@ public:
 
     sf::Text text;
     sf::Sprite sprite;
+    sf::RectangleShape visualShape;
 
     Collider *collider = new Collider();
     Collider *getCollider();

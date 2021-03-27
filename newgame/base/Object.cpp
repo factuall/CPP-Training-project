@@ -2,21 +2,11 @@
 #include "CircleCollider.h"
 #include "Collision.h"
 
-
-Object::Object(int nX, int nY, int nID) {
-    x = nX;
-    y = nY;
-    id = nID;
-    isNull = false;
-}
-
 Object::Object(int nX, int nY) {
     x = nX;
     y = nY;
     id = 0;
     isNull = false;
-    collider = new CircleCollider(nX, nY, 64);
-    isTrigger = false;
 }
 
 Object::Object() {
@@ -35,9 +25,12 @@ void Object::Move(int mX, int mY) {
 void Object::setPosition(int mX, int mY) {
     x = mX;
     y = mY;
-}
+}x
 
 void Object::Update() {
+    if (collider->active) {
+        collider->x = x; collider->y = y;
+    }
 }
 
 void Object::OnCollision(Collision collision) {

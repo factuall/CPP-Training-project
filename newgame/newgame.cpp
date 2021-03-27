@@ -103,6 +103,10 @@ void render() {
                     currentObject->text.setPosition(currentObject->x, currentObject->y);
                     window.draw(currentObject->text);
                 }
+                case ShapeObject: {
+                    currentObject->visualShape.setPosition(currentObject->x, currentObject->y);
+                    window.draw(currentObject->visualShape);
+                }
             }
 
         }
@@ -146,21 +150,17 @@ int main()
     addObject(&fpsDisplay); 
 
     Player testObject = Player(32, 32);
-    testObject.type = GameObject;
     sf::Sprite testSprite(sheet, sf::IntRect(0, 0, 32, 32));
-    testSprite.scale(2, 2);
+    testSprite.scale(1, 1);
     testObject.sprite = testSprite;
     addObject(&testObject);
 
-
-
-    Object asd = Object(100, 64);
-    asd.type = GameObject;
-    sf::Sprite asdSprite(sheet, sf::IntRect(32, 0, 32, 32));
-    asdSprite.scale(2, 2);
-    asd.collider = new BoxCollider(asd.x, asd.y, 64, 64);
-    asd.sprite = asdSprite;
-    addObject(&asd);
+    Object Wall = Object(128, 128);
+    sf::Sprite asdSprite(sheet, sf::IntRect(0, 32, 32, 32));
+    asdSprite.scale(1, 1);
+    Wall.collider = new BoxCollider(Wall.x, Wall.y, 32, 32);
+    Wall.sprite = asdSprite;
+    addObject(&Wall);
     
 
 

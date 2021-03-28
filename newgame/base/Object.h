@@ -5,16 +5,16 @@
 #include "Collision.h"
 class Object {
 public: 
-    int x, y, id;
-    sf::Vector2f pos;
+    int id;
+    sf::Vector2f pos = sf::Vector2f();
     int sizeX = 64, sizeY = 64;
     bool isNull = true, isVisible = false;
 
     Object(int nX, int nY);
     Object();
 
-    void Move(float mX, float mY);
-    void setPosition(int mX, int mY);
+    void Move(sf::Vector2f mPos);
+    void setPosition(sf::Vector2f nPos);
 
     virtual void Update();
     virtual void Render(sf::RenderWindow* window);

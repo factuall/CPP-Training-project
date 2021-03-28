@@ -5,37 +5,29 @@
 #include "Collision.h"
 
 Object::Object(int nX, int nY) {
-    x = nX;
-    y = nY;
     pos = sf::Vector2f(nX, nY);
     id = 0;
     isNull = false;
 }
 
 Object::Object() {
-    x = 0;
-    y = 0;
-    pos = sf::Vector2f(0, 0);
+    pos = sf::Vector2f();
     id = 0;
     isNull = true;
 }
 
-void Object::Move(float mX, float mY) {
-    //x += mX;
-    //y += mY;
-    pos.x += mX; x = pos.x;
-    pos.y += mY; y = pos.y;
+void Object::Move(sf::Vector2f mPos) {
+    pos.x += mPos.x; 
+    pos.y += mPos.y;
 }
 
-void Object::setPosition(int mX, int mY) {
-    x = mX;
-    y = mY;
-    pos = sf::Vector2f(mX, mY);
+void Object::setPosition(sf::Vector2f xPos) {
+    pos = xPos;
 }
 
 void Object::Update() {
     if (collider->active) {
-        collider->x = x; collider->y = y;
+        collider->pos = pos;
     }
 }
 

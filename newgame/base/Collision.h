@@ -17,7 +17,6 @@ public:
 	Collision(Collider* cA, Collider* cB) {
 		ProcessCollision(cA, cB);
 	};
-
 	void ProcessCollision(Collider* cA, Collider* cB) {
 		colliderA = cA; colliderB = cB;
 
@@ -68,13 +67,15 @@ public:
 			colliderA = cB; colliderB = cA; colliding = LineCircle();
 		}
 	};
+	void UpdateCollision() {
+		ProcessCollision(colliderA, colliderB);
+	}
 
-	float distance(sf::Vector2f A, sf::Vector2f B);
-
+	static float distance(sf::Vector2f A, sf::Vector2f B);
+	static sf::Vector2f normalize(sf::Vector2f source);
 private:
-	float distance(int x, int y, int destX, int destY);
-	bool pointCircle(int x, int y, int circleX, int circleY, int radius);
-	bool linePoint(int x, int y, int destX, int destY, int pointX, int pointY);
+	bool pointCircle(sf::Vector2f point, sf::Vector2f circle, int radius);
+	bool linePoint(sf::Vector2f linePos, sf::Vector2f lineDest, sf::Vector2f point);
 	bool lineLine(LineCollider* A, LineCollider* B, sf::Vector2f* intersection);
 	bool lineLine(LineCollider* A, LineCollider* B);
 	bool BoxBox();

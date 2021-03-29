@@ -140,7 +140,7 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        //limit update rate to 60
+        //limit update rate to 60 (16)
         if (DeltaTime() <= 16 && skipTickTime < 16) {
             skipTickTime += deltaTime;
         }

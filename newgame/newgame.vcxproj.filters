@@ -92,6 +92,9 @@
     <ClInclude Include="FPSDisplay.h">
       <Filter>cpp\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="helper.h">
+      <Filter>cpp\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\openal32.dll">

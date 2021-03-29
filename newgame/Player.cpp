@@ -7,6 +7,8 @@
 #include "base/Collision.h"
 #include "base/Collider.h"
 
+using namespace sf;
+
 Player::Player(int nX, int nY) {
 	pos.x = nX;
 	pos.y = nY;
@@ -21,81 +23,101 @@ void Player::Update() {
 	
 	input.x = 0; input.y = 0;
 	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-		sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+	if (Keyboard::isKeyPressed(Keyboard::S) &&
+		Keyboard::isKeyPressed(Keyboard::W)) {
 		input.y = 0;
 	} //both keys - input cancelling
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+	else if (Keyboard::isKeyPressed(Keyboard::S)) {
 		input.y = 1;
 	} //down
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+	else if (Keyboard::isKeyPressed(Keyboard::W)) {
 		input.y = -1;
 	} //up
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&
-		sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+	if (Keyboard::isKeyPressed(Keyboard::D) &&
+		Keyboard::isKeyPressed(Keyboard::A)) {
 		input.x = 0;
 	} //both keys - input cancelling
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+	else if (Keyboard::isKeyPressed(Keyboard::D)) {
 		input.x = 1;
 	} //right
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+	else if (Keyboard::isKeyPressed(Keyboard::A)) {
 		input.x = -1;
 	} //left
-
 	
-	velocity.x += (float)(((input.x * speed) - velocity.x) / walkSmoothness);
-	velocity.y += (float)(((input.y * speed) - velocity.y) / walkSmoothness);
+	float diagonalSlowDown = ((input.x != 0 && input.y != 0) ? 0.709f : 1.0f);
+	velocity.x += (float)(((diagonalSlowDown * input.x * speed) - velocity.x) / walkSmoothness);
+	if (abs(velocity.x) < 0.5) velocity.x = 0;
+	velocity.y += (float)(((diagonalSlowDown * input.y * speed) - velocity.y) / walkSmoothness);
+	if (abs(velocity.y) < 0.5) velocity.y = 0;
 
-	collider->pos = pos;
-	
+	normalizedVelocity = (operator*(Collision::normalize(velocity), (float)speed));
+
 	this->Move(velocity);
+	collider->pos = pos;
+
+
 }
 
-void Player::Render(sf::RenderWindow* window) {
+void Player::Render(RenderWindow* window) {
 	sprite.setPosition(pos);
 	sprite.setScale(spriteScale());
 	window->draw(sprite);
 
 	//REMOVE AFTER TESTING
-	sf::Vertex velocityLine[]{
-	sf::Vertex(pos + sf::Vector2f(32,32)),
-	sf::Vertex(pos + sf::Vector2f(32,32) + sf::Vector2f(velocity.x * 6, velocity.y * 6))
+	Vertex velocityLine[]{
+	Vertex(pos + Vector2f(32,32)),
+	Vertex(pos + Vector2f(32,32) + (operator*(normalizedVelocity, 4.0f)))
 	};
-	sf::Vertex angleLine[]{
-		sf::Vertex(lastColliderPosition + sf::Vector2f(32,32)),
-		sf::Vertex(lastColliderPosition + sf::Vector2f(32,32) + destVector)
+	Vertex velocityLineCol[]{
+	Vertex(pos + Vector2f(32,32)),
+	Vertex(pos + Vector2f(32,32) + (operator*(forceBack, 4.0f)))
+	};
+	Vertex angleLine[]{
+		Vertex(lastColliderPosition + Vector2f(32,32)),
+		Vertex(lastColliderPosition + Vector2f(32,32) + destVector)
 	}; 
-	angleLine[0].color = sf::Color::Green;
-	angleLine[1].color = sf::Color::Green;
-	window->draw(angleLine, 2, sf::Lines);
-	window->draw(velocityLine, 2, sf::Lines);
+	angleLine[0].color = Color::Green;
+	angleLine[1].color = Color::Green;
+	window->draw(angleLine, 2, Lines);
+	window->draw(velocityLine, 2, Lines);
+	window->draw(velocityLineCol, 2, Lines);
 }
 
 void Player::OnCollision(Collision collision) {
+
 	//REMOVE AFTER TESTING
 	///Saving it for rendering
 	lastColliderPosition = collision.colliderB->pos;
-	///Using 1px border until velocity is handled to avoid blocking 
-	float safeDistance = 1.0;//px 
-	destVector = collision.posDiffVector; 
-	sf::Vector2f before = destVector;
-	int sqSize = collision.colliderB->squareSize;
-	//if inside
-	if (!((abs(destVector.x) > sqSize) || (abs(destVector.y) > sqSize))) {
-		//scale vector up
-		if (abs(destVector.x) > abs(destVector.y)) {
-			//smaller first
-			destVector.y *= (abs(destVector.x) / sqSize);
-			destVector.x = (sqSize + safeDistance) * ((destVector.x < 0) ? -1 : 1);
-		}
-		else {
-			destVector.x *= (abs(destVector.y) / sqSize);
-			destVector.y = (sqSize + safeDistance) * ((destVector.y < 0) ? -1 : 1);
-		}
-		setPosition(sf::operator+(collision.colliderB->pos, destVector));
-		velocity = sf::Vector2f();
-	}
 
-	
+
+	//if player inside
+	//scale up vector to point outside
+	//move player and then adjust his velocity
+	destVector = collision.posDiffVector;
+	int sqSize = collision.colliderB->squareSize;
+	if (!((abs(destVector.x) > sqSize) || (abs(destVector.y) > sqSize))) {
+		std::cout << velocity.x << " " << velocity.y << "\n";
+		if (abs(destVector.x) > abs(destVector.y)) {
+			destVector.y *= ((abs(destVector.x) + abs(velocity.x)) / sqSize);
+			destVector.x = (sqSize) * ((destVector.x < 0) ? -1 : 1);
+		} else if(abs(destVector.x) < abs(destVector.y)){
+			destVector.x *= ((abs(destVector.y) + abs(velocity.y)) / sqSize);
+			destVector.y = (sqSize) * ((destVector.y < 0) ? -1 : 1);
+		} else { //rare corner collision
+			destVector.x = (sqSize) * ((destVector.x < 0) ? -1 : 1);
+			destVector.y = (sqSize) * ((destVector.x < 0) ? -1 : 1);
+		}
+		Move(operator+(collision.colliderB->pos, destVector));
+		if (Collision::distance(Vector2f(), normalizedVelocity) != 0) {
+			if (abs(destVector.x) > abs(destVector.y)) {
+				velocity.x = 0;
+			} else 
+			if (abs(destVector.x) < abs(destVector.y)) {
+				velocity.y = 0;
+			} else { //rare corner collision
+				velocity = Vector2f();
+			}
+		}
+	}
 }

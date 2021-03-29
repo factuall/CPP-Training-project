@@ -4,6 +4,8 @@
 
 #include "base/Object.h"
 #include "base/BoxCollider.h"
+#include "base/Collision.h"
+
 class Player :
     public Object
 {
@@ -17,6 +19,8 @@ public:
     ////////
     sf::Vector2f lastColliderPosition;
     sf::Vector2f destVector;
+    sf::Vector2f normalizedVelocity;
+    sf::Vector2f forceBack;
     /////////
 
 
@@ -24,6 +28,5 @@ public:
 private:
     sf::Vector2f input = sf::Vector2f(0, 0);
     int speed = 6;
-
     const int walkSmoothness = 8;
 };

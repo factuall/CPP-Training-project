@@ -1,4 +1,6 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <cmath>
 
 #include "Object.h"
 #include "CircleCollider.h"
@@ -22,7 +24,9 @@ void Object::Move(sf::Vector2f mPos) {
 }
 
 void Object::setPosition(sf::Vector2f xPos) {
-    pos = xPos;
+    pos.x = round(xPos.x);
+    pos.y = round(xPos.y);
+    collider->pos = pos;
 }
 
 void Object::Update() {

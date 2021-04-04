@@ -7,7 +7,7 @@ Player::Player(int nX, int nY) {
 	pos.y = nY;
 	id = 0;
 	isNull = false;
-	collider = new Collider(Vector2f(nX, nY), Vector2f(64, 64), fc::ColliderType::CircleType);
+	collider = new Collider(Vector2f(nX, nY), Vector2f(64, 64));
 	isVisible = true;
 	isTrigger = true;
 };
@@ -61,4 +61,5 @@ void Player::OnCollision(fc::Collision collision) {
 	collision.adaptCollider(velocity);
 	setPosition(collision.adaptedPosition);
 	velocity = collision.adaptedVelocity;
+	
 }

@@ -102,10 +102,12 @@ namespace fc {
 	void Collision::adaptCollider(Vector2f velocity)
 	{
 		Vector2f destVector;
-		if (colliderA->type == fc::ColliderType::BoxType && colliderB->type == fc::ColliderType::BoxType) {
+		if ((colliderA->type == fc::ColliderType::BoxType && colliderB->type == fc::ColliderType::BoxType) ||
+			(colliderA->type == fc::ColliderType::CircleType && colliderB->type == fc::ColliderType::BoxType)) {
 			destVector = diffVector;
 			int sqSize = colliderB->squareSize;
 			if (!((abs(destVector.x) > sqSize) || (abs(destVector.y) > sqSize))) {
+
 				if (abs(destVector.x) > abs(destVector.y)) {
 					destVector.y *= ((abs(destVector.x) + abs(velocity.x)) / sqSize);
 					destVector.x = (sqSize) * ((destVector.x < 0) ? -1 : 1);
@@ -113,10 +115,6 @@ namespace fc {
 				else if (abs(destVector.x) < abs(destVector.y)) {
 					destVector.x *= ((abs(destVector.y) + abs(velocity.y)) / sqSize);
 					destVector.y = (sqSize) * ((destVector.y < 0) ? -1 : 1);
-				}
-				else { //rare corner collision
-					destVector.x = (sqSize) * ((destVector.x < 0) ? -1 : 1);
-					destVector.y = (sqSize) * ((destVector.x < 0) ? -1 : 1);
 				}
 				adaptedPosition = colliderB->pos + destVector;
 				adaptedVelocity = velocity;
@@ -162,38 +160,6 @@ namespace fc {
 			}
 		}
 	
-		if (colliderA->type == fc::ColliderType::CircleType && colliderB->type == fc::ColliderType::BoxType) {
-			destVector = diffVector;
-			int sqSize = colliderB->squareSize;
-			if (!((abs(destVector.x) > sqSize) || (abs(destVector.y) > sqSize))) {
-				if (abs(destVector.x) > abs(destVector.y)) {
-					destVector.y *= ((abs(destVector.x) + abs(velocity.x)) / sqSize);
-					destVector.x = (sqSize) * ((destVector.x < 0) ? -1 : 1);
-				}
-				else if (abs(destVector.x) < abs(destVector.y)) {
-					destVector.x *= ((abs(destVector.y) + abs(velocity.y)) / sqSize);
-					destVector.y = (sqSize) * ((destVector.y < 0) ? -1 : 1);
-				}
-				else { //rare corner collision
-					destVector.x = (sqSize) * ((destVector.x < 0) ? -1 : 1);
-					destVector.y = (sqSize) * ((destVector.x < 0) ? -1 : 1);
-				}
-				adaptedPosition = colliderB->pos + destVector;
-				adaptedVelocity = velocity;
-				if (distance(Vector2f(), velocity) != 0) {
-					if (abs(destVector.x) > abs(destVector.y)) {
-						adaptedVelocity.x = 0;
-					}
-					else
-						if (abs(destVector.x) < abs(destVector.y)) {
-							adaptedVelocity.y = 0;
-						}
-						else { //rare corner collision
-							adaptedVelocity = Vector2f();
-						}
-				}
-			}
-		}
 	}
 
 

@@ -338,3 +338,7 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/newgame/Libraries/SFML-2.5.1/doc/html
+/newgame/Libraries/SFML-2.5.1/examples
+/newgame/Libraries/SFML-2.5.1/readme.md
+/newgame/Libraries/SFML-2.5.1/license.md

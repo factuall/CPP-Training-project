@@ -10,6 +10,7 @@
 #include "Object.h"
 #include "FPSDisplay.h"
 #include "Player.h"
+#include "GameFloor.h"
 #include "Core.h"
 
 int lastTick, deltaTime, secondCounter = 0, framesPerSecond = 0, framesInSecond = 0;
@@ -71,25 +72,25 @@ int main()
 	{ //walls
 		fc::Object* Walls[100] = {};
 		for (int w = 0; w < 14; w++) {
-			Walls[w] = new fc::Object(64 * w + 64, 64);
+			Walls[w] = new fc::Object(64 * w + 420, 64);
 			Walls[w]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 32, 32, 32));
 			Walls[w]->collider = new Collider(sf::Vector2f(Walls[w]->pos.x, Walls[w]->pos.y), sf::Vector2f(64, 64));
 			Walls[w]->isVisible = true;
 			gameCore.addObject(Walls[w]);
 
-			Walls[w + 14] = new fc::Object(64 * w + 64, 448);
+			Walls[w + 14] = new fc::Object(64 * w + 420, 448);
 			Walls[w + 14]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 32, 32, 32));
 			Walls[w + 14]->collider = new Collider(sf::Vector2f(Walls[w + 14]->pos.x, Walls[w + 14]->pos.y), sf::Vector2f(64, 64));
 			Walls[w + 14]->isVisible = true;
 			gameCore.addObject(Walls[w + 14]);
 
-			Walls[w + 28] = new fc::Object(64, 64 * w + 64);
+			Walls[w + 28] = new fc::Object(420, 64 * w + 64);
 			Walls[w + 28]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 32, 32, 32));
 			Walls[w + 28]->collider = new Collider(sf::Vector2f(Walls[w + 28]->pos.x, Walls[w + 28]->pos.y), sf::Vector2f(64, 64));
 			Walls[w + 28]->isVisible = true;
 			gameCore.addObject(Walls[w + 28]);
 
-			Walls[w + 42] = new fc::Object(896, 64 * w + 256);
+			Walls[w + 42] = new fc::Object(920, 64 * w + 64);
 			Walls[w + 42]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 32, 32, 32));
 			Walls[w + 42]->collider = new Collider(sf::Vector2f(Walls[w + 42]->pos.x, Walls[w + 42]->pos.y), sf::Vector2f(64, 64));
 			Walls[w + 42]->isVisible = true;
@@ -97,15 +98,20 @@ int main()
 
 
 		}
-		Walls[56] = new fc::Object(256, 256);
-		Walls[56]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 32, 32, 32));
-		Walls[56]->collider = new Collider(sf::Vector2f(Walls[56]->pos.x, Walls[56]->pos.y), sf::Vector2f(64, 64));
+		Walls[56] = new fc::Object(560, 256);
+		Walls[56]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(32, 0, 32, 32));
+		Walls[56]->collider = new Collider(sf::Vector2f(Walls[56]->pos.x, Walls[56]->pos.y), sf::Vector2f(64, 64), fc::ColliderType::CircleType);
 		Walls[56]->isVisible = true;
 		gameCore.addObject(Walls[56]);
 	} //walls
 
+	sf::Text gfTXT;
+	gfTXT.setFont(fontAlternative);
+	gfTXT.setString("X");
+	GameFloor gf = GameFloor(gfTXT);
+	gameCore.addObject(&gf);
 
-	Player playerObj = Player(300, 300);
+	Player playerObj = Player(560, 340);
 	playerObj.sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 0, 32, 32));
 	playerObj.sprite.setColor(sf::Color(150, 255, 150, 255));
 	gameCore.addObject(&playerObj);

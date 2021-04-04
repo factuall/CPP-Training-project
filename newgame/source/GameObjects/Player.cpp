@@ -7,7 +7,7 @@ Player::Player(int nX, int nY) {
 	pos.y = nY;
 	id = 0;
 	isNull = false;
-	collider = new Collider(Vector2f(nX, nY), Vector2f(64, 64));
+	collider = new Collider(Vector2f(nX, nY), Vector2f(64, 64), fc::ColliderType::CircleType);
 	isVisible = true;
 	isTrigger = true;
 };

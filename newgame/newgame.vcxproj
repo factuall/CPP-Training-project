@@ -194,6 +194,8 @@
     <ClCompile Include="source\core\physics\Collision.cpp" />
     <ClCompile Include="source\core\Object.cpp" />
     <ClCompile Include="source\GameObjects\FPSDisplay.cpp" />
+    <ClCompile Include="source\GameObjects\GameFloor.cpp" />
+    <ClCompile Include="source\GameObjects\ObjectExample.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\GameObjects\Player.cpp" />
   </ItemGroup>
@@ -201,8 +203,10 @@
     <ClInclude Include="include\Core.h" />
     <ClInclude Include="include\Collider.h" />
     <ClInclude Include="include\Collision.h" />
+    <ClInclude Include="include\GameFloor.h" />
     <ClInclude Include="include\Object.h" />
     <ClInclude Include="include\FPSDisplay.h" />
+    <ClInclude Include="include\ObjectExample.h" />
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="Libraries\SFML-2.5.1\include\SFML\Audio.hpp" />
     <ClInclude Include="Libraries\SFML-2.5.1\include\SFML\Audio\AlResource.hpp" />

@@ -54,6 +54,12 @@
     <ClCompile Include="source\core\Core.cpp">
       <Filter>cpp\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\GameObjects\ObjectExample.cpp">
+      <Filter>cpp\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GameObjects\GameFloor.cpp">
+      <Filter>cpp\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Player.h">
@@ -414,6 +420,12 @@
       <Filter>cpp\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Libraries\SFML-2.5.1\include\SFML\Window.hpp">
+      <Filter>cpp\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ObjectExample.h">
+      <Filter>cpp\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameFloor.h">
       <Filter>cpp\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

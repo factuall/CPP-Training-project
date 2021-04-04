@@ -12,10 +12,7 @@
 #include "Player.h"
 #include "Core.h"
 
-
-
-
-int lastTick, deltaTime;
+int lastTick, deltaTime, secondCounter = 0, framesPerSecond = 0, framesInSecond = 0;
 int lastTime = 0; double deltaTIme;
 double PCFreq = 0.0;
 __int64 CounterStart = 0;
@@ -65,11 +62,14 @@ int main()
 		!fontAlternative.loadFromFile("../Release/fonts/future.ttf")) {
 		//ERROR
 	}
+
+	///
+
 	StartTimer();
 	fc::Core gameCore = fc::Core(&image, &fontRegular, &fontAlternative);
 	fc::Object Wall = fc::Object(128, 128);
 	Wall.sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(32, 0, 32, 32));
-	Wall.collider = new Collider(sf::Vector2f(Wall.pos.x, Wall.pos.y),sf::Vector2f(64, 64), fc::ColliderType::CircleType);
+	Wall.collider = new Collider(sf::Vector2f(Wall.pos.x, Wall.pos.y),sf::Vector2f(64, 64),fc::ColliderType::CircleType);
 	Wall.isVisible = true;
 	gameCore.addObject(&Wall);
 
@@ -77,6 +77,14 @@ int main()
 	playerObj.sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 0, 32, 32));
 	playerObj.sprite.setColor(sf::Color(150, 255, 150, 255));
 	gameCore.addObject(&playerObj);
+
+	sf::Text txt;
+	txt.setFont(fontRegular);
+	txt.setString("00");
+	FPSDisplay fpsDisplay = FPSDisplay(txt);
+	gameCore.addObject(&fpsDisplay);
+
+	///
 
 	while (gameCore.window->isOpen()) {
 		sf::Event event;
@@ -88,18 +96,19 @@ int main()
 		if (DeltaTime() <= 16 && skipTickTime < 16) {
 			skipTickTime += deltaTime;
 		}
+		secondCounter += deltaTime;
+		if (secondCounter >= 1000) {
+			framesPerSecond = framesInSecond;
+			framesInSecond = 0;
+			secondCounter = 0;
+		}
 		if (skipTickTime >= 16) {
 			skipTickTime = 0;
+			framesInSecond++;
 			gameCore.update();
 		}
+		fpsDisplay.text.setString(std::to_string(framesPerSecond));
 		gameCore.render();
 	}
-
-	/*
-	fpsDisplay = FPSDisplay();
-	fpsDisplay.text.setFont(fontRegular);
-	fpsDisplay.text.setString(std::to_string(framesPerSecond));
-	addObject(&fpsDisplay);
-	*/
 	return 0;
 }

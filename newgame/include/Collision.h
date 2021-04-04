@@ -23,31 +23,13 @@ namespace fc {
 		};
 		void adaptCollider(Vector2f velocity);
 	private:
-		//void pointCircle(Vector2f point, Vector2f circle, int radius);
 		void BoxBox();
 		void CircleCircle();
 		void LineLine();
 		
-		void BoxCircle();
+		void CircleBox();
 		void LineBox();
 		void LineCircle();
-		//void getCollisionDetails(Vector2f* result[2]);
 	};
 
 }
-/*
-if (!((abs(destVector.x) > sqSize) || (abs(destVector.y) > sqSize))) {
-			if (abs(destVector.x) > abs(destVector.y)) {
-				destVector.y *= ((abs(destVector.x) + abs(velocity.x)) / sqSize);
-				destVector.x = (sqSize) * ((destVector.x < 0) ? -1 : 1);
-			}
-			else if (abs(destVector.x) < abs(destVector.y)) {
-				destVector.x *= ((abs(destVector.y) + abs(velocity.y)) / sqSize);
-				destVector.y = (sqSize) * ((destVector.y < 0) ? -1 : 1);
-			}
-			else { //rare corner collision
-				destVector.x = (sqSize) * ((destVector.x < 0) ? -1 : 1);
-				destVector.y = (sqSize) * ((destVector.x < 0) ? -1 : 1);
-			}
-
-*/

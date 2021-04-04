@@ -8,7 +8,7 @@ class FPSDisplay :
     public fc::Object
 {
 public:
-    FPSDisplay();
+    FPSDisplay(sf::Text txt);
     void Render(sf::RenderWindow* window);
 };
 

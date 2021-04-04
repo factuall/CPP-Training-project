@@ -35,31 +35,19 @@ namespace fc {
 
 		//Mixed collisions
 	//box-circle && circle-box
-		if (colliderA->type == ColliderType::BoxType &&
-			colliderB->type == ColliderType::CircleType) {
-			BoxCircle();
-		}
 		if (colliderA->type == ColliderType::CircleType &&
 			colliderB->type == ColliderType::BoxType) {
-			colliderA = B; colliderB = A; BoxCircle();
+			CircleBox();
 		}
 		//line-box && box-line
 		if (colliderA->type == ColliderType::LineType &&
 			colliderB->type == ColliderType::BoxType) {
 			LineBox();
 		}
-		if (colliderA->type == ColliderType::BoxType &&
-			colliderB->type == ColliderType::LineType) {
-			colliderA = B; colliderB = A; LineBox();
-		}
 		//line-circle && circle-line
 		if (colliderA->type == ColliderType::LineType &&
 			colliderB->type == ColliderType::CircleType) {
 			LineCircle();
-		}
-		if (colliderA->type == ColliderType::CircleType &&
-			colliderB->type == ColliderType::LineType) {
-			colliderA = B; colliderB = A; LineCircle();
 		}
 	}
 
@@ -94,15 +82,18 @@ namespace fc {
 		diffVector.x = (colliderA->pos.x - colliderB->pos.x); diffVector.y = (colliderA->pos.y - colliderB->pos.y);
 	}
 	void Collision::LineLine() {}
-	void Collision::BoxCircle() {
-		Vector2f temp = colliderB->pos;
-		if (colliderB->pos.x < colliderA->pos.x)         temp.x = colliderA->pos.x;						// test left edge
-		else if (colliderB->pos.x > colliderA->pos.x + colliderA->size.x) temp.x = colliderA->pos.x + colliderA->size.x;   // right edge
-		if (colliderB->pos.y < colliderA->pos.y)         temp.y = colliderA->pos.y;						// top edge
-		else if (colliderB->pos.y > colliderA->pos.y + colliderA->size.y) temp.y = colliderA->pos.y + colliderA->size.y; // bottom edge
+	void Collision::CircleBox() {
+		Vector2f temp = colliderA->pos;
+		if (colliderA->pos.x < colliderB->pos.x)         temp.x = colliderB->pos.x;						// test left edge
+		else if (colliderA->pos.x > colliderB->pos.x + colliderB->size.x) temp.x = colliderB->pos.x + colliderB->size.x;   // right edge
+		if (colliderA->pos.y < colliderB->pos.y)         temp.y = colliderA->pos.y;						// top edge
+		else if (colliderA->pos.y > colliderB->pos.y + colliderB->size.y) temp.y = colliderB->pos.y + colliderB->size.y; // bottom edge
 		//is distance from closest edge smaller than circle radius
 		diffVector.x = (colliderA->pos.x - colliderB->pos.x); diffVector.y = (colliderA->pos.y - colliderB->pos.y);
-		colliding = (distance(colliderB->pos, temp) <= colliderB->size.x);
+		colliding = (colliderA->pos.x < colliderB->pos.x + colliderB->size.x &&
+			colliderA->pos.x + colliderA->size.x > colliderB->pos.x &&
+			colliderA->pos.y < colliderB->pos.y + colliderB->size.y &&
+			colliderA->pos.y + colliderA->size.y > colliderB->pos.y);
 		
 	}
 	void Collision::LineBox() {}
@@ -152,27 +143,57 @@ namespace fc {
 					destVector.x = destVector.x * 1.01f;
 					destVector.y = destVector.y * 1.01f;
 				}
-
+				float bounciness = 0.75f; //from 0.5f to 1.0f
 				adaptedPosition = (operator+(colliderB->pos, destVector));
 
 				if (abs(velocity.x) > abs(velocity.y)) {
-					velocity.y = abs(velocity.x) * ((destVector.y < 0) ? -1 : 1);
-					velocity.x = abs((normalize(velocity).x) + (normalize(destVector).x)) * velocity.x;
+					velocity.y = abs(velocity.x * bounciness) * ((destVector.y < 0) ? -1 : 1);
+					velocity.x = abs((normalize(velocity).x * bounciness) + (normalize(destVector).x)) * velocity.x;
 				}
 				else if (abs(velocity.x) < abs(velocity.y)) {
-					velocity.x = abs(velocity.y) * ((destVector.x < 0) ? -1 : 1);
-					velocity.y = abs((normalize(velocity).y) + (normalize(destVector).y)) * velocity.y;
+					velocity.x = abs(velocity.y * bounciness) * ((destVector.x < 0) ? -1 : 1);
+					velocity.y = abs((normalize(velocity).y * bounciness) + (normalize(destVector).y)) * velocity.y;
 				}
 				else {
-
+					velocity.x = abs((normalize(velocity).x * bounciness) + (normalize(destVector).x)) * velocity.x;
+					velocity.y = abs((normalize(velocity).y * bounciness) + (normalize(destVector).y)) * velocity.y;
 				}
-
 				adaptedVelocity = velocity;
-
 			}
 		}
 	
-		
+		if (colliderA->type == fc::ColliderType::CircleType && colliderB->type == fc::ColliderType::BoxType) {
+			destVector = diffVector;
+			int sqSize = colliderB->squareSize;
+			if (!((abs(destVector.x) > sqSize) || (abs(destVector.y) > sqSize))) {
+				if (abs(destVector.x) > abs(destVector.y)) {
+					destVector.y *= ((abs(destVector.x) + abs(velocity.x)) / sqSize);
+					destVector.x = (sqSize) * ((destVector.x < 0) ? -1 : 1);
+				}
+				else if (abs(destVector.x) < abs(destVector.y)) {
+					destVector.x *= ((abs(destVector.y) + abs(velocity.y)) / sqSize);
+					destVector.y = (sqSize) * ((destVector.y < 0) ? -1 : 1);
+				}
+				else { //rare corner collision
+					destVector.x = (sqSize) * ((destVector.x < 0) ? -1 : 1);
+					destVector.y = (sqSize) * ((destVector.x < 0) ? -1 : 1);
+				}
+				adaptedPosition = colliderB->pos + destVector;
+				adaptedVelocity = velocity;
+				if (distance(Vector2f(), velocity) != 0) {
+					if (abs(destVector.x) > abs(destVector.y)) {
+						adaptedVelocity.x = 0;
+					}
+					else
+						if (abs(destVector.x) < abs(destVector.y)) {
+							adaptedVelocity.y = 0;
+						}
+						else { //rare corner collision
+							adaptedVelocity = Vector2f();
+						}
+				}
+			}
+		}
 	}
 
 

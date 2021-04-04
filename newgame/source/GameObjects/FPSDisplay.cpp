@@ -1,13 +1,14 @@
 #include "FPSDisplay.h"
 #include "Collider.h"
-FPSDisplay::FPSDisplay()
+FPSDisplay::FPSDisplay(sf::Text txt)
 {
 	id = 0;
 	isNull = false;
+	collider = new fc::Collider(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
 	collider->active = false;
 	isTrigger = false;
 	isVisible = true;
-	text = sf::Text();
+	text = txt;
 	text.setCharacterSize(32);
 	text.setString("fps");
 	text.setFillColor(sf::Color::White);

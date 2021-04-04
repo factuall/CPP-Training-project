@@ -59,28 +59,10 @@ void Player::Render(RenderWindow* window) {
 	sprite.setPosition(pos);
 	sprite.setScale(spriteScale());
 	window->draw(sprite);
-
-	//REMOVE AFTER TESTING
-	Vertex velocityLine[]{
-	Vertex(pos + Vector2f(32,32)),
-	Vertex(pos + Vector2f(32,32) + (operator*(normalizedVelocity, 4.0f)))
-	};
-	Vertex velocityLineCol[]{
-	Vertex(pos + Vector2f(32,32)),
-	Vertex(pos + Vector2f(32,32) + (operator*(forceBack, 4.0f)))
-	};
-	Vertex angleLine[]{
-		Vertex(lastColliderPosition + Vector2f(32,32)),
-		Vertex(lastColliderPosition + Vector2f(32,32) + destVector)
-	};
-	angleLine[0].color = Color::Green;
-	angleLine[1].color = Color::Green;
-	//window->draw(angleLine, 2, Lines);
-	//window->draw(velocityLine, 2, Lines);
-	//window->draw(velocityLineCol, 2, Lines);
 }
 
 void Player::OnCollision(fc::Collision collision) {
+	/*
 	if (collision.colliderB->type == fc::ColliderType::BoxType) {
 		//REMOVE AFTER TESTING
 	///Saving it for rendering
@@ -107,7 +89,7 @@ void Player::OnCollision(fc::Collision collision) {
 				destVector.y = (sqSize) * ((destVector.x < 0) ? -1 : 1);
 			}
 			setPosition(operator+(collision.colliderB->pos, destVector));
-			if (collision.distance(Vector2f(), normalizedVelocity) != 0) {
+			if (collision.distance(Vector2f(), (operator*(velocity,(float)speed))) != 0) {
 				if (abs(destVector.x) > abs(destVector.y)) {
 					velocity.x = 0;
 				}
@@ -154,5 +136,8 @@ void Player::OnCollision(fc::Collision collision) {
 
 			
 		}
-	}
+	}*/
+	collision.adaptCollider(velocity);
+	setPosition(collision.adaptedPosition);
+	velocity = collision.adaptedVelocity;
 }

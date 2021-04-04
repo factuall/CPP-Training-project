@@ -90,13 +90,10 @@ namespace fc {
 			colliderA->pos.y + colliderA->size.y > colliderB->pos.y);
 	}
 	void Collision::CircleCircle() {
-		
 		colliding = (distance(colliderA->pos,colliderB->pos) <= ((colliderA->squareSize / 2)+ (colliderB->squareSize / 2)));
 		diffVector.x = (colliderA->pos.x - colliderB->pos.x); diffVector.y = (colliderA->pos.y - colliderB->pos.y);
 	}
-	void Collision::LineLine() {
-
-	}
+	void Collision::LineLine() {}
 	void Collision::BoxCircle() {
 		Vector2f temp = colliderB->pos;
 		if (colliderB->pos.x < colliderA->pos.x)         temp.x = colliderA->pos.x;						// test left edge
@@ -104,67 +101,78 @@ namespace fc {
 		if (colliderB->pos.y < colliderA->pos.y)         temp.y = colliderA->pos.y;						// top edge
 		else if (colliderB->pos.y > colliderA->pos.y + colliderA->size.y) temp.y = colliderA->pos.y + colliderA->size.y; // bottom edge
 		//is distance from closest edge smaller than circle radius
-		entryPos.x = colliderA->pos.x; entryPos.y = colliderA->pos.y;
 		diffVector.x = (colliderA->pos.x - colliderB->pos.x); diffVector.y = (colliderA->pos.y - colliderB->pos.y);
 		colliding = (distance(colliderB->pos, temp) <= colliderB->size.x);
 		
 	}
-	void Collision::LineBox() {
-		/*Collider up(colliderB->pos, operator+(colliderB->pos, colliderB->size), ColliderType::LineType),
-			down(colliderB->pos, operator+(colliderB->pos, colliderB->size), ColliderType::LineType),
-			left(colliderB->pos.x, colliderB->pos.y, colliderB->pos.x, colliderB->pos.y + colliderB->size.y),
-			right(colliderB->pos.x + colliderB->size.x, colliderB->pos.y, colliderB->pos.x + colliderB->size.x, colliderB->pos.y + colliderB->size.y);
-		entryPos = Vector2f();
-		posDiffVector = Vector2f();
-		if (lineLine(A, &up, &entryPos)) {
-			lineLine(A, &down, &posDiffVector);
-			lineLine(A, &left, &posDiffVector);
-			lineLine(A, &right, &posDiffVector);
-		}
-		else if (lineLine(A, &down, &entryPos)) {
-			lineLine(A, &up, &posDiffVector);
-			lineLine(A, &left, &posDiffVector);
-			lineLine(A, &right, &posDiffVector);
-		}
-		else if (lineLine(A, &left, &entryPos)) {
-			lineLine(A, &up, &posDiffVector);
-			lineLine(A, &down, &posDiffVector);
-			lineLine(A, &right, &posDiffVector);
-		}
-		else if (lineLine(A, &right, &entryPos)) {
-			lineLine(A, &up, &posDiffVector);
-			lineLine(A, &left, &posDiffVector);
-			lineLine(A, &down, &posDiffVector);
-		}
-		return (lineLine(A, &up) || lineLine(A, &down) || lineLine(A, &left) || lineLine(A, &right));*/
-	}
-	void Collision::LineCircle() {
-		/*LineCollider* A = dynamic_cast<LineCollider*>(colliderA);
-		CircleCollider* B = dynamic_cast<CircleCollider*>(colliderB);
-		//line start or destination in circle
-		if (pointCircle(A->pos, B->pos, B->size.x) ||
-			pointCircle(A->dest, B->pos, B->size.x)) {
-			entryPos = Vector2f(A->pos.x, A->pos.y);
-			posDiffVector = Vector2f(B->pos.x, B->pos.y);
-			return true;
-		}
-		float lineLength = distance(A->pos, A->dest);
-		float dot = (((B->pos.x - A->pos.x) * (A->dest.x - A->pos.x)) + ((B->pos.y - A->pos.y) * (A->dest.y - A->pos.y))) / pow(lineLength, 2);
-		Vector2f closest = Vector2f(
-			A->pos.x + (dot * (A->dest.x - A->pos.x)),
-			A->pos.y + (dot * (A->dest.y - A->pos.y))
-		);
-		//is closest point on the line
-		if (!linePoint(A->pos, A->dest, closest)) {
+	void Collision::LineBox() {}
+	void Collision::LineCircle() {}
 
-			return false;
+	void Collision::adaptCollider(Vector2f velocity)
+	{
+		Vector2f destVector;
+		if (colliderA->type == fc::ColliderType::BoxType && colliderB->type == fc::ColliderType::BoxType) {
+			destVector = diffVector;
+			int sqSize = colliderB->squareSize;
+			if (!((abs(destVector.x) > sqSize) || (abs(destVector.y) > sqSize))) {
+				if (abs(destVector.x) > abs(destVector.y)) {
+					destVector.y *= ((abs(destVector.x) + abs(velocity.x)) / sqSize);
+					destVector.x = (sqSize) * ((destVector.x < 0) ? -1 : 1);
+				}
+				else if (abs(destVector.x) < abs(destVector.y)) {
+					destVector.x *= ((abs(destVector.y) + abs(velocity.y)) / sqSize);
+					destVector.y = (sqSize) * ((destVector.y < 0) ? -1 : 1);
+				}
+				else { //rare corner collision
+					destVector.x = (sqSize) * ((destVector.x < 0) ? -1 : 1);
+					destVector.y = (sqSize) * ((destVector.x < 0) ? -1 : 1);
+				}
+				adaptedPosition = colliderB->pos + destVector;
+				adaptedVelocity = velocity;
+				if (distance(Vector2f(), velocity) != 0) {
+					if (abs(destVector.x) > abs(destVector.y)) {
+						adaptedVelocity.x = 0;
+					}
+					else
+						if (abs(destVector.x) < abs(destVector.y)) {
+							adaptedVelocity.y = 0;
+						}
+						else { //rare corner collision
+							adaptedVelocity = Vector2f();
+						}
+				}
+			}
 		}
-		//if closest point in circle
-		entryPos = Vector2f(B->pos.x, B->pos.y);
-		posDiffVector = closest;
-		if (distance(closest, B->pos) <= B->size.x) return  true;
+	
+		if (colliderA->type == fc::ColliderType::CircleType && colliderB->type == fc::ColliderType::CircleType) {
+			destVector = diffVector;
+			int sqSize = colliderB->squareSize;
+			if (distance(colliderA->pos, colliderB->pos) < colliderA->squareSize + colliderB->squareSize) {
+				while (distance(destVector + colliderA->pos, colliderB->pos) < colliderA->squareSize + colliderB->squareSize) {
+					destVector.x = destVector.x * 1.01f;
+					destVector.y = destVector.y * 1.01f;
+				}
 
-		*/
+				adaptedPosition = (operator+(colliderB->pos, destVector));
+
+				if (abs(velocity.x) > abs(velocity.y)) {
+					velocity.y = abs(velocity.x) * ((destVector.y < 0) ? -1 : 1);
+					velocity.x = abs((normalize(velocity).x) + (normalize(destVector).x)) * velocity.x;
+				}
+				else if (abs(velocity.x) < abs(velocity.y)) {
+					velocity.x = abs(velocity.y) * ((destVector.x < 0) ? -1 : 1);
+					velocity.y = abs((normalize(velocity).y) + (normalize(destVector).y)) * velocity.y;
+				}
+				else {
+
+				}
+
+				adaptedVelocity = velocity;
+
+			}
+		}
+	
+		
 	}
 
 

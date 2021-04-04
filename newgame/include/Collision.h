@@ -13,12 +13,15 @@ namespace fc {
 		Collider* colliderA;
 		Collider* colliderB;
 		bool colliding;
-		Vector2f entryPos;
+		Vector2f velocityA;
 		Vector2f diffVector;
+		Vector2f adaptedPosition;
+		Vector2f adaptedVelocity;
 		Collision(Collider* cA, Collider* cB);
 		void ProcessCollision(Collider* cA, Collider* cB) {
 
 		};
+		void adaptCollider(Vector2f velocity);
 	private:
 		//void pointCircle(Vector2f point, Vector2f circle, int radius);
 		void BoxBox();
@@ -28,7 +31,6 @@ namespace fc {
 		void BoxCircle();
 		void LineBox();
 		void LineCircle();
-		
 		//void getCollisionDetails(Vector2f* result[2]);
 	};
 

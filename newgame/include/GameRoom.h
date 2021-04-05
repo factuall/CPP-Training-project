@@ -1,27 +1,26 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <random>
 #include "Collider.h"
 #include "Collision.h"
 #include "Object.h"
-#include "GameRoom.h"
 
 using namespace sf;
 using namespace fc;
-class GameFloor :
+enum class RoomState{Solid, Alive, Dead, Start, Boss};
+class GameRoom :
     public Object
 {
 public:
-    GameFloor(sf::Text txt);
-    void Start();
+    GameRoom(int nX, int nY, int gen);
+    GameRoom();
     void Update();
     void Render(RenderWindow* window);
     void OnCollision(fc::Collision collision);
-    char room[20][20];
-    GameRoom roomMap[20][20];
-    Vector2i orderOfRooms[25];
-    int rooms = 1;
-    sf::Text curChar;
+    RoomState genState;
+    void setState(RoomState state);
+    RoomState getState();
+    String stateString();
+    int generation;
 private:
 };

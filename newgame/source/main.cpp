@@ -69,42 +69,44 @@ int main()
 	StartTimer();
 	fc::Core gameCore = fc::Core(&image, &fontRegular, &fontAlternative);
 
-	{ //walls
-		fc::Object* Walls[100] = {};
+	{ //walls and background
+
+		fc::Object* Walls[100] = {}; //background
+		Walls[56] = new fc::Object(0, 0); //background
+		Walls[56]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 736, 512, 288));
+		Walls[56]->collider = new Collider(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
+		Walls[56]->isVisible = true; //background
+		gameCore.addObject(Walls[56]); //background
 		for (int w = 0; w < 14; w++) {
-			Walls[w] = new fc::Object(64 * w + 420, 64);
+			Walls[w] = new fc::Object(64 * w + 64, 0);
 			Walls[w]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 32, 32, 32));
 			Walls[w]->collider = new Collider(sf::Vector2f(Walls[w]->pos.x, Walls[w]->pos.y), sf::Vector2f(64, 64));
-			Walls[w]->isVisible = true;
+			Walls[w]->isVisible = false;
 			gameCore.addObject(Walls[w]);
 
-			Walls[w + 14] = new fc::Object(64 * w + 420, 448);
+			Walls[w + 14] = new fc::Object(64 * w + 64, 512);
 			Walls[w + 14]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 32, 32, 32));
 			Walls[w + 14]->collider = new Collider(sf::Vector2f(Walls[w + 14]->pos.x, Walls[w + 14]->pos.y), sf::Vector2f(64, 64));
-			Walls[w + 14]->isVisible = true;
+			Walls[w + 14]->isVisible = false;
 			gameCore.addObject(Walls[w + 14]);
 
-			Walls[w + 28] = new fc::Object(420, 64 * w + 64);
+			Walls[w + 28] = new fc::Object(0, 64 * w);
 			Walls[w + 28]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 32, 32, 32));
 			Walls[w + 28]->collider = new Collider(sf::Vector2f(Walls[w + 28]->pos.x, Walls[w + 28]->pos.y), sf::Vector2f(64, 64));
-			Walls[w + 28]->isVisible = true;
+			Walls[w + 28]->isVisible = false;
 			gameCore.addObject(Walls[w + 28]);
 
-			Walls[w + 42] = new fc::Object(920, 64 * w + 64);
+			Walls[w + 42] = new fc::Object(960, 64 * w);
 			Walls[w + 42]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 32, 32, 32));
 			Walls[w + 42]->collider = new Collider(sf::Vector2f(Walls[w + 42]->pos.x, Walls[w + 42]->pos.y), sf::Vector2f(64, 64));
-			Walls[w + 42]->isVisible = true;
+			Walls[w + 42]->isVisible = false;
 			gameCore.addObject(Walls[w + 42]);
 
 
 		}
-		Walls[56] = new fc::Object(560, 256);
-		Walls[56]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(32, 0, 32, 32));
-		Walls[56]->collider = new Collider(sf::Vector2f(Walls[56]->pos.x, Walls[56]->pos.y), sf::Vector2f(64, 64), fc::ColliderType::CircleType);
-		Walls[56]->isVisible = true;
-		gameCore.addObject(Walls[56]);
 	} //walls
 
+	
 	sf::Text gfTXT;
 	gfTXT.setFont(fontAlternative);
 	gfTXT.setString("X");

@@ -11,19 +11,27 @@ GameFloor::GameFloor(sf::Text txt) {
 	collider = new Collider(Vector2f(0, 0), Vector2f(4, 4));
 	isVisible = true;
 	isTrigger = false;
-	
-	for (int fX = 0; fX < 20; fX++) {
-		for (int fY = 0; fY < 20; fY++) {
-			room[fX][fY] = '#';
-		}
-	}
-	orderOfRooms[0] = Vector2i(10, 10);
-	room[10][10] = 'O';
 	Start();
 }
 
 void GameFloor::Start()
 {
+	for (int fX = 0; fX < 20; fX++) {
+		orderOfRooms[fX] = Vector2i(0, 0);
+		for (int fY = 0; fY < 20; fY++) {
+			roomMap[fX][fY] = GameRoom();
+
+		}
+	}
+	orderOfRooms[20] = Vector2i(0, 0);
+	orderOfRooms[21] = Vector2i(0, 0);
+	orderOfRooms[22] = Vector2i(0, 0);
+	orderOfRooms[23] = Vector2i(0, 0);
+	orderOfRooms[24] = Vector2i(0, 0);
+	orderOfRooms[0] = Vector2i(10, 10);
+	roomMap[10][10] = GameRoom(10, 10, 0);
+	
+	rooms = 0;
 
 }
 
@@ -31,20 +39,7 @@ void GameFloor::Update() {
 	orderOfRooms[0] = Vector2i(10, 10);
 	collider->pos = pos;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
-		for (int fX = 0; fX < 20; fX++) {
-			orderOfRooms[fX] = Vector2i(0, 0);
-			for (int fY = 0; fY < 20; fY++) {
-				room[fX][fY] = '#';
-			}
-		}
-		orderOfRooms[20] = Vector2i(0, 0);
-		orderOfRooms[21] = Vector2i(0, 0);
-		orderOfRooms[22] = Vector2i(0, 0);
-		orderOfRooms[23] = Vector2i(0, 0);
-		orderOfRooms[24] = Vector2i(0, 0);
-		orderOfRooms[0] = Vector2i(10, 10);
-		room[10][10] = 'O';
-		rooms = 0;
+		Start();
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::K)) {
 
@@ -59,49 +54,45 @@ void GameFloor::Update() {
 			for (int fX = 0; fX < 20; fX++) {
 				for (int fY = 0; fY < 20; fY++) {
 
+					
 
-					if (room[fX][fY] == 'O') {
+					if (roomMap[fX][fY].getState() == RoomState::Alive) {
 						for (int ways = 0; ways < 4; ways++) {
-
-
-							int xxx = 0; int yyy = 0;
+							int nbrX = 0; int nbrY = 0;
 							switch (ways) {
 							case 0:
-								xxx = fX + 1;
-								yyy = fY;
+								nbrX = fX + 1;
+								nbrY = fY;
 								break;
 							case 1:
-								xxx = fX;
-								yyy = fY + 1;
+								nbrX = fX;
+								nbrY = fY + 1;
 								break;
 							case 2:
-								xxx = fX - 1;
-								yyy = fY;
+								nbrX = fX - 1;
+								nbrY = fY;
 								break;
 							case 3:
-								xxx = fX;
-								yyy = fY - 1;
+								nbrX = fX;
+								nbrY = fY - 1;
 								break;
 							}
 
 
-							if (room[xxx][yyy] == '0') {
+							if (roomMap[nbrX][nbrY].getState() == RoomState::Dead) {
 								continue;
 							}
-							else if (room[xxx][yyy] == '#') {
+							else if (roomMap[nbrX][nbrY].getState() == RoomState::Solid) {
 								if (dist(rng) > 3 ) {
-									room[xxx][yyy] = 'O';
-									orderOfRooms[rooms] = Vector2i(xxx, yyy);
+									roomMap[nbrX][nbrY].setState(RoomState::Alive);
+									orderOfRooms[rooms] = Vector2i(nbrX, nbrY);
 									rooms++;
 									return;
 								}
 								else {
-									room[fX][fY] = '0';
+									roomMap[fX][fY].setState(RoomState::Dead);
 								}
 							}
-
-
-
 						}
 					}
 				}
@@ -119,10 +110,10 @@ void GameFloor::Render(RenderWindow* window) {
 
 				curChar.setCharacterSize(20);
 
-					if (room[fX][fY] == '#') {
+					if (roomMap[fX][fY].getState() == RoomState::Solid) {
 						curChar.setFillColor(sf::Color::White);
 					}
-					else if (room[fX][fY] == 'O') {
+					else if (roomMap[fX][fY].getState() == RoomState::Alive) {
 						curChar.setFillColor(sf::Color(0x555555ff));
 					}
 					else {
@@ -130,7 +121,7 @@ void GameFloor::Render(RenderWindow* window) {
 					}
 
 				
-				curChar.setString(room[fX][fY]);
+				curChar.setString(roomMap[fX][fY].stateString());
 				curChar.setPosition(fX * 20 + 25, fY * 20 + 26);
 				window->draw(curChar);
 			}
@@ -141,7 +132,6 @@ void GameFloor::Render(RenderWindow* window) {
 		for (int order = 0; order < 25; order++) {
 			if ((orderOfRooms[order].x + orderOfRooms[order].y) != 0) {
 				curChar.setCharacterSize(20);
-				curChar.setString("#");
 				if (order == 4) {
 					curChar.setFillColor(sf::Color(0,255,0,255));
 				}

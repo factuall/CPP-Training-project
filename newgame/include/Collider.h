@@ -8,9 +8,10 @@ namespace fc {
 		Vector2f pos = Vector2f();
 		Vector2f size = Vector2f();
 		int squareSize;
-		bool active = false;
+		bool active = false; bool renderCollider = false;
 		ColliderType type;
 		Collider(Vector2f pos, Vector2f size);
 		Collider(Vector2f pos, Vector2f size, ColliderType type);
+		void RenderCollider(sf::RenderWindow* window);
 	};
 }

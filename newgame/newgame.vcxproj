@@ -190,6 +190,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Core.cpp" />
+    <ClCompile Include="source\core\graphics\Animation.cpp" />
+    <ClCompile Include="source\core\graphics\SpriteController.cpp" />
     <ClCompile Include="source\core\physics\Collider.cpp" />
     <ClCompile Include="source\core\physics\Collision.cpp" />
     <ClCompile Include="source\core\Object.cpp" />
@@ -201,6 +203,7 @@
     <ClCompile Include="source\GameObjects\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Animation.h" />
     <ClInclude Include="include\Core.h" />
     <ClInclude Include="include\Collider.h" />
     <ClInclude Include="include\Collision.h" />
@@ -210,6 +213,7 @@
     <ClInclude Include="include\FPSDisplay.h" />
     <ClInclude Include="include\ObjectExample.h" />
     <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\SpriteController.h" />
     <ClInclude Include="Libraries\SFML-2.5.1\include\SFML\Audio.hpp" />
     <ClInclude Include="Libraries\SFML-2.5.1\include\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="Libraries\SFML-2.5.1\include\SFML\Audio\Export.hpp" />

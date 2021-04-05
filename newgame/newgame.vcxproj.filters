@@ -63,6 +63,12 @@
     <ClCompile Include="source\GameObjects\GameRoom.cpp">
       <Filter>cpp\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\core\graphics\SpriteController.cpp">
+      <Filter>cpp\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\core\graphics\Animation.cpp">
+      <Filter>cpp\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Player.h">
@@ -432,6 +438,12 @@
       <Filter>cpp\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\GameRoom.h">
+      <Filter>cpp\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SpriteController.h">
+      <Filter>cpp\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Animation.h">
       <Filter>cpp\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

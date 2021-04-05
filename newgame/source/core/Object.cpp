@@ -39,6 +39,9 @@ namespace fc {
             sprite.setPosition(pos);
             window->draw(sprite);
         }
+        if (collider->renderCollider) {
+            collider->RenderCollider(window);
+        }
     }
 
     void Object::OnCollision(Collision collision) {}

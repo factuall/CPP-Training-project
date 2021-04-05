@@ -7,9 +7,10 @@ Player::Player(int nX, int nY) {
 	pos.y = nY;
 	id = 0;
 	isNull = false;
-	collider = new Collider(Vector2f(nX, nY), Vector2f(64, 64));
+	collider = new Collider(Vector2f(nX, nY), Vector2f(64, 64), ColliderType::CircleType);
 	isVisible = true;
 	isTrigger = true;
+	collider->renderCollider = true;
 };
 
 void Player::Update() {
@@ -55,11 +56,14 @@ void Player::Render(RenderWindow* window) {
 	sprite.setPosition(pos);
 	sprite.setScale(spriteScale());
 	window->draw(sprite);
+	if (collider->renderCollider) {
+		collider->RenderCollider(window);
+	}
 }
 
 void Player::OnCollision(fc::Collision collision) {
 	collision.adaptCollider(velocity);
 	setPosition(collision.adaptedPosition);
 	velocity = collision.adaptedVelocity;
-	
+
 }

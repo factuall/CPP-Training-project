@@ -106,12 +106,12 @@ int main()
 		}
 	} //walls
 
-	
+	/*
 	sf::Text gfTXT;
 	gfTXT.setFont(fontAlternative);
 	gfTXT.setString("X");
 	GameFloor gf = GameFloor(gfTXT);
-	gameCore.addObject(&gf);
+	gameCore.addObject(&gf);*/
 
 	Player playerObj = Player(560, 340);
 	playerObj.sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 0, 32, 32));

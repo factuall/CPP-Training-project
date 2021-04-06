@@ -14,6 +14,14 @@ namespace fc {
 		this->squareSize = size.x;
 		active = true;
 	}
+	Collider::Collider(Vector2f pos, Vector2f size, Vector2f offset) {
+		this->pos = pos;
+		this->size = size;
+		this->type = ColliderType::BoxType;
+		this->offset = offset;
+		this->squareSize = size.x;
+		active = true;
+	}
 	void Collider::RenderCollider(sf::RenderWindow* window){
 		if (this->type == ColliderType::BoxType) {
 			sf::RectangleShape shape(this->size);

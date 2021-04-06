@@ -8,11 +8,12 @@ namespace fc {
 
 	class SpriteController {
 	public:
-		SpriteController(Texture* spriteSource, Animation startAnimation);
+		SpriteController() {};
+		SpriteController(Texture* spriteSource, Animation* startAnimation);
 		Sprite output;
 		Texture* spriteSource;
 		Vector2i baseOffset; 
-		Animation currentAnimation;
+		Animation* currentAnimation;
 		void Update();
 	};
 

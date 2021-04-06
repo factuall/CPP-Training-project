@@ -4,14 +4,16 @@
 
 namespace fc {
 	using namespace sf;
-
-	SpriteController::SpriteController(Texture* spriteSource, Animation startAnimation) {
+	
+	SpriteController::SpriteController(Texture* spriteSource, Animation* startAnimation) {
 		this->spriteSource = spriteSource;
-		output = Sprite(*spriteSource, startAnimation.getCurrentSprite());
+		currentAnimation = startAnimation;
+		output = Sprite(*spriteSource, currentAnimation->getCurrentSprite());
 	}
 
 	void SpriteController::Update() {
-		currentAnimation.Update();
+		currentAnimation->Update();
+		output = Sprite(*spriteSource, currentAnimation->getCurrentSprite());
 	}
 
 

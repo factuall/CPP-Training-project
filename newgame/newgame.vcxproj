@@ -195,8 +195,10 @@
     <ClCompile Include="source\core\physics\Collider.cpp" />
     <ClCompile Include="source\core\physics\Collision.cpp" />
     <ClCompile Include="source\core\Object.cpp" />
+    <ClCompile Include="source\GameObjects\Door.cpp" />
     <ClCompile Include="source\GameObjects\FPSDisplay.cpp" />
     <ClCompile Include="source\GameObjects\GameFloor.cpp" />
+    <ClCompile Include="source\GameObjects\GameManager.cpp" />
     <ClCompile Include="source\GameObjects\GameRoom.cpp" />
     <ClCompile Include="source\GameObjects\ObjectExample.cpp" />
     <ClCompile Include="source\main.cpp" />
@@ -207,7 +209,9 @@
     <ClInclude Include="include\Core.h" />
     <ClInclude Include="include\Collider.h" />
     <ClInclude Include="include\Collision.h" />
+    <ClInclude Include="include\Door.h" />
     <ClInclude Include="include\GameFloor.h" />
+    <ClInclude Include="include\GameManager.h" />
     <ClInclude Include="include\GameRoom.h" />
     <ClInclude Include="include\Object.h" />
     <ClInclude Include="include\FPSDisplay.h" />
@@ -345,6 +349,9 @@
     <None Include="lib\sfml-network-2.dll" />
     <None Include="lib\sfml-system-2.dll" />
     <None Include="lib\sfml-window-2.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="sheet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,6 @@
 #include "GameRoom.h"
+#include <iostream>
+
 
 using namespace sf;
 using namespace fc;
@@ -12,9 +14,12 @@ GameRoom::GameRoom(int nX, int nY, int gen) {
 	isTrigger = false;
 	genState = RoomState::Alive;
 	generation = gen;
+
+	void Init();
 };
 
 GameRoom::GameRoom() {
+	genState = RoomState::Solid;
 	pos.x = 0;
 	pos.y = 0;
 	id = 0;
@@ -22,7 +27,7 @@ GameRoom::GameRoom() {
 	collider = nullptr;
 	isVisible = false;
 	isTrigger = false;
-	genState = RoomState::Solid;
+
 };
 
 void GameRoom::Update() {
@@ -30,9 +35,7 @@ void GameRoom::Update() {
 }
 
 void GameRoom::Render(RenderWindow* window) {
-	sprite.setPosition(pos);
-	sprite.setScale(spriteScale());
-	window->draw(sprite);
+
 }
 
 void GameRoom::OnCollision(fc::Collision collision) {
@@ -69,4 +72,8 @@ String GameRoom::stateString()
 	default:
 		return "#";
 	}
+}
+
+void GameRoom::Enter() {
+
 }

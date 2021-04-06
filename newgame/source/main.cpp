@@ -10,8 +10,9 @@
 #include "Object.h"
 #include "FPSDisplay.h"
 #include "Player.h"
-#include "GameFloor.h"
+#include "GameManager.h"
 #include "Core.h"
+#include "Door.h"
 
 int lastTick, deltaTime, secondCounter = 0, framesPerSecond = 0, framesInSecond = 0;
 int lastTime = 0; double deltaTIme;
@@ -84,7 +85,7 @@ int main()
 			Walls[w]->isVisible = false;
 			gameCore.addObject(Walls[w]);
 
-			Walls[w + 14] = new fc::Object(64 * w + 64, 512);
+			Walls[w + 14] = new fc::Object(64 * w + 64, 512 - 16);
 			Walls[w + 14]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 32, 32, 32));
 			Walls[w + 14]->collider = new Collider(sf::Vector2f(Walls[w + 14]->pos.x, Walls[w + 14]->pos.y), sf::Vector2f(64, 64));
 			Walls[w + 14]->isVisible = false;
@@ -106,23 +107,23 @@ int main()
 		}
 	} //walls
 
-	/*
-	sf::Text gfTXT;
-	gfTXT.setFont(fontAlternative);
-	gfTXT.setString("X");
-	GameFloor gf = GameFloor(gfTXT);
-	gameCore.addObject(&gf);*/
 
-	Player playerObj = Player(560, 340);
-	playerObj.sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 0, 32, 32));
-	playerObj.sprite.setColor(sf::Color(150, 255, 150, 255));
-	gameCore.addObject(&playerObj);
+
+
+	//playerObj.sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 0, 32, 32));
+	//playerObj.sprite.setColor(sf::Color(150, 255, 150, 255));
 
 	sf::Text txt;
 	txt.setFont(fontRegular);
 	txt.setString("00");
 	FPSDisplay fpsDisplay = FPSDisplay(txt);
 	gameCore.addObject(&fpsDisplay);
+
+	sf::Text gfTXT;
+	gfTXT.setFont(fontAlternative);
+	gfTXT.setString("X");
+	GameManager gm = GameManager(gfTXT, &gameCore);
+	gameCore.addObject(&gm);
 
 	///
 

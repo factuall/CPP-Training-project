@@ -69,6 +69,12 @@
     <ClCompile Include="source\core\graphics\Animation.cpp">
       <Filter>cpp\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\GameObjects\Door.cpp">
+      <Filter>cpp\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GameObjects\GameManager.cpp">
+      <Filter>cpp\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Player.h">
@@ -446,6 +452,12 @@
     <ClInclude Include="include\Animation.h">
       <Filter>cpp\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Door.h">
+      <Filter>cpp\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameManager.h">
+      <Filter>cpp\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\openal32.dll">
@@ -493,5 +505,10 @@
     <None Include="Libraries\SFML-2.5.1\include\SFML\System\Vector3.inl">
       <Filter>cpp\Header Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="sheet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

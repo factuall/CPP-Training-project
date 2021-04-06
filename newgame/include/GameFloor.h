@@ -13,15 +13,15 @@ class GameFloor :
     public Object
 {
 public:
+    GameFloor();
     GameFloor(sf::Text txt);
     void Start();
-    void Update();
     void Render(RenderWindow* window);
-    void OnCollision(fc::Collision collision);
     char room[20][20];
     GameRoom roomMap[20][20];
     Vector2i orderOfRooms[25];
     int rooms = 1;
     sf::Text curChar;
+    bool isDone = false;
 private:
 };

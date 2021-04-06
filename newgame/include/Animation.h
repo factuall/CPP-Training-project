@@ -6,7 +6,9 @@ namespace fc {
 	class Animation {
 	public:
 		bool loop;
+		bool playReverse = false;
 		int animationDelay;
+		Animation();
 		Animation(Vector2i offset, Vector2i frameSize, int animationLength, int delay);
 		void setFrame(int frame);
 		void Toggle();

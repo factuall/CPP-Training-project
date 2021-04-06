@@ -4,6 +4,7 @@
 #include "Collider.h"
 #include "Collision.h"
 #include "Object.h"
+#include "Door.h"
 
 using namespace sf;
 using namespace fc;
@@ -19,8 +20,10 @@ public:
     void OnCollision(fc::Collision collision);
     RoomState genState;
     void setState(RoomState state);
+    void Enter();
     RoomState getState();
     String stateString();
     int generation;
+    Door door[4];
 private:
 };

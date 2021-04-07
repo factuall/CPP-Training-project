@@ -32,9 +32,9 @@ void GameManager::Update() {
 	else if (currentMap->generations >= 25 && !currentMap->done) {
 		currentMap->done = true;
 		InitalizeRoom(10, 10);
-		for (int startClose = 0; startClose < 4; startClose++) {
+		/*for (int startClose = 0; startClose < 4; startClose++) {
 			currentRoom->doors[startClose].doorAnimation->playReverse = true;
-		}
+		}*/
 	}
 	if (currentMap->done) {
 		currentRoom->Update();
@@ -80,7 +80,7 @@ void GameManager::InitalizeRoom(int x, int y) {
 	currentRoom->sprite = sf::Sprite(gameCore->spriteSheet, sf::IntRect(0, 736, 512, 288));
 	currentRoom->PlaceDoors(&gameCore->spriteSheet);
 	for (int i = 0; i < 4; i++) {
-		if (currentRoom->neighbors[i]->getState() != RoomState::Solid) {
+		if (currentRoom->neighbors[i]->getState() == RoomState::Alive) {
 			gameCore->addObject(&currentRoom->doors[i]);
 		}
 	}

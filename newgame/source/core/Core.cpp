@@ -43,11 +43,14 @@ namespace fc {
 
 	void Core::render() {
 		window->clear();
-		for (int displayedObj = 0; displayedObj < objLimit; displayedObj++) {
-			if (!(Objects[displayedObj]->isNull) && Objects[displayedObj]->isVisible) {
-				Objects[displayedObj]->Render(window);
+			for (int displayedObj = 0; displayedObj < objLimit; displayedObj++) {
+
+					if (!(Objects[displayedObj]->isNull) && Objects[displayedObj]->isVisible) {
+						Objects[displayedObj]->Render(window);
+					}
+				
 			}
-		}
+		
 		window->display();
 	}
 

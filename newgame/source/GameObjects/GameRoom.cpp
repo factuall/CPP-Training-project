@@ -27,7 +27,7 @@ GameRoom::GameRoom() {
 
 void GameRoom::Update() {
 	for (int ways = 0; ways < 4; ways++) {
-		doors[ways].active = (neighbors[ways]->getState() != RoomState::Solid && active);
+		doors[ways].active = (neighbors[ways]->getState() == RoomState::Alive && active);
 		doors[ways].open = doorsOpen;
 	}
 }
@@ -39,7 +39,7 @@ void GameRoom::Render(RenderWindow* window) {
 
 	if (active) {
 		for (int ways = 0; ways < 4; ways++) {
-			if (neighbors[ways]->getState() != RoomState::Solid) {
+			if (neighbors[ways]->getState() == RoomState::Alive) {
 				doors[ways].ManagedRender(window);
 			}
 		}
@@ -81,7 +81,7 @@ String GameRoom::stateString()
 
 void GameRoom::PlaceDoors(Texture* spriteSheet) {
 	for (int ways = 0; ways < 4; ways++) {
-		if (neighbors[ways]->getState() != RoomState::Solid) {
+		if (neighbors[ways]->getState() == RoomState::Alive) {
 			int x = 0, y = 0;
 			switch (ways) {
 			case 0:

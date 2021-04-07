@@ -16,18 +16,16 @@ GameFloor::GameFloor(sf::Text txt) {
 
 void GameFloor::Start()
 {
-	for (int roomX = 0; roomX < genLimit + 1; roomX++) {
-		if (roomX < floorSize) {
-			for (int roomY = 0; roomY < floorSize; roomY++) {
-				roomMap[roomX][roomY] = GameRoom();
-			}
+	for (int roomX = 0; roomX < floorSize; roomX++) {
+		
+		for (int roomY = 0; roomY < floorSize; roomY++) {
+			roomMap[roomX][roomY] = GameRoom();
 		}
 	}
 	roomMap[floorSize/2][floorSize/2] = GameRoom(floorSize/2, floorSize/2);
 	generations = 0;
 }
 
-bool once = false;
 void GameFloor::ManagedRender(RenderWindow* window) {
 	if (generations < genLimit) {
 		std::random_device dev;
@@ -62,13 +60,44 @@ void GameFloor::ManagedRender(RenderWindow* window) {
 						}
 
 						if (roomMap[neighborX][neighborY].getState() == RoomState::Dead) continue;
+						else if (roomMap[neighborX][neighborY].getState() == RoomState::Alive) continue;
 						else if (roomMap[neighborX][neighborY].getState() == RoomState::Solid) {
+							
+							int deeperNeighborX = 0; int deeperNeighborY = 0; int neighborsOfNeighbor = 0;
+							for (int deeperWays = 0; deeperWays < 4; deeperWays++) {
+								switch (deeperWays) {
+								case 0:
+									if (neighborX == 19) continue;
+									deeperNeighborX = neighborX + 1;
+									deeperNeighborY = neighborY;
+									break;
+								case 1:
+									if (neighborY == 0) continue;
+									deeperNeighborX = neighborX;
+									deeperNeighborY = neighborY - 1;
+									break;
+								case 2:
+									if (neighborX == 0) continue;
+									deeperNeighborX = neighborX - 1;
+									deeperNeighborY = neighborY;
+									break;
+								case 3:
+									if (neighborY == 19) continue;
+									deeperNeighborX = neighborX;
+									deeperNeighborY = neighborY + 1;
+									break;
+								}
+								if (roomMap[deeperNeighborX][deeperNeighborY].getState() != RoomState::Solid) neighborsOfNeighbor++;
+							}
+							if (neighborsOfNeighbor > 2) continue;
+
 							if (dist(rng) > 3) {
 								roomMap[neighborX][neighborY].setState(RoomState::Alive);
 								generations++;
 							}
 							else {
 								roomMap[neighborX][neighborY].setState(RoomState::Dead);
+								
 							}
 							roomMap[neighborX][neighborY].pos.x = neighborX;
 							roomMap[neighborX][neighborY].pos.y = neighborY;
@@ -79,22 +108,19 @@ void GameFloor::ManagedRender(RenderWindow* window) {
 		}
 	}
 	else {
-		if (!once) {
-			for (int roomX = 0; roomX < floorSize; roomX++) {
-				for (int roomY = 0; roomY < floorSize; roomY++) {
-					if (roomMap[roomX][roomY].getState() == RoomState::Solid) {
-						roomMap[roomX][roomY].pos.x = roomX;
-						roomMap[roomX][roomY].pos.y = roomY;
-					}
-				}
+		for (int roomX = 0; roomX < floorSize; roomX++) {
+			for (int roomY = 0; roomY < floorSize; roomY++) {
+				roomMap[roomX][roomY].pos.x = roomX;
+				roomMap[roomX][roomY].pos.y = roomY;
+
 			}
-			once = true;
 		}
 		for (int roomX = 0; roomX < floorSize; roomX++) {
 			for (int roomY = 0; roomY < floorSize; roomY++) {
-				if (roomMap[roomX][roomY].getState() == RoomState::Alive) {
+				if (roomMap[roomX][roomY].getState() != RoomState::Solid && roomMap[roomX][roomY].getState() != RoomState::Dead) {
 					mapCell.setFillColor(Color(100, 100, 100, 255));
 					mapCell.setPosition(roomX * 6 + 25, roomY * 6 + 26);
+					if (roomMap[roomX][roomY].getState() == RoomState::Dead) mapCell.setFillColor(Color(255, 100, 100, 255));
 					if (roomX == playerX && roomY == playerY) mapCell.setFillColor(Color(100, 255, 100, 255));
 					window->draw(mapCell);
 				}

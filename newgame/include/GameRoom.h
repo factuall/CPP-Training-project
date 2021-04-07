@@ -13,17 +13,19 @@ class GameRoom :
     public Object
 {
 public:
-    GameRoom(int nX, int nY, int gen);
+    Vector2f pos;
+    GameRoom(int nX, int nY);
     GameRoom();
+    bool active = false;
     void Update();
     void Render(RenderWindow* window);
-    void OnCollision(fc::Collision collision);
-    RoomState genState;
     void setState(RoomState state);
-    void Enter();
+    Texture* spriteSheet;
+    void Activate(Texture* spriteSheet);
     RoomState getState();
     String stateString();
-    int generation;
-    Door door[4];
+    GameRoom* nbrs[4];
+    Door doors[4];
 private:
+    RoomState genState;
 };

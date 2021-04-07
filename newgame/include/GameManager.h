@@ -19,6 +19,7 @@ public:
     Core* gameCore;
     void Update();
     void Render(RenderWindow* window);
+    Door doorss[4];
 private:
 };
 

@@ -72,12 +72,7 @@ int main()
 
 	{ //walls and background
 
-		fc::Object* Walls[100] = {}; //background
-		Walls[56] = new fc::Object(0, 0); //background
-		Walls[56]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 736, 512, 288));
-		Walls[56]->collider = new Collider(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
-		Walls[56]->isVisible = true; //background
-		gameCore.addObject(Walls[56]); //background
+		fc::Object* Walls[100] = {}; 
 		for (int w = 0; w < 14; w++) {
 			Walls[w] = new fc::Object(64 * w + 64, 0);
 			Walls[w]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 32, 32, 32));

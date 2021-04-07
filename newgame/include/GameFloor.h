@@ -16,10 +16,10 @@ public:
     GameFloor();
     GameFloor(sf::Text txt);
     void Start();
-    void Render(RenderWindow* window);
+    void ManagedRender(RenderWindow* window);
     char room[20][20];
     GameRoom roomMap[20][20];
-    Vector2i orderOfRooms[25];
+    GameRoom* getNeighbor(int x, int y, int way);
     int rooms = 1;
     sf::Text curChar;
     bool isDone = false;

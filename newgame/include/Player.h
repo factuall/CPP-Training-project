@@ -15,7 +15,7 @@ class Player :
 public:
     Player(int nX, int nY, Texture* txt);
     void Update();
-    void Render(RenderWindow* window);
+    void ManagedRender(RenderWindow* window);
     void OnCollision(fc::Collision collision);
     Vector2f velocity;
     Animation bodyAnimation;

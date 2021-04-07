@@ -4,7 +4,7 @@
 
 using namespace sf;
 using namespace fc;
-GameRoom::GameRoom(int nX, int nY, int gen) {
+GameRoom::GameRoom(int nX, int nY) {
 	pos.x = nX;
 	pos.y = nY;
 	id = 0;
@@ -13,32 +13,42 @@ GameRoom::GameRoom(int nX, int nY, int gen) {
 	isVisible = true;
 	isTrigger = false;
 	genState = RoomState::Alive;
-	generation = gen;
 
-	void Init();
 };
 
 GameRoom::GameRoom() {
-	genState = RoomState::Solid;
 	pos.x = 0;
 	pos.y = 0;
 	id = 0;
-	isNull = true;
-	collider = nullptr;
-	isVisible = false;
+	isNull = false;
+	collider = new Collider(Vector2f(0, 0), Vector2f(0, 0));
+	isVisible = true;
 	isTrigger = false;
-
+	genState = RoomState::Solid;
 };
 
 void GameRoom::Update() {
-
+	if (active) {
+		for (int ways = 0; ways < 4; ways++) {
+			if (nbrs[ways]->getState() != RoomState::Solid) {
+				doors[ways].Update();
+			}
+		}
+	}
 }
 
 void GameRoom::Render(RenderWindow* window) {
+	sprite.setPosition(0, 0); // room background
+	sprite.setScale(spriteScale());
+	window->draw(sprite);
 
-}
-
-void GameRoom::OnCollision(fc::Collision collision) {
+	if (active) {
+		for (int ways = 0; ways < 4; ways++) {
+			if (nbrs[ways]->getState() != RoomState::Solid) {
+				doors[ways].Render(window);
+			}
+		}
+	}
 }
 
 void GameRoom::setState(RoomState state)
@@ -74,6 +84,35 @@ String GameRoom::stateString()
 	}
 }
 
-void GameRoom::Enter() {
+void GameRoom::Activate(Texture* spriteSheet) {
+	for (int ways = 0; ways < 4; ways++) {
+		if (nbrs[ways]->getState() != RoomState::Solid) {
+			int x = 0, y = 0;
+			switch (ways) {
+			case 0:
+				x = 896;
+				y = 240;
+				break;
+			case 1:
+				x = 448;
+				y = 0;
+				break;
+			case 2:
+				x = 0;
+				y = 240;
+				break;
+			case 3:
+				x = 448;
+				y = 448;
+				break;
+			}
+			doors[ways] = Door(x, y, spriteSheet);
+			doors[ways].angle = 450 - (ways * 90);
+		}
+
+		
+	}
+
+	active = true;
 
 }

@@ -16,6 +16,7 @@ public:
     void Update();
     void Render(RenderWindow* window);
     SpriteController animator;
-    Animation doorAnimation;
+    Animation* doorAnimation;
+    int angle = 0;
 private:
 };

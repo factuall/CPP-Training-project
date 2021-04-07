@@ -10,7 +10,7 @@ Player::Player(int nX, int nY, Texture* txt) {
 	collider = new Collider(Vector2f(nX, nY), Vector2f(64, 64), ColliderType::CircleType);
 	isVisible = true;
 	isTrigger = true;
-	collider->renderCollider = true;
+	collider->renderCollider = false;
 	///
 	bodyAnimation = Animation(Vector2i(0, 128), Vector2i(32, 32), 8, 4);
 	bodyAnimation.loop = true;
@@ -66,7 +66,7 @@ void Player::Update() {
 
 }
 
-void Player::Render(RenderWindow* window) {
+void Player::ManagedRender(RenderWindow* window) {
 	sprite = animator.output;
 	sprite.setPosition(pos + Vector2f(0, 14.0f));
 	sprite.setScale(spriteScale());

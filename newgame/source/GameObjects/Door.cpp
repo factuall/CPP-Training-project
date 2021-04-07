@@ -6,13 +6,14 @@ using namespace fc;
 Door::Door() {
 	isNull = true;
 }
-Door::Door(int nX, int nY, Texture* spriteSheet) {
+Door::Door(int nX, int nY, int offX, int offY, Texture* spriteSheet) {
 	pos.x = nX;
 	pos.y = nY;
-	
+	this->offX = offX;
+	this->offY = offY;
 	isNull = false;
-	collider = new Collider(Vector2f(nX + 32, nY + 32), Vector2f(64, 64));
-	collider->renderCollider = false;
+	collider = new Collider(Vector2f(nX + 32 + offX, nY + 32 + offY), Vector2f(64, 64), ColliderType::CircleType);
+	collider->renderCollider = true;
 	collider->charTag = 'd';
 	isVisible = true;
 	isTrigger = true;
@@ -30,20 +31,24 @@ Door::Door(int nX, int nY, Texture* spriteSheet) {
 
 void Door::Update() {
 	if (active) {
+		if (open){
+			collider->charTag = 'd';
+			collider->pos.x = pos.x + 32 + offX;
+			collider->pos.y = pos.y + 32 + offY;
+		}	
+		else {
+			collider->charTag = 'D';
+			collider->pos.x = pos.x + 32 + (offX / 2);
+			collider->pos.y = pos.y + 32 + (offY / 2);
+		}
+			
 		if (animator.currentAnimation->playReverse == open) {
 			animator.currentAnimation->playReverse = !open;
 			if (!animator.currentAnimation->isPlaying()) {
 				animator.currentAnimation->Play();
 			}
 		}
-
 		animator.Update();
-		if (Keyboard::isKeyPressed(Keyboard::O)) {
-			open = false;
-		}
-		if (Keyboard::isKeyPressed(Keyboard::P)) {
-			open = true;
-		}
 	}
 }
 
@@ -54,11 +59,12 @@ void Door::ManagedRender(RenderWindow* window) {
 	sprite.setRotation(angle);
 	sprite.setPosition(pos + Vector2f(64, 64));
 	window->draw(sprite);
-	//collider->RenderCollider(window);
+	if(collider->renderCollider)
+		collider->RenderCollider(window);
 }
 
 void Door::OnCollision(Collision collision) {
-	if (collision.colliderB->charTag == 'p') {
+	if (collision.colliderB->charTag == 'p' && this->collider->charTag == 'd') {
 		entered = true;
 	}
 }

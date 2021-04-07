@@ -12,7 +12,7 @@ class Door :
 {
 public:
 	Door();
-	Door(int nX, int nY, Texture* txt);
+	Door(int nX, int nY, int offX, int offY, Texture* txt);
 	void Update();
 	void ManagedRender(RenderWindow* window);
 	void Render(RenderWindow* window) {};
@@ -22,6 +22,6 @@ public:
 	bool active = false;
 	bool open = true;
 	bool entered = false;
-	int angle = 0;
+	int angle = 0, offX = 0, offY = 0;
 private:
 };

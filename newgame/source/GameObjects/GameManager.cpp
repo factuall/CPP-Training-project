@@ -22,19 +22,20 @@ GameManager::GameManager(Text txt, Core* gameCore) {
 
 int generationTime = 0;
 void GameManager::Update() {
-	if (!currentMap->done && currentMap->generations < 25) {
+	if (!currentMap->done && currentMap->generations < currentMap->genLimit) {
 		generationTime++;
-		if (generationTime > 30) {
+		if (generationTime > 10) {
 			currentMap->Start();
 			generationTime = 0;
 		}
 	}
-	else if (currentMap->generations >= 25 && !currentMap->done) {
+	else if (currentMap->generations >= currentMap->genLimit && !currentMap->done) {
 		currentMap->done = true;
-		InitalizeRoom(10, 10);
-		/*for (int startClose = 0; startClose < 4; startClose++) {
-			currentRoom->doors[startClose].doorAnimation->playReverse = true;
-		}*/
+		InitalizeRoom(currentMap->floorSize/2, currentMap->floorSize / 2);
+		for (int startClose = 0; startClose < 4; startClose++) {
+			if (currentRoom->neighbors[startClose]->getState() == RoomState::Alive)
+				currentRoom->doors[startClose].doorAnimation->playReverse = true;
+		}
 	}
 	if (currentMap->done) {
 		currentRoom->Update();

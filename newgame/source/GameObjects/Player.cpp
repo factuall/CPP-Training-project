@@ -8,7 +8,7 @@ Player::Player(int nX, int nY, Texture* spriteSheet) {
 	pos.y = nY;
 	id = 0;
 	isNull = false;
-	collider = new Collider(Vector2f(nX, nY), Vector2f(64, 64));
+	collider = new Collider(Vector2f(nX, nY), Vector2f(64, 64), ColliderType::CircleType);
 	collider->charTag = 'p';
 	isVisible = true;
 	isTrigger = true;

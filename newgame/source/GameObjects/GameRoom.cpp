@@ -30,6 +30,12 @@ void GameRoom::Update() {
 		doors[ways].active = (neighbors[ways]->getState() == RoomState::Alive && active);
 		doors[ways].open = doorsOpen;
 	}
+	if (Keyboard::isKeyPressed(Keyboard::O)) {
+		doorsOpen = false;
+	}
+	if (Keyboard::isKeyPressed(Keyboard::P)) {
+		doorsOpen = true;
+	}
 }
 
 void GameRoom::Render(RenderWindow* window) {
@@ -82,26 +88,30 @@ String GameRoom::stateString()
 void GameRoom::PlaceDoors(Texture* spriteSheet) {
 	for (int ways = 0; ways < 4; ways++) {
 		if (neighbors[ways]->getState() == RoomState::Alive) {
-			int x = 0, y = 0;
+			int x = 0, y = 0, offX = 0, offY = 0;
 			switch (ways) {
 			case 0:
 				x = 896;
-				y = 240;
+				y = 224;
+				offX = 28;
 				break;
 			case 1:
 				x = 448;
 				y = 0;
+				offY = -48;
 				break;
 			case 2:
 				x = 0;
-				y = 240;
+				y = 224;
+				offX = -28;
 				break;
 			case 3:
 				x = 448;
 				y = 448;
+				offY = 16;
 				break;
 			}
-			doors[ways] = Door(x, y, spriteSheet);
+			doors[ways] = Door(x, y, offX, offY, spriteSheet);
 			doors[ways].angle = 450 - (ways * 90);
 			doors[ways].open = true;
 		}

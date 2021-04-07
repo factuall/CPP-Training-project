@@ -46,7 +46,10 @@ void GameManager::Update() {
 				for (int doorsToDelete = 0; doorsToDelete < 4; doorsToDelete++) {
 					gameCore->deleteObject(currentRoom->doors[doorsChecked].id);
 				}
-				player->setPosition(currentRoom->oppositeDoorPosition(doorsChecked));
+				if(doorsChecked == 0 || doorsChecked == 2)
+					player->setPosition(Vector2f(currentRoom->oppositeDoorPosition(doorsChecked).x, player->pos.y));
+				if(doorsChecked == 1 || doorsChecked == 3)
+					player->setPosition(Vector2f(player->pos.x, currentRoom->oppositeDoorPosition(doorsChecked).y));
 				InitalizeRoom(currentRoom->neighbors[doorsChecked]->pos.x, currentRoom->neighbors[doorsChecked]->pos.y);
 				
 			}

@@ -123,20 +123,16 @@ Vector2f GameRoom::oppositeDoorPosition(int door) {
 	Vector2f result;
 	switch (door) {
 	case 0:
-		result.x = 128;
-		result.y = 272;
+		result.x = 80;
 		break;
 	case 1:
-		result.x = 480;
-		result.y = 384;
+		result.y = 420;
 		break;
 	case 2:
-		result.x = 832;
-		result.y = 272;
+		result.x = 880;
 		break;
 	case 3:
-		result.x = 480;
-		result.y = 128;
+		result.y = 68;
 		break;
 	}
 	return result;

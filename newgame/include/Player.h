@@ -18,8 +18,11 @@ public:
 	void ManagedRender(RenderWindow* window);
 	void OnCollision(fc::Collision collision);
 	Vector2f velocity;
-	Animation bodyAnimation;
-	SpriteController animator;
+	Animation bodyAnimationV;
+	Animation bodyAnimationH;
+	Animation headStates;
+	SpriteController bodyAnimator;
+	SpriteController headAnimator;
 	Sprite headSprite;
 private:
 	Vector2f input = Vector2f(0, 0);

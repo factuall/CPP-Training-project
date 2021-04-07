@@ -14,31 +14,40 @@ Player::Player(int nX, int nY, Texture* spriteSheet) {
 	isTrigger = true;
 	collider->renderCollider = true;
 	///
-	bodyAnimation = Animation(Vector2i(0, 128), Vector2i(32, 32), 8, 4);
-	bodyAnimation.loop = true;
-	bodyAnimation.playReverse = false;
-	bodyAnimation.Play();
-	animator = SpriteController(spriteSheet, &bodyAnimation);
-	animator.Update();
-	sprite = animator.output;
-	headSprite = Sprite(*spriteSheet, IntRect(192, 0, 32, 32));
+	bodyAnimationV = Animation(Vector2i(0, 128), Vector2i(32, 32), 8, 4);
+	bodyAnimationV.loop = true;
+	bodyAnimationV.playReverse = false;
+	bodyAnimationV.Play();
+	bodyAnimationH = Animation(Vector2i(0, 160), Vector2i(32, 32), 8, 4);
+	bodyAnimationH.loop = true;
+	bodyAnimationH.playReverse = false;
+	bodyAnimationH.Play();
+	bodyAnimator = SpriteController(spriteSheet, &bodyAnimationV);
+	bodyAnimator.Update();
+	sprite = bodyAnimator.output;
+	headStates = Animation(Vector2i(0, 192), Vector2i(32, 32), 4,999999);
+	headStates.Stop();
+	headAnimator = SpriteController(spriteSheet, &headStates);
 };
 
 void Player::Update() {
 	input.x = 0; input.y = 0;
-	bodyAnimation.Pause();
-	animator.Update();
+	bodyAnimationV.Pause();
+	bodyAnimationH.Pause();
+	bodyAnimator.Update();
 	if (Keyboard::isKeyPressed(Keyboard::S) &&
 		Keyboard::isKeyPressed(Keyboard::W)) {
 		input.y = 0;
 	} //both keys - input cancelling
 	else if (Keyboard::isKeyPressed(Keyboard::S)) {
 		input.y = 1;
-		bodyAnimation.Resume();
+		bodyAnimationV.Resume();
+		headStates.setCurrentFrame(0);
 	} //down
 	else if (Keyboard::isKeyPressed(Keyboard::W)) {
 		input.y = -1;
-		bodyAnimation.Resume();
+		bodyAnimationV.Resume();
+		headStates.setCurrentFrame(2);
 	} //up
 
 	if (Keyboard::isKeyPressed(Keyboard::D) &&
@@ -47,12 +56,26 @@ void Player::Update() {
 	} //both keys - input cancelling
 	else if (Keyboard::isKeyPressed(Keyboard::D)) {
 		input.x = 1;
+		bodyAnimationH.Resume();
+		headStates.setCurrentFrame(1);
 	} //right
 	else if (Keyboard::isKeyPressed(Keyboard::A)) {
 		input.x = -1;
+		bodyAnimationH.Resume();
+		headStates.setCurrentFrame(3);
 	} //left
-	if (input.y == 0) bodyAnimation.Stop();
-	animator.Update();
+
+
+	if (input.y == 0) bodyAnimationV.Stop();
+	else bodyAnimator.currentAnimation = &bodyAnimationV;
+	if (input.x == 0) bodyAnimationH.Stop();
+	else bodyAnimator.currentAnimation = &bodyAnimationH;
+	if (input.x == 0 && input.y == 0) {
+
+		bodyAnimator.currentAnimation = &bodyAnimationV;
+	}
+	bodyAnimator.Update();
+	headAnimator.Update();
 
 	float diagonalSlowDown = ((input.x != 0 && input.y != 0) ? 0.709f : 1.0f);
 	velocity.x += (float)(((diagonalSlowDown * input.x * speed) - velocity.x) / walkSmoothness);
@@ -67,16 +90,17 @@ void Player::Update() {
 }
 
 void Player::ManagedRender(RenderWindow* window) {
-	sprite = animator.output;
-	sprite.setPosition(pos + Vector2f(0, 14.0f));
-	sprite.setScale(spriteScale());
-
-	headSprite.setPosition(pos + Vector2f(0, -12.0f));
+	sprite = bodyAnimator.output;
+	sprite.setScale((input.x < 0) ? Vector2f(-2.f, 2.f) : spriteScale());
+	sprite.setPosition(pos + ((input.x < 0) ? Vector2f(64.f, 0) : Vector2f()) + Vector2f(0, 14.f));
+	
+	headSprite = headAnimator.output;
+	headSprite.setPosition(pos + Vector2f(0, -7.f));
 	headSprite.setScale(spriteScale());
 	window->draw(sprite);
 	window->draw(headSprite);
 	if (collider->renderCollider) {
-		//collider->RenderCollider(window);
+		collider->RenderCollider(window);
 	}
 }
 

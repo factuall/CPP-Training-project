@@ -12,6 +12,7 @@ GameRoom::GameRoom(int nX, int nY) {
 	isVisible = true;
 	isTrigger = false;
 	genState = RoomState::Alive;
+	sprite.setPosition(0, 0); // room background
 };
 
 GameRoom::GameRoom() {
@@ -23,6 +24,7 @@ GameRoom::GameRoom() {
 	isVisible = true;
 	isTrigger = false;
 	genState = RoomState::Solid;
+	sprite.setPosition(0, 0); // room background
 };
 
 void GameRoom::Update() {
@@ -39,7 +41,7 @@ void GameRoom::Update() {
 }
 
 void GameRoom::Render(RenderWindow* window) {
-	sprite.setPosition(0, 0); // room background
+	
 	sprite.setScale(spriteScale());
 	window->draw(sprite);
 

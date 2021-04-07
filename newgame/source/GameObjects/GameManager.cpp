@@ -32,6 +32,9 @@ void GameManager::Update() {
 	else if (currentMap->generations >= 25 && !currentMap->done) {
 		currentMap->done = true;
 		InitalizeRoom(10, 10);
+		for (int startClose = 0; startClose < 4; startClose++) {
+			currentRoom->doors[startClose].doorAnimation->playReverse = true;
+		}
 	}
 	if (currentMap->done) {
 		currentRoom->Update();
@@ -42,8 +45,9 @@ void GameManager::Update() {
 				for (int doorsToDelete = 0; doorsToDelete < 4; doorsToDelete++) {
 					gameCore->deleteObject(currentRoom->doors[doorsChecked].id);
 				}
+				player->setPosition(currentRoom->oppositeDoorPosition(doorsChecked));
 				InitalizeRoom(currentRoom->neighbors[doorsChecked]->pos.x, currentRoom->neighbors[doorsChecked]->pos.y);
-				player->setPosition(Vector2f(560, 340));
+				
 			}
 		}
 	}

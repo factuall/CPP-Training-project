@@ -26,8 +26,10 @@ GameRoom::GameRoom() {
 };
 
 void GameRoom::Update() {
-	for (int ways = 0; ways < 4; ways++)
+	for (int ways = 0; ways < 4; ways++) {
 		doors[ways].active = (neighbors[ways]->getState() != RoomState::Solid && active);
+		doors[ways].open = doorsOpen;
+	}
 }
 
 void GameRoom::Render(RenderWindow* window) {
@@ -104,6 +106,28 @@ void GameRoom::PlaceDoors(Texture* spriteSheet) {
 			doors[ways].open = true;
 		}
 	}
-
 	active = true;
+}
+
+Vector2f GameRoom::oppositeDoorPosition(int door) {
+	Vector2f result;
+	switch (door) {
+	case 0:
+		result.x = 128;
+		result.y = 272;
+		break;
+	case 1:
+		result.x = 480;
+		result.y = 384;
+		break;
+	case 2:
+		result.x = 832;
+		result.y = 272;
+		break;
+	case 3:
+		result.x = 480;
+		result.y = 128;
+		break;
+	}
+	return result;
 }

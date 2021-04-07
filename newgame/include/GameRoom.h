@@ -14,9 +14,11 @@ class GameRoom :
 {
 public:
 	Vector2f pos;
+	Vector2f oppositeDoorPosition(int door);
 	GameRoom(int nX, int nY);
 	GameRoom();
 	bool active = false;
+	bool doorsOpen = true;
 	void Update();
 	void Render(RenderWindow* window);
 	void setState(RoomState state);

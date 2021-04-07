@@ -9,6 +9,7 @@ Door::Door() {
 Door::Door(int nX, int nY, Texture* spriteSheet) {
 	pos.x = nX;
 	pos.y = nY;
+	
 	isNull = false;
 	collider = new Collider(Vector2f(nX + 32, nY + 32), Vector2f(64, 64));
 	collider->renderCollider = false;
@@ -18,9 +19,12 @@ Door::Door(int nX, int nY, Texture* spriteSheet) {
 	doorAnimation = new Animation(Vector2i(0, 672), Vector2i(64, 64), 6, 3);
 	doorAnimation->loop = false;
 	doorAnimation->playReverse = false;
-	doorAnimation->Play();
+	doorAnimation->Stop();
+	doorAnimation->setCurrentFrame(doorAnimation->getLength() - 1);
+
 	animator = SpriteController(spriteSheet, doorAnimation);
 	animator.Update();
+
 	sprite = animator.output;
 }
 

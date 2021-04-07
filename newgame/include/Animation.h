@@ -10,7 +10,6 @@ namespace fc {
 		int animationDelay;
 		Animation();
 		Animation(Vector2i offset, Vector2i frameSize, int animationLength, int delay);
-		void setFrame(int frame);
 		void Toggle();
 		void Play();
 		void Pause();

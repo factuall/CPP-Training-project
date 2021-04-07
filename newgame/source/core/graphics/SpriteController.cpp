@@ -5,10 +5,10 @@
 namespace fc {
 	using namespace sf;
 
-	SpriteController::SpriteController(Texture* spriteSource, Animation* startAnimation) {
-		this->spriteSource = spriteSource;
+	SpriteController::SpriteController(Texture* spriteSheet, Animation* startAnimation) {
+		this->spriteSource = spriteSheet;
 		currentAnimation = startAnimation;
-		output = Sprite(*spriteSource, currentAnimation->getCurrentSprite());
+		output = Sprite(*spriteSheet, currentAnimation->getCurrentSprite());
 	}
 
 	void SpriteController::Update() {

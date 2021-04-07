@@ -20,8 +20,5 @@ public:
 	void Update();
 	void Render(RenderWindow* window);
 	void InitalizeRoom(int x, int y);
-	void ClearRoom();
-	Door doorss[4];
-	bool gameReady = false;
 private:
 };

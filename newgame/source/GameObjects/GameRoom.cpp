@@ -77,7 +77,7 @@ String GameRoom::stateString()
 	}
 }
 
-void GameRoom::Activate(Texture* spriteSheet) {
+void GameRoom::PlaceDoors(Texture* spriteSheet) {
 	for (int ways = 0; ways < 4; ways++) {
 		if (neighbors[ways]->getState() != RoomState::Solid) {
 			int x = 0, y = 0;

@@ -37,15 +37,12 @@ void GameManager::Update() {
 		currentRoom->Update();
 		currentMap->playerX = currentRoom->pos.x;
 		currentMap->playerY = currentRoom->pos.y;
-
-		for (int i = 0; i < 4; i++) {
-			if (currentRoom->doors[i].entered) {
-				gameCore->deleteObject(currentRoom->doors[0].id);
-				gameCore->deleteObject(currentRoom->doors[1].id);
-				gameCore->deleteObject(currentRoom->doors[2].id);
-				gameCore->deleteObject(currentRoom->doors[3].id);
-				//std::cout << currentRoom->nbrsXY->x << " " << currentRoom->nbrsXY->x << "\n";
-				InitalizeRoom(currentRoom->neighbors[i]->pos.x, currentRoom->neighbors[i]->pos.y);
+		for (int doorsChecked = 0; doorsChecked < 4; doorsChecked++) {
+			if (currentRoom->doors[doorsChecked].entered) {
+				for (int doorsToDelete = 0; doorsToDelete < 4; doorsToDelete++) {
+					gameCore->deleteObject(currentRoom->doors[doorsChecked].id);
+				}
+				InitalizeRoom(currentRoom->neighbors[doorsChecked]->pos.x, currentRoom->neighbors[doorsChecked]->pos.y);
 				player->setPosition(Vector2f(560, 340));
 			}
 		}
@@ -54,9 +51,7 @@ void GameManager::Update() {
 
 void GameManager::InitalizeRoom(int x, int y) {
 	currentRoom = &currentMap->roomMap[x][y];
-	std::cout << "\n";
 	for (int ways = 0; ways < 4; ways++) {
-		//Vector2f result = currentMap->getNeighborV(currentRoom->pos.x, currentRoom->pos.y, ways);
 		int neighborX = 0; int neighborY = 0;
 		switch (ways) {
 		case 0:
@@ -77,20 +72,14 @@ void GameManager::InitalizeRoom(int x, int y) {
 			break;
 		}
 		currentRoom->neighbors[ways] = &currentMap->roomMap[neighborX][neighborY];
-		std::cout << currentRoom->neighbors[ways]->pos.x << " " << currentRoom->neighbors[ways]->pos.y << "\n";
 	}
-	currentRoom->isVisible = true;
 	currentRoom->sprite = sf::Sprite(gameCore->spriteSheet, sf::IntRect(0, 736, 512, 288));
-	currentRoom->Activate(&gameCore->spriteSheet);
+	currentRoom->PlaceDoors(&gameCore->spriteSheet);
 	for (int i = 0; i < 4; i++) {
 		if (currentRoom->neighbors[i]->getState() != RoomState::Solid) {
 			gameCore->addObject(&currentRoom->doors[i]);
 		}
 	}
-	gameReady = true;
-}
-
-void GameManager::ClearRoom() {
 }
 
 void GameManager::Render(RenderWindow* window) {

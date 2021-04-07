@@ -21,7 +21,7 @@ public:
 	void Render(RenderWindow* window);
 	void setState(RoomState state);
 	Texture* spriteSheet;
-	void Activate(Texture* spriteSheet);
+	void PlaceDoors(Texture* spriteSheet);
 	RoomState getState();
 	String stateString();
 	GameRoom* neighbors[4];

@@ -3,7 +3,7 @@
 
 using namespace sf;
 using namespace fc;
-Player::Player(int nX, int nY, Texture* txt) {
+Player::Player(int nX, int nY, Texture* spriteSheet) {
 	pos.x = nX;
 	pos.y = nY;
 	id = 0;
@@ -18,10 +18,10 @@ Player::Player(int nX, int nY, Texture* txt) {
 	bodyAnimation.loop = true;
 	bodyAnimation.playReverse = false;
 	bodyAnimation.Play();
-	animator = SpriteController(txt, &bodyAnimation);
+	animator = SpriteController(spriteSheet, &bodyAnimation);
 	animator.Update();
 	sprite = animator.output;
-	headSprite = Sprite(*txt, IntRect(192, 0, 32, 32));
+	headSprite = Sprite(*spriteSheet, IntRect(192, 0, 32, 32));
 };
 
 void Player::Update() {

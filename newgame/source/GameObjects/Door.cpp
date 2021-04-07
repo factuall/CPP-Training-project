@@ -6,7 +6,7 @@ using namespace fc;
 Door::Door() {
 	isNull = true;
 }
-Door::Door(int nX, int nY, Texture* txt) {
+Door::Door(int nX, int nY, Texture* spriteSheet) {
 	pos.x = nX;
 	pos.y = nY;
 	isNull = false;
@@ -19,7 +19,7 @@ Door::Door(int nX, int nY, Texture* txt) {
 	doorAnimation->loop = false;
 	doorAnimation->playReverse = false;
 	doorAnimation->Play();
-	animator = SpriteController(txt, doorAnimation);
+	animator = SpriteController(spriteSheet, doorAnimation);
 	animator.Update();
 	sprite = animator.output;
 }

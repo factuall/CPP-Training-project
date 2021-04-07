@@ -5,16 +5,17 @@
 #include "Collision.h"
 #include "Object.h"
 
-namespace fc{
+namespace fc {
 	using namespace sf;
 
 	const int objLimit = 1000;
 	class Core
 	{
 	public:
-		Core(Image *img, Font *fnt, Font *altFnt);
+		Core(Image* img, Font* fnt, Font* altFnt);
 		void run();
 		void addObject(Object* newObject);
+		void deleteObject(int id);
 		Object* getObject(int id);
 		RenderWindow* window;
 		Image image;

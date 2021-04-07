@@ -22,17 +22,17 @@ namespace fc {
 		this->squareSize = size.x;
 		active = true;
 	}
-	void Collider::RenderCollider(sf::RenderWindow* window){
+	void Collider::RenderCollider(sf::RenderWindow* window) {
 		if (this->type == ColliderType::BoxType) {
 			sf::RectangleShape shape(this->size);
 			shape.setPosition(this->pos);
-			shape.setFillColor(sf::Color(155, 0, 255, 100));
+			shape.setFillColor(sf::Color(155, 0, 255, 50));
 			window->draw(shape);
 		}
 		else {
 			sf::CircleShape shape(this->size.x / 2);
 			shape.setPosition(this->pos);
-			shape.setFillColor(sf::Color(255, 0, 155, 100));
+			shape.setFillColor(sf::Color(255, 0, 155, 50));
 			window->draw(shape);
 		}
 	}

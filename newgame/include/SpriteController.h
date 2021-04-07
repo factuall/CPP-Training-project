@@ -12,9 +12,8 @@ namespace fc {
 		SpriteController(Texture* spriteSource, Animation* startAnimation);
 		Sprite output;
 		Texture* spriteSource;
-		Vector2i baseOffset; 
+		Vector2i baseOffset;
 		Animation* currentAnimation;
 		void Update();
 	};
-
 }

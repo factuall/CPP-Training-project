@@ -1,7 +1,6 @@
 #include "GameRoom.h"
 #include <iostream>
 
-
 using namespace sf;
 using namespace fc;
 GameRoom::GameRoom(int nX, int nY) {
@@ -13,7 +12,6 @@ GameRoom::GameRoom(int nX, int nY) {
 	isVisible = true;
 	isTrigger = false;
 	genState = RoomState::Alive;
-
 };
 
 GameRoom::GameRoom() {
@@ -28,13 +26,8 @@ GameRoom::GameRoom() {
 };
 
 void GameRoom::Update() {
-	if (active) {
-		for (int ways = 0; ways < 4; ways++) {
-			if (nbrs[ways]->getState() != RoomState::Solid) {
-				doors[ways].Update();
-			}
-		}
-	}
+	for (int ways = 0; ways < 4; ways++)
+		doors[ways].active = (nbrs[ways]->getState() != RoomState::Solid && active);
 }
 
 void GameRoom::Render(RenderWindow* window) {
@@ -45,7 +38,7 @@ void GameRoom::Render(RenderWindow* window) {
 	if (active) {
 		for (int ways = 0; ways < 4; ways++) {
 			if (nbrs[ways]->getState() != RoomState::Solid) {
-				doors[ways].Render(window);
+				doors[ways].ManagedRender(window);
 			}
 		}
 	}
@@ -95,7 +88,7 @@ void GameRoom::Activate(Texture* spriteSheet) {
 				break;
 			case 1:
 				x = 448;
-				y = 0;
+				y = 0;//0
 				break;
 			case 2:
 				x = 0;
@@ -108,11 +101,9 @@ void GameRoom::Activate(Texture* spriteSheet) {
 			}
 			doors[ways] = Door(x, y, spriteSheet);
 			doors[ways].angle = 450 - (ways * 90);
+			doors[ways].open = true;
 		}
-
-		
 	}
 
 	active = true;
-
 }

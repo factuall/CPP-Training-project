@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "Collider.h"
 
-
 namespace fc {
 	using namespace sf;
 
@@ -19,17 +18,15 @@ namespace fc {
 		Vector2f adaptedVelocity;
 		Collision(Collider* cA, Collider* cB);
 		void ProcessCollision(Collider* cA, Collider* cB) {
-
 		};
 		void adaptCollider(Vector2f velocity);
 	private:
 		void BoxBox();
 		void CircleCircle();
 		void LineLine();
-		
+
 		void CircleBox();
 		void LineBox();
 		void LineCircle();
 	};
-
 }

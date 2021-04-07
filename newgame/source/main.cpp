@@ -66,13 +66,12 @@ int main()
 	}
 
 	///
-	
+
 	StartTimer();
 	fc::Core gameCore = fc::Core(&image, &fontRegular, &fontAlternative);
 
 	{ //walls and background
-
-		fc::Object* Walls[100] = {}; 
+		fc::Object* Walls[100] = {};
 		for (int w = 0; w < 14; w++) {
 			Walls[w] = new fc::Object(64 * w + 64, 0);
 			Walls[w]->sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 32, 32, 32));
@@ -97,13 +96,8 @@ int main()
 			Walls[w + 42]->collider = new Collider(sf::Vector2f(Walls[w + 42]->pos.x, Walls[w + 42]->pos.y), sf::Vector2f(64, 64));
 			Walls[w + 42]->isVisible = false;
 			gameCore.addObject(Walls[w + 42]);
-
-
 		}
 	} //walls
-
-
-
 
 	//playerObj.sprite = sf::Sprite(gameCore.spriteSheet, sf::IntRect(0, 0, 32, 32));
 	//playerObj.sprite.setColor(sf::Color(150, 255, 150, 255));

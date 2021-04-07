@@ -9,19 +9,19 @@
 using namespace sf;
 using namespace fc;
 class GameManager :
-    public Object
+	public Object
 {
 public:
-    GameManager(Text txt, Core* gameCore);
-    GameFloor* currentMap;
-    GameRoom* currentRoom;
-    Player* player;
-    Core* gameCore;
-    void Update();
-    void Render(RenderWindow* window);
-    Door doorss[4];
+	GameManager(Text txt, Core* gameCore);
+	GameFloor* currentMap;
+	GameRoom* currentRoom;
+	Player* player;
+	Core* gameCore;
+	void Update();
+	void Render(RenderWindow* window);
+	void InitalizeRoom(int x, int y);
+	void ClearRoom();
+	Door doorss[4];
+	bool gameReady = false;
 private:
 };
-
-
-

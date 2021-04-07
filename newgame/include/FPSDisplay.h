@@ -5,10 +5,9 @@
 #include "Collision.h"
 #include "Object.h"
 class FPSDisplay :
-    public fc::Object
+	public fc::Object
 {
 public:
-    FPSDisplay(sf::Text txt);
-    void Render(sf::RenderWindow* window);
+	FPSDisplay(sf::Text txt);
+	void Render(sf::RenderWindow* window);
 };
-

@@ -12,7 +12,6 @@ FPSDisplay::FPSDisplay(sf::Text txt)
 	text.setCharacterSize(32);
 	text.setString("fps");
 	text.setFillColor(sf::Color::White);
-
 }
 
 void FPSDisplay::Render(sf::RenderWindow* window) {

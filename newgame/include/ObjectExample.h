@@ -8,12 +8,12 @@
 using namespace sf;
 using namespace fc;
 class ObjectExample :
-    public Object
+	public Object
 {
 public:
-    ObjectExample(int nX, int nY);
-    void Update();
-    void Render(RenderWindow* window);
-    void OnCollision(fc::Collision collision);
+	ObjectExample(int nX, int nY);
+	void Update();
+	void Render(RenderWindow* window);
+	void OnCollision(fc::Collision collision);
 private:
 };

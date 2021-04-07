@@ -1,4 +1,3 @@
-
 #include "Collision.h"
 #include <iostream>
 
@@ -78,7 +77,7 @@ namespace fc {
 			colliderA->pos.y + colliderA->size.y > colliderB->pos.y);
 	}
 	void Collision::CircleCircle() {
-		colliding = (distance(colliderA->pos,colliderB->pos) <= ((colliderA->squareSize / 2)+ (colliderB->squareSize / 2)));
+		colliding = (distance(colliderA->pos, colliderB->pos) <= ((colliderA->squareSize / 2) + (colliderB->squareSize / 2)));
 		diffVector.x = (colliderA->pos.x - colliderB->pos.x); diffVector.y = (colliderA->pos.y - colliderB->pos.y);
 	}
 	void Collision::LineLine() {}
@@ -94,7 +93,6 @@ namespace fc {
 			colliderA->pos.x + colliderA->size.x > colliderB->pos.x &&
 			colliderA->pos.y < colliderB->pos.y + colliderB->size.y &&
 			colliderA->pos.y + colliderA->size.y > colliderB->pos.y);
-		
 	}
 	void Collision::LineBox() {}
 	void Collision::LineCircle() {}
@@ -107,7 +105,6 @@ namespace fc {
 			destVector = diffVector;
 			int sqSize = colliderB->squareSize;
 			if (!((abs(destVector.x) > sqSize) || (abs(destVector.y) > sqSize))) {
-
 				if (abs(destVector.x) > abs(destVector.y)) {
 					destVector.y *= ((abs(destVector.x) + abs(velocity.x)) / sqSize);
 					destVector.x = (sqSize) * ((destVector.x < 0) ? -1 : 1);
@@ -132,7 +129,7 @@ namespace fc {
 				}
 			}
 		}
-	
+
 		if (colliderA->type == fc::ColliderType::CircleType && colliderB->type == fc::ColliderType::CircleType) {
 			destVector = diffVector;
 			int sqSize = colliderB->squareSize;
@@ -159,8 +156,5 @@ namespace fc {
 				adaptedVelocity = velocity;
 			}
 		}
-	
 	}
-
-
 }

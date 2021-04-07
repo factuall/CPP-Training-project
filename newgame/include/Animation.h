@@ -19,6 +19,9 @@ namespace fc {
 		void Update();
 		IntRect getCurrentSprite();
 		void setCurrentFrame(int frame);
+		int getCurrentFrame();
+		int getLength();
+		bool isPlaying();
 	private:
 		IntRect currentSprite;
 		Vector2i frameSize;

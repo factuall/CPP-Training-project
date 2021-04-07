@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <iostream>
 
 using namespace sf;
 using namespace fc;
@@ -7,10 +8,11 @@ Player::Player(int nX, int nY, Texture* txt) {
 	pos.y = nY;
 	id = 0;
 	isNull = false;
-	collider = new Collider(Vector2f(nX, nY), Vector2f(64, 64), ColliderType::CircleType);
+	collider = new Collider(Vector2f(nX, nY), Vector2f(64, 64));
+	collider->charTag = 'p';
 	isVisible = true;
 	isTrigger = true;
-	collider->renderCollider = false;
+	collider->renderCollider = true;
 	///
 	bodyAnimation = Animation(Vector2i(0, 128), Vector2i(32, 32), 8, 4);
 	bodyAnimation.loop = true;
@@ -49,7 +51,7 @@ void Player::Update() {
 	else if (Keyboard::isKeyPressed(Keyboard::A)) {
 		input.x = -1;
 	} //left
-	if(input.y == 0) bodyAnimation.Stop();
+	if (input.y == 0) bodyAnimation.Stop();
 	animator.Update();
 
 	float diagonalSlowDown = ((input.x != 0 && input.y != 0) ? 0.709f : 1.0f);
@@ -62,8 +64,6 @@ void Player::Update() {
 
 	this->Move(velocity);
 	collider->pos = pos;
-
-
 }
 
 void Player::ManagedRender(RenderWindow* window) {
@@ -71,19 +71,18 @@ void Player::ManagedRender(RenderWindow* window) {
 	sprite.setPosition(pos + Vector2f(0, 14.0f));
 	sprite.setScale(spriteScale());
 
-
 	headSprite.setPosition(pos + Vector2f(0, -12.0f));
 	headSprite.setScale(spriteScale());
 	window->draw(sprite);
 	window->draw(headSprite);
 	if (collider->renderCollider) {
-		collider->RenderCollider(window);
+		//collider->RenderCollider(window);
 	}
 }
 
 void Player::OnCollision(fc::Collision collision) {
+	if (collision.colliderB->charTag == 'd') return;
 	collision.adaptCollider(velocity);
 	setPosition(collision.adaptedPosition);
 	velocity = collision.adaptedVelocity;
-
 }

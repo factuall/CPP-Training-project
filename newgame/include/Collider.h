@@ -15,5 +15,6 @@ namespace fc {
 		Collider(Vector2f pos, Vector2f size, Vector2f offset);
 		Collider(Vector2f pos, Vector2f size, ColliderType type);
 		void RenderCollider(sf::RenderWindow* window);
+		char charTag = 'x';
 	};
 }

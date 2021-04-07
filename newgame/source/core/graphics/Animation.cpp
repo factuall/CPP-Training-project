@@ -4,7 +4,6 @@
 namespace fc {
 	using namespace sf;
 	Animation::Animation() {
-
 	}
 	Animation::Animation(Vector2i offset, Vector2i frameSize, int animationLength, int delay)
 	{
@@ -20,18 +19,18 @@ namespace fc {
 	}
 	void Animation::Update() {
 		if (playing) {
-			if(waitTime >= animationDelay){
-				setCurrentFrame((playReverse) ?  currentFrame - 1 : currentFrame + 1);
+			if (waitTime >= animationDelay) {
+				setCurrentFrame((playReverse) ? currentFrame - 1 : currentFrame + 1);
 				waitTime = 0;
 			}
-			else waitTime++; 
+			else waitTime++;
 		}
 		currentSprite.left = offset.x + (frameSize.x * currentFrame);
 		currentSprite.top = offset.y;
 	}
 	void Animation::setCurrentFrame(int frame) {
 		if (loop) {
-			if (frame < 0) currentFrame = length - 1 ;
+			if (frame < 0) currentFrame = length - 1;
 			else if (frame >= length) currentFrame = 0;
 			else currentFrame = frame;
 		}
@@ -51,5 +50,16 @@ namespace fc {
 	}
 	void Animation::Pause() {
 		playing = false;
+	}
+	int Animation::getCurrentFrame() {
+		return currentFrame;
+	}
+	int Animation::getLength()
+	{
+		return length;
+	}
+	bool Animation::isPlaying()
+	{
+		return playing;
 	}
 }

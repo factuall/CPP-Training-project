@@ -10,19 +10,19 @@
 using namespace sf;
 using namespace fc;
 class Player :
-    public Object
+	public Object
 {
 public:
-    Player(int nX, int nY, Texture* txt);
-    void Update();
-    void ManagedRender(RenderWindow* window);
-    void OnCollision(fc::Collision collision);
-    Vector2f velocity;
-    Animation bodyAnimation;
-    SpriteController animator;
-    Sprite headSprite;
+	Player(int nX, int nY, Texture* txt);
+	void Update();
+	void ManagedRender(RenderWindow* window);
+	void OnCollision(fc::Collision collision);
+	Vector2f velocity;
+	Animation bodyAnimation;
+	SpriteController animator;
+	Sprite headSprite;
 private:
-    Vector2f input = Vector2f(0, 0);
-    int speed = 6;
-    const int walkSmoothness = 8;
+	Vector2f input = Vector2f(0, 0);
+	int speed = 6;
+	const int walkSmoothness = 8;
 };

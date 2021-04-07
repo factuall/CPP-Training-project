@@ -4,7 +4,6 @@
 #include <Windows.h>
 #include <chrono>
 
-
 namespace fc {
 	Core::Core(Image* img, Font* fnt, Font* altFnt) {
 		window = new RenderWindow(VideoMode(1024, 576), "thboi - factuall", Style::Close);
@@ -34,6 +33,12 @@ namespace fc {
 				return;
 			}
 		}
+	}
+
+	void Core::deleteObject(int id)
+	{
+		Objects[id] = new Object();
+		Objects[id]->isNull = true;
 	}
 
 	void Core::render() {

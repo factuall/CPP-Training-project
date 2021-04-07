@@ -8,24 +8,25 @@
 
 using namespace sf;
 using namespace fc;
-enum class RoomState{Solid, Alive, Dead, Start, Boss};
+enum class RoomState { Solid, Alive, Dead, Start, Boss };
 class GameRoom :
-    public Object
+	public Object
 {
 public:
-    Vector2f pos;
-    GameRoom(int nX, int nY);
-    GameRoom();
-    bool active = false;
-    void Update();
-    void Render(RenderWindow* window);
-    void setState(RoomState state);
-    Texture* spriteSheet;
-    void Activate(Texture* spriteSheet);
-    RoomState getState();
-    String stateString();
-    GameRoom* nbrs[4];
-    Door doors[4];
+	Vector2f pos;
+	GameRoom(int nX, int nY);
+	GameRoom();
+	bool active = false;
+	void Update();
+	void Render(RenderWindow* window);
+	void setState(RoomState state);
+	Texture* spriteSheet;
+	void Activate(Texture* spriteSheet);
+	RoomState getState();
+	String stateString();
+	Vector2i nbrsXY[4];
+	GameRoom* nbrs[4];
+	Door doors[4];
 private:
-    RoomState genState;
+	RoomState genState;
 };

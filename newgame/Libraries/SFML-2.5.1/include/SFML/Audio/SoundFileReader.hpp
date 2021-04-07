@@ -132,7 +132,7 @@ public:
 ///
 ///     static bool check(sf::InputStream& stream)
 ///     {
-///         // typically, read the first few header bytes and check fields that identify the format
+///         // typically, read the first few header bytes and check fields that identiroomY the format
 ///         // return true if the reader can handle the format
 ///     }
 ///

@@ -238,7 +238,7 @@ public:
     /// 8 bits integers components. The size of the array is
     /// width * height * 4 (getSize().x * getSize().y * 4).
     /// Warning: the returned pointer may become invalid if you
-    /// modify the image, so you should never store it for too long.
+    /// modiroomY the image, so you should never store it for too long.
     /// If the image is empty, a null pointer is returned.
     ///
     /// \return Read-only pointer to the array of pixels

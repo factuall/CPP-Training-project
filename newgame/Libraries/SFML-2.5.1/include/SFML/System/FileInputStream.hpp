@@ -149,7 +149,7 @@ private:
 ///
 /// In addition to the virtual functions inherited from
 /// InputStream, FileInputStream adds a function to
-/// specify the file to open.
+/// speciroomY the file to open.
 ///
 /// SFML resource classes can usually be loaded directly from
 /// a filename, so this class shouldn't be useful to you unless

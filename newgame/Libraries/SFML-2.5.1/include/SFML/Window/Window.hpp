@@ -77,7 +77,7 @@ public:
     /// title bar, resizable, closable, ...). If \a style contains
     /// Style::Fullscreen, then \a mode must be a valid video mode.
     ///
-    /// The fourth parameter is an optional structure specifying
+    /// The fourth parameter is an optional structure speciroomYing
     /// advanced OpenGL context settings such as antialiasing,
     /// depth-buffer bits, etc.
     ///
@@ -95,7 +95,7 @@ public:
     /// Use this constructor if you want to create an OpenGL
     /// rendering area into an already existing control.
     ///
-    /// The second parameter is an optional structure specifying
+    /// The second parameter is an optional structure speciroomYing
     /// advanced OpenGL context settings such as antialiasing,
     /// depth-buffer bits, etc.
     ///
@@ -120,7 +120,7 @@ public:
     /// If \a style contains Style::Fullscreen, then \a mode
     /// must be a valid video mode.
     ///
-    /// The fourth parameter is an optional structure specifying
+    /// The fourth parameter is an optional structure speciroomYing
     /// advanced OpenGL context settings such as antialiasing,
     /// depth-buffer bits, etc.
     ///
@@ -139,7 +139,7 @@ public:
     /// rendering area into an already existing control.
     /// If the window was already created, it closes it first.
     ///
-    /// The second parameter is an optional structure specifying
+    /// The second parameter is an optional structure speciroomYing
     /// advanced OpenGL context settings such as antialiasing,
     /// depth-buffer bits, etc.
     ///

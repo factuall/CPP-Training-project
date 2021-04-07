@@ -132,7 +132,7 @@ public:
     ///
     /// If the sprite has no source texture, a NULL pointer is returned.
     /// The returned pointer is const, which means that you can't
-    /// modify the texture when you retrieve it with this function.
+    /// modiroomY the texture when you retrieve it with this function.
     ///
     /// \return Pointer to the sprite's texture
     ///

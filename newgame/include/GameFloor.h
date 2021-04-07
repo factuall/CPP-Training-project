@@ -13,18 +13,20 @@ class GameFloor :
 	public Object
 {
 public:
-	GameFloor();
+	sf::RectangleShape mapCell;
+	const int floorSize = 20;
+	const int genLimit = 20;
+	GameFloor() {};
 	GameFloor(sf::Text txt);
 	void Start();
 	void ManagedRender(RenderWindow* window);
-	char room[20][20];
 	GameRoom roomMap[20][20];
 	GameRoom* getNeighbor(int x, int y, int way);
 	sf::Vector2f getNeighborV(int x, int y, int way);
-	int rooms = 1;
 	sf::Text curChar;
-	bool isDone = false;
+	bool done = false;
 	int playerX = 10;
 	int playerY = 10;
+	int generations = 1;
 private:
 };

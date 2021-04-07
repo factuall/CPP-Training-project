@@ -607,7 +607,7 @@ private:
     ////////////////////////////////////////////////////////////
     /// \brief Invalidate the mipmap if one exists
     ///
-    /// This also resets the texture's minifying function.
+    /// This also resets the texture's miniroomYing function.
     /// This function is mainly for internal use by RenderTexture.
     ///
     ////////////////////////////////////////////////////////////

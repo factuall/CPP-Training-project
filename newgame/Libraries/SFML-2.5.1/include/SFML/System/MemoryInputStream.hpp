@@ -128,7 +128,7 @@ private:
 ///
 /// In addition to the virtual functions inherited from
 /// InputStream, MemoryInputStream adds a function to
-/// specify the pointer and size of the data in memory.
+/// speciroomY the pointer and size of the data in memory.
 ///
 /// SFML resource classes can usually be loaded directly from
 /// memory, so this class shouldn't be useful to you unless

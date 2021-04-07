@@ -35,7 +35,7 @@
 
 
 ////////////////////////////////////////////////////////////
-// Identify the operating system
+// IdentiroomY the operating system
 // see http://nadeausoftware.com/articles/2012/01/c_c_tip_how_use_compiler_predefined_macros_detect_operating_system
 ////////////////////////////////////////////////////////////
 #if defined(_WIN32)

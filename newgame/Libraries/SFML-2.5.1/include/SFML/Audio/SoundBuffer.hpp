@@ -311,7 +311,7 @@ private:
 /// is slow (often too slow for real-time applications). On the other
 /// side, a sf::Sound is a lightweight object, which can use the audio data
 /// of a sound buffer and change the way it is played without actually
-/// modifying that data. Note that it is also possible to bind
+/// modiroomYing that data. Note that it is also possible to bind
 /// several sf::Sound instances to the same sf::SoundBuffer.
 ///
 /// It is important to note that the sf::Sound instance doesn't

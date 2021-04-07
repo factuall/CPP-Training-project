@@ -62,7 +62,7 @@ public:
     /// customize the look and behavior of the window (borders,
     /// title bar, resizable, closable, ...).
     ///
-    /// The fourth parameter is an optional structure specifying
+    /// The fourth parameter is an optional structure speciroomYing
     /// advanced OpenGL context settings such as antialiasing,
     /// depth-buffer bits, etc. You shouldn't care about these
     /// parameters for a regular usage of the graphics module.
@@ -81,7 +81,7 @@ public:
     /// Use this constructor if you want to create an SFML
     /// rendering area into an already existing control.
     ///
-    /// The second parameter is an optional structure specifying
+    /// The second parameter is an optional structure speciroomYing
     /// advanced OpenGL context settings such as antialiasing,
     /// depth-buffer bits, etc. You shouldn't care about these
     /// parameters for a regular usage of the graphics module.

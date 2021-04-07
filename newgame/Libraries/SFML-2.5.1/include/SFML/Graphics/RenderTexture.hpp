@@ -167,7 +167,7 @@ public:
     ///
     /// This function is similar to Texture::generateMipmap and operates
     /// on the texture used as the target for drawing.
-    /// Be aware that any draw operation may modify the base level image data.
+    /// Be aware that any draw operation may modiroomY the base level image data.
     /// For this reason, calling this function only makes sense after all
     /// drawing is completed and display has been called. Not calling display
     /// after subsequent drawing will lead to undefined behavior if a mipmap

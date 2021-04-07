@@ -22,18 +22,18 @@ GameManager::GameManager(Text txt, Core* gameCore) {
 
 int generationTime = 0;
 void GameManager::Update() {
-	if (!currentMap->isDone && currentMap->rooms < 25) {
+	if (!currentMap->done && currentMap->generations < 25) {
 		generationTime++;
 		if (generationTime > 30) {
 			currentMap->Start();
 			generationTime = 0;
 		}
 	}
-	else if (currentMap->rooms >= 25 && !currentMap->isDone) {
-		currentMap->isDone = true;
+	else if (currentMap->generations >= 25 && !currentMap->done) {
+		currentMap->done = true;
 		InitalizeRoom(10, 10);
 	}
-	if (currentMap->isDone) {
+	if (currentMap->done) {
 		currentRoom->Update();
 		currentMap->playerX = currentRoom->pos.x;
 		currentMap->playerY = currentRoom->pos.y;
@@ -45,7 +45,7 @@ void GameManager::Update() {
 				gameCore->deleteObject(currentRoom->doors[2].id);
 				gameCore->deleteObject(currentRoom->doors[3].id);
 				//std::cout << currentRoom->nbrsXY->x << " " << currentRoom->nbrsXY->x << "\n";
-				InitalizeRoom(currentRoom->nbrs[i]->pos.x, currentRoom->nbrs[i]->pos.y);
+				InitalizeRoom(currentRoom->neighbors[i]->pos.x, currentRoom->neighbors[i]->pos.y);
 				player->setPosition(Vector2f(560, 340));
 			}
 		}
@@ -57,33 +57,33 @@ void GameManager::InitalizeRoom(int x, int y) {
 	std::cout << "\n";
 	for (int ways = 0; ways < 4; ways++) {
 		//Vector2f result = currentMap->getNeighborV(currentRoom->pos.x, currentRoom->pos.y, ways);
-		int nbrX = 0; int nbrY = 0;
+		int neighborX = 0; int neighborY = 0;
 		switch (ways) {
 		case 0:
-			nbrX = x + 1;
-			nbrY = y;
+			neighborX = x + 1;
+			neighborY = y;
 			break;
 		case 1:
-			nbrX = x;
-			nbrY = y - 1;
+			neighborX = x;
+			neighborY = y - 1;
 			break;
 		case 2:
-			nbrX = x - 1;
-			nbrY = y;
+			neighborX = x - 1;
+			neighborY = y;
 			break;
 		case 3:
-			nbrX = x;
-			nbrY = y + 1;
+			neighborX = x;
+			neighborY = y + 1;
 			break;
 		}
-		currentRoom->nbrs[ways] = &currentMap->roomMap[nbrX][nbrY];
-		std::cout << currentRoom->nbrs[ways]->pos.x << " " << currentRoom->nbrs[ways]->pos.y << "\n";
+		currentRoom->neighbors[ways] = &currentMap->roomMap[neighborX][neighborY];
+		std::cout << currentRoom->neighbors[ways]->pos.x << " " << currentRoom->neighbors[ways]->pos.y << "\n";
 	}
 	currentRoom->isVisible = true;
 	currentRoom->sprite = sf::Sprite(gameCore->spriteSheet, sf::IntRect(0, 736, 512, 288));
 	currentRoom->Activate(&gameCore->spriteSheet);
 	for (int i = 0; i < 4; i++) {
-		if (currentRoom->nbrs[i]->getState() != RoomState::Solid) {
+		if (currentRoom->neighbors[i]->getState() != RoomState::Solid) {
 			gameCore->addObject(&currentRoom->doors[i]);
 		}
 	}
@@ -94,7 +94,7 @@ void GameManager::ClearRoom() {
 }
 
 void GameManager::Render(RenderWindow* window) {
-	if (currentMap->isDone) {
+	if (currentMap->done) {
 		currentRoom->Render(window);
 	}
 	currentMap->ManagedRender(window);

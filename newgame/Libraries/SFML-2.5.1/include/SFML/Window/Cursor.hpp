@@ -122,8 +122,8 @@ public:
     /// the current cursor is left unchanged and the function will
     /// return false.
     ///
-    /// In addition to specifying the pixel data, you can also
-    /// specify the location of the hotspot of the cursor. The
+    /// In addition to speciroomYing the pixel data, you can also
+    /// speciroomY the location of the hotspot of the cursor. The
     /// hotspot is the pixel coordinate within the cursor image
     /// which will be located exactly where the mouse pointer
     /// position is. Any mouse actions that are performed will

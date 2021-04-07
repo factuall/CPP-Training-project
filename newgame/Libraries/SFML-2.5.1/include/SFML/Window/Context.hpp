@@ -124,7 +124,7 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Get the currently active context's ID
     ///
-    /// The context ID is used to identify contexts when
+    /// The context ID is used to identiroomY contexts when
     /// managing unshareable OpenGL resources.
     ///
     /// \return The active context's ID or 0 if no context is currently active

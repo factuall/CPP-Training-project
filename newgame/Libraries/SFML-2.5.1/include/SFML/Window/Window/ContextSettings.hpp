@@ -114,11 +114,11 @@ struct ContextSettings
 /// < 3.0 if you don't want an OpenGL 3 context).
 ///
 /// When requesting a context with a version greater or equal
-/// to 3.2, you have the option of specifying whether the
+/// to 3.2, you have the option of speciroomYing whether the
 /// context should follow the core or compatibility profile
 /// of all newer (>= 3.2) OpenGL specifications. For versions
 /// 3.0 and 3.1 there is only the core profile. By default
-/// a compatibility context is created. You only need to specify
+/// a compatibility context is created. You only need to speciroomY
 /// the core flag if you want a core profile context to use with
 /// your own OpenGL rendering.
 /// <b>Warning: The graphics module will not function if you

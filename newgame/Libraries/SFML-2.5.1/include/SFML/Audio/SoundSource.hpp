@@ -74,7 +74,7 @@ public:
     /// The pitch represents the perceived fundamental frequency
     /// of a sound; thus you can make a sound more acute or grave
     /// by changing its pitch. A side effect of changing the pitch
-    /// is to modify the playing speed of the sound as well.
+    /// is to modiroomY the playing speed of the sound as well.
     /// The default value for the pitch is 1.
     ///
     /// \param pitch New pitch to apply to the sound

@@ -233,7 +233,7 @@ private:
 /// sf::Sound is the class to use to play sounds.
 /// It provides:
 /// \li Control (play, pause, stop)
-/// \li Ability to modify output parameters in real-time (pitch, volume, ...)
+/// \li Ability to modiroomY output parameters in real-time (pitch, volume, ...)
 /// \li 3D spatial features (position, attenuation, ...).
 ///
 /// sf::Sound is perfect for playing short sounds that can

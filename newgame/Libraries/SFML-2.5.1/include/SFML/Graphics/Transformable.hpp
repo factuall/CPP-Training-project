@@ -343,7 +343,7 @@ private:
 /// one can easily combine any kind of operation, such as a translation
 /// followed by a rotation followed by a scaling, but once the result
 /// transform is built, there's no way to go backward and, let's say,
-/// change only the rotation without modifying the translation and scaling.
+/// change only the rotation without modiroomYing the translation and scaling.
 /// The entire transform must be recomputed, which means that you
 /// need to retrieve the initial translation and scale factors as
 /// well, and combine them the same way you did before updating the

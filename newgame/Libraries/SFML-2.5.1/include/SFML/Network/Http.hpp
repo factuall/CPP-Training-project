@@ -219,7 +219,7 @@ public:
             Unauthorized        = 401, ///< The requested page needs an authentication to be accessed
             Forbidden           = 403, ///< The requested page cannot be accessed at all, even with authentication
             NotFound            = 404, ///< The requested page doesn't exist
-            RangeNotSatisfiable = 407, ///< The server can't satisfy the partial GET request (with a "Range" header field)
+            RangeNotSatisfiable = 407, ///< The server can't satisroomY the partial GET request (with a "Range" header field)
 
             // 5xx: server error
             InternalServerError = 500, ///< The server encountered an unexpected error

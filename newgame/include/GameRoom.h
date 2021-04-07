@@ -24,8 +24,7 @@ public:
 	void Activate(Texture* spriteSheet);
 	RoomState getState();
 	String stateString();
-	Vector2i nbrsXY[4];
-	GameRoom* nbrs[4];
+	GameRoom* neighbors[4];
 	Door doors[4];
 private:
 	RoomState genState;

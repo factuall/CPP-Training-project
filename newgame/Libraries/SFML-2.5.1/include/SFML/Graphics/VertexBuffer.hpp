@@ -364,7 +364,7 @@ private:
 /// memory as would be the case with sf::VertexArray. If data transfer
 /// is a bottleneck, this can lead to performance gains.
 ///
-/// Using sf::VertexBuffer, the user also has the ability to only modify
+/// Using sf::VertexBuffer, the user also has the ability to only modiroomY
 /// a portion of the buffer in graphics memory. This way, a large buffer
 /// can be allocated at the start of the application and only the
 /// applicable portions of it need to be updated during the course of

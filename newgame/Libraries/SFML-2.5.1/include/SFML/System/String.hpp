@@ -207,7 +207,7 @@ public:
     /// \brief Implicit conversion operator to std::string (ANSI string)
     ///
     /// The current global locale is used for conversion. If you
-    /// want to explicitly specify a locale, see toAnsiString.
+    /// want to explicitly speciroomY a locale, see toAnsiString.
     /// Characters that do not fit in the target encoding are
     /// discarded from the returned string.
     /// This operator is defined for convenience, and is equivalent

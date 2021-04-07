@@ -147,7 +147,7 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Set the channel count of the audio capture device
     ///
-    /// This method allows you to specify the number of channels
+    /// This method allows you to speciroomY the number of channels
     /// used for recording. Currently only 16-bit mono and
     /// 16-bit stereo are supported.
     ///

@@ -288,7 +288,7 @@ public:
     bool loadFromStream(InputStream& vertexShaderStream, InputStream& geometryShaderStream, InputStream& fragmentShaderStream);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p float uniform
+    /// \brief SpeciroomY value for \p float uniform
     ///
     /// \param name Name of the uniform variable in GLSL
     /// \param x    Value of the float scalar
@@ -297,7 +297,7 @@ public:
     void setUniform(const std::string& name, float x);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p vec2 uniform
+    /// \brief SpeciroomY value for \p vec2 uniform
     ///
     /// \param name   Name of the uniform variable in GLSL
     /// \param vector Value of the vec2 vector
@@ -306,7 +306,7 @@ public:
     void setUniform(const std::string& name, const Glsl::Vec2& vector);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p vec3 uniform
+    /// \brief SpeciroomY value for \p vec3 uniform
     ///
     /// \param name   Name of the uniform variable in GLSL
     /// \param vector Value of the vec3 vector
@@ -315,7 +315,7 @@ public:
     void setUniform(const std::string& name, const Glsl::Vec3& vector);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p vec4 uniform
+    /// \brief SpeciroomY value for \p vec4 uniform
     ///
     /// This overload can also be called with sf::Color objects
     /// that are converted to sf::Glsl::Vec4.
@@ -333,7 +333,7 @@ public:
     void setUniform(const std::string& name, const Glsl::Vec4& vector);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p int uniform
+    /// \brief SpeciroomY value for \p int uniform
     ///
     /// \param name Name of the uniform variable in GLSL
     /// \param x    Value of the int scalar
@@ -342,7 +342,7 @@ public:
     void setUniform(const std::string& name, int x);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p ivec2 uniform
+    /// \brief SpeciroomY value for \p ivec2 uniform
     ///
     /// \param name   Name of the uniform variable in GLSL
     /// \param vector Value of the ivec2 vector
@@ -351,7 +351,7 @@ public:
     void setUniform(const std::string& name, const Glsl::Ivec2& vector);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p ivec3 uniform
+    /// \brief SpeciroomY value for \p ivec3 uniform
     ///
     /// \param name   Name of the uniform variable in GLSL
     /// \param vector Value of the ivec3 vector
@@ -360,7 +360,7 @@ public:
     void setUniform(const std::string& name, const Glsl::Ivec3& vector);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p ivec4 uniform
+    /// \brief SpeciroomY value for \p ivec4 uniform
     ///
     /// This overload can also be called with sf::Color objects
     /// that are converted to sf::Glsl::Ivec4.
@@ -377,7 +377,7 @@ public:
     void setUniform(const std::string& name, const Glsl::Ivec4& vector);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p bool uniform
+    /// \brief SpeciroomY value for \p bool uniform
     ///
     /// \param name Name of the uniform variable in GLSL
     /// \param x    Value of the bool scalar
@@ -386,7 +386,7 @@ public:
     void setUniform(const std::string& name, bool x);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p bvec2 uniform
+    /// \brief SpeciroomY value for \p bvec2 uniform
     ///
     /// \param name   Name of the uniform variable in GLSL
     /// \param vector Value of the bvec2 vector
@@ -395,7 +395,7 @@ public:
     void setUniform(const std::string& name, const Glsl::Bvec2& vector);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p bvec3 uniform
+    /// \brief SpeciroomY value for \p bvec3 uniform
     ///
     /// \param name   Name of the uniform variable in GLSL
     /// \param vector Value of the bvec3 vector
@@ -404,7 +404,7 @@ public:
     void setUniform(const std::string& name, const Glsl::Bvec3& vector);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p bvec4 uniform
+    /// \brief SpeciroomY value for \p bvec4 uniform
     ///
     /// \param name   Name of the uniform variable in GLSL
     /// \param vector Value of the bvec4 vector
@@ -413,7 +413,7 @@ public:
     void setUniform(const std::string& name, const Glsl::Bvec4& vector);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p mat3 matrix
+    /// \brief SpeciroomY value for \p mat3 matrix
     ///
     /// \param name   Name of the uniform variable in GLSL
     /// \param matrix Value of the mat3 matrix
@@ -422,7 +422,7 @@ public:
     void setUniform(const std::string& name, const Glsl::Mat3& matrix);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify value for \p mat4 matrix
+    /// \brief SpeciroomY value for \p mat4 matrix
     ///
     /// \param name   Name of the uniform variable in GLSL
     /// \param matrix Value of the mat4 matrix
@@ -431,7 +431,7 @@ public:
     void setUniform(const std::string& name, const Glsl::Mat4& matrix);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify a texture as \p sampler2D uniform
+    /// \brief SpeciroomY a texture as \p sampler2D uniform
     ///
     /// \a name is the name of the variable to change in the shader.
     /// The corresponding parameter in the shader must be a 2D texture
@@ -463,7 +463,7 @@ public:
     void setUniform(const std::string& name, const Texture& texture);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify current texture as \p sampler2D uniform
+    /// \brief SpeciroomY current texture as \p sampler2D uniform
     ///
     /// This overload maps a shader texture variable to the
     /// texture of the object being drawn, which cannot be
@@ -486,7 +486,7 @@ public:
     void setUniform(const std::string& name, CurrentTextureType);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify values for \p float[] array uniform
+    /// \brief SpeciroomY values for \p float[] array uniform
     ///
     /// \param name        Name of the uniform variable in GLSL
     /// \param scalarArray pointer to array of \p float values
@@ -496,7 +496,7 @@ public:
     void setUniformArray(const std::string& name, const float* scalarArray, std::size_t length);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify values for \p vec2[] array uniform
+    /// \brief SpeciroomY values for \p vec2[] array uniform
     ///
     /// \param name        Name of the uniform variable in GLSL
     /// \param vectorArray pointer to array of \p vec2 values
@@ -506,7 +506,7 @@ public:
     void setUniformArray(const std::string& name, const Glsl::Vec2* vectorArray, std::size_t length);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify values for \p vec3[] array uniform
+    /// \brief SpeciroomY values for \p vec3[] array uniform
     ///
     /// \param name        Name of the uniform variable in GLSL
     /// \param vectorArray pointer to array of \p vec3 values
@@ -516,7 +516,7 @@ public:
     void setUniformArray(const std::string& name, const Glsl::Vec3* vectorArray, std::size_t length);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify values for \p vec4[] array uniform
+    /// \brief SpeciroomY values for \p vec4[] array uniform
     ///
     /// \param name        Name of the uniform variable in GLSL
     /// \param vectorArray pointer to array of \p vec4 values
@@ -526,7 +526,7 @@ public:
     void setUniformArray(const std::string& name, const Glsl::Vec4* vectorArray, std::size_t length);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify values for \p mat3[] array uniform
+    /// \brief SpeciroomY values for \p mat3[] array uniform
     ///
     /// \param name        Name of the uniform variable in GLSL
     /// \param matrixArray pointer to array of \p mat3 values
@@ -536,7 +536,7 @@ public:
     void setUniformArray(const std::string& name, const Glsl::Mat3* matrixArray, std::size_t length);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Specify values for \p mat4[] array uniform
+    /// \brief SpeciroomY values for \p mat4[] array uniform
     ///
     /// \param name        Name of the uniform variable in GLSL
     /// \param matrixArray pointer to array of \p mat4 values
@@ -848,7 +848,7 @@ private:
 /// current one may not give you the expected result.
 ///
 /// Shaders can also be used to apply global post-effects to the
-/// current contents of the target (like the old sf::PostFx class
+/// current contents of the target (like the old sf::PostroomX class
 /// in SFML 1). This can be done in two different ways:
 /// \li draw everything to a sf::RenderTexture, then draw it to
 ///     the main target using the shader

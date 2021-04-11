@@ -14,6 +14,7 @@ FPSDisplay::FPSDisplay(sf::Text txt)
 	text.setFillColor(sf::Color::White);
 }
 
+
 void FPSDisplay::Render(sf::RenderWindow* window) {
 	if (isVisible) {
 		sprite.setScale(spriteScale());

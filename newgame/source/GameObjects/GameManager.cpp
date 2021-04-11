@@ -4,6 +4,9 @@
 using namespace sf;
 using namespace fc;
 GameManager::GameManager(Text txt, Core* gameCore) {
+	//rendering
+
+	gameView = View(Vector2f(512, 288), Vector2f(1024, 576));
 	//object
 	id = 0;
 	isNull = false;
@@ -11,17 +14,23 @@ GameManager::GameManager(Text txt, Core* gameCore) {
 	isTrigger = false;
 	this->gameCore = gameCore;
 	collider = new Collider(Vector2f(-21, -37), Vector2f(0, 0));
-	//map
-	currentMap = new GameFloor(txt);
-	gameCore->addObject(currentMap);
-	currentMap->Start();
-	//player
-	player = new Player(560, 340, &gameCore->spriteSheet);
-	gameCore->addObject(player);
+	initalized = false;
 };
 
 int generationTime = 0;
 void GameManager::Update() {
+	if (!initalized) {
+		//map
+		currentMap = new GameFloor();
+		gameCore->addObject(currentMap);
+		currentMap->Start();
+		//player
+		player = new Player(560, 340, &gameCore->spriteSheet);
+		gameCore->addObject(player);
+
+		initalized = true;
+		return;
+	}
 	if (!currentMap->done && currentMap->generations < currentMap->genLimit) {
 		generationTime++;
 		if (generationTime > 10) {
@@ -38,21 +47,36 @@ void GameManager::Update() {
 		}
 	}
 	if (currentMap->done) {
-		currentRoom->Update();
-		currentMap->playerX = currentRoom->pos.x;
-		currentMap->playerY = currentRoom->pos.y;
-		for (int doorsChecked = 0; doorsChecked < 4; doorsChecked++) {
-			if (currentRoom->doors[doorsChecked].entered) {
-				for (int doorsToDelete = 0; doorsToDelete < 4; doorsToDelete++) {
-					gameCore->deleteObject(currentRoom->doors[doorsChecked].id);
+		if (!transitionGoing) {
+			currentRoom->Update();
+			currentMap->playerX = currentRoom->pos.x;
+			currentMap->playerY = currentRoom->pos.y;
+			for (int doorsChecked = 0; doorsChecked < 4; doorsChecked++) {
+				if (currentRoom->doors[doorsChecked].entered) {
+					transitionGoing = true;
+					doorToDestRoom = doorsChecked;
+					destRoom = currentRoom->neighbors[doorsChecked];
+					transitionTime = 0;
+					gameCore->EndUpdateHere();
+					return;
 				}
-				if(doorsChecked == 0 || doorsChecked == 2)
-					player->setPosition(Vector2f(currentRoom->oppositeDoorPosition(doorsChecked).x, player->pos.y));
-				if(doorsChecked == 1 || doorsChecked == 3)
-					player->setPosition(Vector2f(player->pos.x, currentRoom->oppositeDoorPosition(doorsChecked).y));
-				InitalizeRoom(currentRoom->neighbors[doorsChecked]->pos.x, currentRoom->neighbors[doorsChecked]->pos.y);
-				
 			}
+		}
+		else if (transitionTime < 15) {
+			transitionTime++;
+			gameCore->EndUpdateHere();
+			return;
+		}
+		else {
+			for (int doorToDestRoom = 0; doorToDestRoom < 4; doorToDestRoom++) {
+				gameCore->deleteObject(currentRoom->doors[doorToDestRoom].id);
+			}
+			if (doorToDestRoom == 0 || doorToDestRoom == 2)
+				player->setPosition(Vector2f(currentRoom->oppositeDoorPosition(doorToDestRoom).x, player->pos.y));
+			if (doorToDestRoom == 1 || doorToDestRoom == 3)
+				player->setPosition(Vector2f(player->pos.x, currentRoom->oppositeDoorPosition(doorToDestRoom).y));
+			InitalizeRoom(destRoom->pos.x, destRoom->pos.y);
+			transitionGoing = false;
 		}
 	}
 }
@@ -91,7 +115,10 @@ void GameManager::InitalizeRoom(int x, int y) {
 }
 
 void GameManager::Render(RenderWindow* window) {
+	if (!initalized) return;
+	window->setView(gameView);
 	if (currentMap->done) {
+		if(!transitionGoing)
 		currentRoom->Render(window);
 	}
 	currentMap->ManagedRender(window);

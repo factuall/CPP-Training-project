@@ -16,14 +16,12 @@ public:
 	sf::RectangleShape mapCell;
 	const int floorSize = 20;
 	const int genLimit = 20;
-	GameFloor() {};
-	GameFloor(sf::Text txt);
+	GameFloor();
 	void Start();
 	void ManagedRender(RenderWindow* window);
 	GameRoom roomMap[20][20];
 	GameRoom* getNeighbor(int x, int y, int way);
 	sf::Vector2f getNeighborV(int x, int y, int way);
-	sf::Text curChar;
 	bool done = false;
 	int playerX = 10;
 	int playerY = 10;

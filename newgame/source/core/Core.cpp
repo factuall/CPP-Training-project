@@ -54,8 +54,16 @@ namespace fc {
 		window->display();
 	}
 
+	void Core::EndUpdateHere() {
+		endUpdateHere = true;
+	}
+
 	void Core::update() {
 		for (int id = 0; id < objLimit; id++) {
+			if (endUpdateHere) {
+				endUpdateHere = false;
+				return;
+			}
 			if (Objects[id]->isNull) continue;
 			Objects[id]->Update();
 			if (Objects[id]->collider->active && Objects[id]->isTrigger) {

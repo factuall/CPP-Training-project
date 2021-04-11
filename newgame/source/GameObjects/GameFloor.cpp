@@ -2,12 +2,11 @@
 
 using namespace sf;
 using namespace fc;
-GameFloor::GameFloor(sf::Text txt) {
+GameFloor::GameFloor() {
 	mapCell = RectangleShape(Vector2f(5,5));
 	pos.x = 0;
 	pos.y = 0;
 	id = 0;
-	curChar = txt;
 	isNull = false;
 	collider = new Collider(Vector2f(9999.0f, 9999.0f), Vector2f(0, 0));
 	isVisible = true;

@@ -70,18 +70,24 @@ int main()
 	StartTimer();
 	fc::Core gameCore = fc::Core(&image, &fontRegular, &fontAlternative);
 
+	Object ghostObject = Object(100, -100);
+	ghostObject.collider = new Collider(sf::Vector2f(-100, -100), sf::Vector2f(0, 0));
+	ghostObject.isVisible = false;
+	gameCore.addObject(&ghostObject);
 
-	sf::Text txt;
-	txt.setFont(fontRegular);
-	txt.setString("00");
-	FPSDisplay fpsDisplay = FPSDisplay(txt);
-	gameCore.addObject(&fpsDisplay);
+
 
 	sf::Text gfTXT;
 	gfTXT.setFont(fontAlternative);
 	gfTXT.setString("X");
 	GameManager gm = GameManager(gfTXT, &gameCore);
 	gameCore.addObject(&gm);
+
+	sf::Text txt;
+	txt.setFont(fontRegular);
+	txt.setString("00");
+	FPSDisplay fpsDisplay = FPSDisplay(txt);
+	gameCore.addObject(&fpsDisplay);
 
 	{ //walls and background
 		fc::Object* Walls[100] = {};

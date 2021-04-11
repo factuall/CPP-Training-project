@@ -9,5 +9,6 @@ class FPSDisplay :
 {
 public:
 	FPSDisplay(sf::Text txt);
+	FPSDisplay();
 	void Render(sf::RenderWindow* window);
 };

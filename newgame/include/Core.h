@@ -24,7 +24,9 @@ namespace fc {
 		Font fontAlternative;
 		void update();
 		void render();
+		void EndUpdateHere();
 	private:
 		Object* Objects[objLimit];
+		bool endUpdateHere = false;
 	};
 }

@@ -10,7 +10,7 @@ Player::Player(int nX, int nY, Texture* spriteSheet) {
 	isNull = false;
 	collider = new Collider(Vector2f(nX, nY), Vector2f(64, 64), ColliderType::CircleType);
 	collider->charTag = 'p';
-	isVisible = true;
+	isVisible = false;
 	isTrigger = true;
 	collider->renderCollider = true;
 	///

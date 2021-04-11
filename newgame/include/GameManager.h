@@ -12,13 +12,24 @@ class GameManager :
 	public Object
 {
 public:
+	View gameView;
+
 	GameManager(Text txt, Core* gameCore);
-	GameFloor* currentMap;
-	GameRoom* currentRoom;
-	Player* player;
-	Core* gameCore;
 	void Update();
 	void Render(RenderWindow* window);
+	Core* gameCore;
+
+	//map management
+	GameFloor* currentMap;
+	GameRoom* currentRoom;
 	void InitalizeRoom(int x, int y);
+	//map transitions
+	GameRoom* destRoom;
+	int doorToDestRoom;
+	int transitionTime = 0;
+	bool transitionGoing = false;
+
+	Player* player;
 private:
+	bool initalized;
 };

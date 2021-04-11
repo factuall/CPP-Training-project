@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
 #include <iostream>
 #include <stdlib.h>
 #include <Windows.h>
@@ -148,6 +149,7 @@ int main()
 	while (gameCore.window->isOpen()) {
 		sf::Event event;
 		while (gameCore.window->pollEvent(event)) {
+			gameCore.gui->handleEvent(event);
 			if (event.type == sf::Event::Closed)
 				gameCore.window->close();
 		}

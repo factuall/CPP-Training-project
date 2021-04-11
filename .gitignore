@@ -342,3 +342,12 @@ healthchecksdb
 /newgame/Libraries/SFML-2.5.1/examples
 /newgame/Libraries/SFML-2.5.1/readme.md
 /newgame/Libraries/SFML-2.5.1/license.md
+/newgame/Libraries/TGUI-0.9/cmake
+/newgame/Libraries/TGUI-0.9/doc
+/newgame/Libraries/TGUI-0.9/examples
+/newgame/Libraries/TGUI-0.9/CMakeLists.txt
+/newgame/Libraries/TGUI-0.9/themes
+/newgame/Libraries/TGUI-0.9/license.txt
+/newgame/Libraries/TGUI-0.9/README.md
+/newgame/Libraries/TGUI-0.9/gui-builder
+/newgame/Libraries/TGUI-0.9

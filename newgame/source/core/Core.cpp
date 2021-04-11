@@ -7,6 +7,7 @@
 namespace fc {
 	Core::Core(Image* img, Font* fnt, Font* altFnt) {
 		window = new RenderWindow(VideoMode(1024, 576), "thboi - factuall", Style::Close);
+		gui = new tgui::GuiSFML(*window);
 		image = *img;
 		fontRegular = *fnt;
 		fontAlternative = *altFnt;
@@ -50,7 +51,7 @@ namespace fc {
 					}
 				
 			}
-		
+		gui->draw();
 		window->display();
 	}
 

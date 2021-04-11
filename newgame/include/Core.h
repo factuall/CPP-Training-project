@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
 #include <Windows.h>
 #include "Collider.h"
 #include "Collision.h"
@@ -18,6 +19,7 @@ namespace fc {
 		void deleteObject(int id);
 		Object* getObject(int id);
 		RenderWindow* window;
+		tgui::GuiSFML* gui;
 		Image image;
 		Texture spriteSheet;
 		Font fontRegular;

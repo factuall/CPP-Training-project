@@ -39,7 +39,6 @@ void GameRoom::Update() {
 }
 
 void GameRoom::Render(RenderWindow* window) {
-	sprite.setPosition(0, 0); // room background
 	sprite.setScale(spriteScale());
 	window->draw(sprite);
 

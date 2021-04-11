@@ -13,7 +13,7 @@ Door::Door(int nX, int nY, int offX, int offY, Texture* spriteSheet) {
 	this->offY = offY;
 	isNull = false;
 	collider = new Collider(Vector2f(nX + 32 + offX, nY + 32 + offY), Vector2f(64, 64), ColliderType::CircleType);
-	collider->renderCollider = true;
+	collider->renderCollider = false;
 	collider->charTag = 'd';
 	isVisible = true;
 	isTrigger = true;

@@ -19,7 +19,6 @@ namespace fc {
 		void deleteObject(int id);
 		Object* getObject(int id);
 		RenderWindow* window;
-		tgui::GuiSFML* gui;
 		Image image;
 		Texture spriteSheet;
 		Font fontRegular;
@@ -27,8 +26,8 @@ namespace fc {
 		void update();
 		void render();
 		void EndUpdateHere();
-	private:
 		Object* Objects[objLimit];
+	private:
 		bool endUpdateHere = false;
 	};
 }

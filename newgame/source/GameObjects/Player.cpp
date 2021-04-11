@@ -12,7 +12,7 @@ Player::Player(int nX, int nY, Texture* spriteSheet) {
 	collider->charTag = 'p';
 	isVisible = false;
 	isTrigger = true;
-	collider->renderCollider = true;
+	collider->renderCollider = false;
 	///
 	bodyAnimationV = Animation(Vector2i(0, 128), Vector2i(32, 32), 8, 4);
 	bodyAnimationV.loop = true;

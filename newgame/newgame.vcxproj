@@ -202,6 +202,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Core.cpp" />
+    <ClCompile Include="source\core\debug\DebugCore.cpp" />
     <ClCompile Include="source\core\graphics\Animation.cpp" />
     <ClCompile Include="source\core\graphics\SpriteController.cpp" />
     <ClCompile Include="source\core\physics\Collider.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="include\Core.h" />
     <ClInclude Include="include\Collider.h" />
     <ClInclude Include="include\Collision.h" />
+    <ClInclude Include="include\DebugCore.h" />
     <ClInclude Include="include\Door.h" />
     <ClInclude Include="include\GameFloor.h" />
     <ClInclude Include="include\GameManager.h" />

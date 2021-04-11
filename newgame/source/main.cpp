@@ -6,6 +6,7 @@
 #include <chrono>
 #include <time.h>
 
+
 #include "Collision.h"
 #include "Collider.h"
 #include "Object.h"
@@ -14,6 +15,7 @@
 #include "GameManager.h"
 #include "Core.h"
 #include "Door.h"
+#include "DebugCore.h"
 
 int lastTick, deltaTime, secondCounter = 0, framesPerSecond = 0, framesInSecond = 0;
 int lastTime = 0; double deltaTIme;
@@ -145,14 +147,25 @@ int main()
 
 
 	///
-
+	DebugCore* debugger = new DebugCore(&gameCore, &image, &fontRegular);
 	while (gameCore.window->isOpen()) {
 		sf::Event event;
 		while (gameCore.window->pollEvent(event)) {
-			gameCore.gui->handleEvent(event);
-			if (event.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed) {
 				gameCore.window->close();
+				debugger->debugWindow->close();
+			}
+
 		}
+		sf::Event debuggerEvent;
+		while (debugger->debugWindow->pollEvent(debuggerEvent)) {
+			if (debuggerEvent.type == sf::Event::Closed) {
+				gameCore.window->close();
+				debugger->debugWindow->close();
+			}
+			debugger->debugGui->handleEvent(debuggerEvent);
+		}
+
 
 		if (DeltaTime() <= 16 && skipTickTime < 16) {
 			skipTickTime += deltaTime;
@@ -167,9 +180,11 @@ int main()
 			skipTickTime = 0;
 			framesInSecond++;
 			gameCore.update();
+			debugger->Update();
 		}
 		fpsDisplay.text.setString(std::to_string(framesPerSecond));
 		gameCore.render();
+		debugger->Render();
 	}
 	return 0;
 }

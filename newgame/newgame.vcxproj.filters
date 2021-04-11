@@ -75,6 +75,9 @@
     <ClCompile Include="source\GameObjects\GameManager.cpp">
       <Filter>cpp\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\core\debug\DebugCore.cpp">
+      <Filter>cpp\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Player.h">
@@ -456,6 +459,9 @@
       <Filter>cpp\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\GameManager.h">
+      <Filter>cpp\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DebugCore.h">
       <Filter>cpp\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
